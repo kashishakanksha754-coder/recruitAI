@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
+import HeroBackground from "@/components/HeroBackground";
 
 function CodeTexture() {
   const lines = [
@@ -145,12 +146,8 @@ export default function HomePage() {
     <main className="bg-navy-950 min-h-screen">
       {/* HERO */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-        <CodeTexture />
-        <div
-          className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl pointer-events-none"
-          style={{ background: "radial-gradient(ellipse,rgba(79,70,229,0.18) 0%,transparent 70%)" }}
-        />
-        <div className="relative max-w-3xl mx-auto text-center">
+        <HeroBackground />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <FadeUp>
             <p className="inline-block text-xs font-medium px-3 py-1 rounded-full border border-indigo-500/30 text-indigo-400 mb-6"
               style={{ background: "rgba(79,70,229,0.08)" }}>
