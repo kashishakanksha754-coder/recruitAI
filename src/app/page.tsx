@@ -18,6 +18,38 @@ const FEATURES = [
 
 // ── Capabilities illustrations ─────────────────────────────────────────────
 
+function AuditFeed() {
+  const ENTRIES = [
+    { time: "10:42 AM", label: "Decision logged"      },
+    { time: "10:41 AM", label: "Bias check passed"    },
+    { time: "10:40 AM", label: "Score calculated"     },
+    { time: "10:39 AM", label: "Interview completed"  },
+  ];
+  return (
+    <div className="relative h-52 w-full rounded-xl overflow-hidden">
+      <svg className="absolute inset-0 w-full h-full" aria-hidden>
+        <defs>
+          <pattern id="audit-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E8E4F8" strokeWidth="0.6" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#audit-grid)" />
+      </svg>
+      <div className="relative z-10 flex flex-col justify-center h-full px-4 gap-2.5">
+        {ENTRIES.map(({ time, label }) => (
+          <div key={label} className="flex items-center gap-3 bg-white rounded-xl px-3.5 py-2.5 shadow-card">
+            <span className="w-5 h-5 rounded-full bg-coral-50 flex items-center justify-center shrink-0">
+              <Check size={10} className="text-coral-500" />
+            </span>
+            <span className="text-[10px] font-mono text-muted/60 shrink-0">{time}</span>
+            <span className="text-[11px] font-semibold text-purple-900">{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DiamondStack() {
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
@@ -108,16 +140,6 @@ const TESTIMONIALS = [
   },
 ];
 
-const INTEGRATIONS = [
-  { name: "Greenhouse", highlight: false },
-  { name: "Lever",      highlight: false },
-  { name: "Workday",    highlight: true  },
-  { name: "BambooHR",   highlight: false },
-  { name: "Ashby",      highlight: false },
-  { name: "Slack",      highlight: false },
-  { name: "Google Meet",highlight: false },
-  { name: "Zoom",       highlight: false },
-];
 
 const PLANS = [
   {
@@ -358,18 +380,8 @@ export default function HomePage() {
               <div className="flex flex-col pr-0 md:pr-10 pb-10 md:pb-0">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">Built-in fairness</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">40+ languages. Every decision logged with audit trails.</p>
-                <div className="flex-1 relative flex items-center justify-center rounded-xl">
-                  <svg className="absolute inset-0 w-full h-full rounded-xl" aria-hidden>
-                    <defs>
-                      <pattern id="hub-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-                        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E8E4F8" strokeWidth="0.6" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#hub-grid)" />
-                  </svg>
-                  <div className="relative z-10">
-                    <AriaHub compact />
-                  </div>
+                <div className="flex-1">
+                  <AuditFeed />
                 </div>
               </div>
 
@@ -453,35 +465,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. INTEGRATION BADGES ───────────────────────────────────────────── */}
-      <section className="py-16 bg-surface border-y border-purple-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-8">
-            <p className="text-sm font-semibold text-muted/70 uppercase tracking-widest">Plugs into your existing stack</p>
-          </FadeUp>
-          <FadeUp delay={0.1}>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {INTEGRATIONS.map(({ name, highlight }) => (
-                <span
-                  key={name}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                    highlight
-                      ? "gradient-bg text-white shadow-btn"
-                      : "bg-white text-purple-900 border border-purple-100 shadow-card"
-                  }`}
-                >
-                  {name}
-                </span>
-              ))}
-              <span className="px-4 py-2 rounded-full text-sm font-semibold text-muted bg-white border border-dashed border-purple-200">
-                +30 more
-              </span>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── 9. PRICING ──────────────────────────────────────────────────────── */}
+      {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
@@ -550,15 +534,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 10. FINAL CTA ───────────────────────────────────────────────────── */}
-      <section className="py-28 bg-surface relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute rounded-[40px] gradient-bg opacity-[0.07]"
-               style={{ width: 400, height: 400, top: "-15%", right: "-8%", transform: "rotate(20deg)" }} />
-          <div className="absolute rounded-[32px] opacity-[0.05]"
-               style={{ width: 260, height: 260, bottom: "-10%", left: "-5%", transform: "rotate(-15deg)",
-                        background: "linear-gradient(135deg, #E8E4F8, #FCE8E7)" }} />
-        </div>
+      {/* ── 9. FINAL CTA ────────────────────────────────────────────────────── */}
+      <section className="py-28 bg-white relative overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+          <defs>
+            <pattern id="cta-dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C4C2E0" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#cta-dot-grid)" opacity="0.45" />
+        </svg>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <FadeUp>
             <h2 className="text-5xl font-extrabold text-purple-900 mb-5">
