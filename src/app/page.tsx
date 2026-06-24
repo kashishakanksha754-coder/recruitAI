@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, Clock, Globe, Shield, Star, ChevronLeft } from "lucide-react";
+import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, Clock, Globe, Shield, Star, ChevronLeft, MessageSquare, Settings, Database } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import FloatingShapes from "@/components/FloatingShapes";
@@ -16,13 +16,79 @@ const FEATURES = [
   { icon: Users,     title: "Recruiter Handoff", desc: "Top 10 verified matches land in your inbox with full interview summaries." },
 ];
 
-const CAPS = [
-  { icon: Globe,    title: "Multilingual",    desc: "Aria interviews in 40+ languages automatically.", large: true  },
-  { icon: Shield,   title: "Bias Checks",     desc: "Every decision logged with EEOC-safe audit trails.", large: false },
-  { icon: Clock,    title: "2-Day Turnaround",desc: "From 1,000 applicants to 10 verified matches.", large: false },
-  { icon: Zap,      title: "ATS Integrations",desc: "Connects to Greenhouse, Lever, Workday, and 30+ more.", large: false },
-  { icon: Star,     title: "98% Satisfaction",desc: "Hiring managers rate Aria-screened candidates higher.", large: true  },
-];
+// ── Capabilities illustrations ─────────────────────────────────────────────
+
+function DiamondStack() {
+  const diamonds = [
+    { size: 52, top: 8,   opacity: 1.0, colorStop: ["rgba(240,98,90,0.95)", "rgba(45,27,105,0.85)"] },
+    { size: 44, top: 72,  opacity: 0.80, colorStop: ["rgba(240,98,90,0.70)", "rgba(45,27,105,0.65)"] },
+    { size: 36, top: 130, opacity: 0.60, colorStop: ["rgba(240,98,90,0.45)", "rgba(45,27,105,0.40)"] },
+  ];
+  return (
+    <div className="flex flex-col items-center gap-0">
+      <div className="relative w-32 h-48">
+        {/* Glow beam */}
+        <div className="absolute left-1/2 -translate-x-1/2 w-px top-4 bottom-4 pointer-events-none"
+             style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.35) 0%, rgba(45,27,105,0.20) 100%)" }} />
+        {diamonds.map(({ size, top, opacity, colorStop }, i) => (
+          <div
+            key={i}
+            className="absolute left-1/2"
+            style={{
+              width: size, height: size,
+              top,
+              transform: "translateX(-50%) rotate(45deg)",
+              background: `linear-gradient(135deg, ${colorStop[0]} 0%, ${colorStop[1]} 100%)`,
+              opacity,
+              borderRadius: 6,
+            }}
+          />
+        ))}
+      </div>
+      {/* Pill */}
+      <div className="flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 mt-2 shadow-card">
+        <span className="text-[11px] font-semibold text-purple-900 whitespace-nowrap">1,000 → 10 in 48 hours</span>
+        <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
+      </div>
+    </div>
+  );
+}
+
+function IntegrationGrid() {
+  const ITEMS = [
+    { icon: MessageSquare, color: "text-coral-500",  bg: "bg-coral-50",  style: { top: "8%",  left: "12%" } },
+    { icon: Settings,      color: "text-purple-700", bg: "bg-purple-50", style: { top: "4%",  right: "18%" } },
+    { icon: FileText,      color: "text-coral-500",  bg: "bg-coral-50",  style: { top: "40%", left: "4%" } },
+    { icon: Database,      color: "text-purple-700", bg: "bg-purple-50", style: { top: "36%", right: "6%" } },
+    { icon: BarChart2,     color: "text-coral-500",  bg: "bg-coral-50",  style: { bottom: "18%", left: "28%" } },
+    { icon: Zap,           color: "text-purple-700", bg: "bg-purple-50", style: { bottom: "14%", right: "20%" } },
+  ];
+  return (
+    <div className="relative h-52 w-full rounded-xl overflow-hidden">
+      {/* Grid background */}
+      <svg className="absolute inset-0 w-full h-full" aria-hidden>
+        <defs>
+          <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E8E4F8" strokeWidth="0.6" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#cap-grid)" />
+      </svg>
+      {/* Icon badges */}
+      {ITEMS.map(({ icon: Icon, color, bg, style }, i) => (
+        <div
+          key={i}
+          className="absolute w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-icon"
+          style={style as React.CSSProperties}
+        >
+          <span className={`w-6 h-6 rounded-lg ${bg} flex items-center justify-center`}>
+            <Icon size={13} className={color} />
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const TESTIMONIALS = [
   {
@@ -274,26 +340,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CAPABILITIES — mixed grid ────────────────────────────────────── */}
+      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────── */}
       <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Advanced capabilities, out of the box</h2>
             <p className="text-muted text-lg max-w-xl mx-auto">Everything you need to run enterprise-grade hiring at scale.</p>
           </FadeUp>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-            {CAPS.map(({ icon: Icon, title, desc, large }, i) => (
-              <FadeUp key={title} delay={i * 0.07} className={large ? "col-span-2 md:col-span-1" : ""}>
-                <div className="card p-7 h-full">
-                  <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center mb-5">
-                    <Icon size={20} className="text-coral-500" />
-                  </div>
-                  <h3 className="text-purple-900 font-bold mb-2">{title}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
+          <FadeUp delay={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
+
+              {/* Col 1 — Built-in fairness */}
+              <div className="flex flex-col pr-0 md:pr-10 pb-10 md:pb-0">
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">Built-in fairness</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">40+ languages. Every decision logged with audit trails.</p>
+                <div className="flex-1 flex items-center justify-center">
+                  <AriaHub compact />
                 </div>
-              </FadeUp>
-            ))}
-          </div>
+              </div>
+
+              {/* Col 2 — Speed at scale */}
+              <div className="flex flex-col border-t md:border-t-0 md:border-l border-coral-300 pt-10 md:pt-0 md:px-10 pb-10 md:pb-0">
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">2-day turnaround</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">From 1,000 applicants to 10 verified matches.</p>
+                <div className="flex-1 flex flex-col items-center justify-center">
+                  <DiamondStack />
+                  <p className="mt-6 text-[11px] text-muted/60 text-center max-w-[200px]">
+                    98% of hiring managers rate Aria-screened candidates higher
+                  </p>
+                </div>
+              </div>
+
+              {/* Col 3 — ATS integrations */}
+              <div className="flex flex-col border-t md:border-t-0 md:border-l border-purple-200 pt-10 md:pt-0 md:pl-10">
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">ATS integrations</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">Works with Greenhouse, Lever, Workday, and 30+ more.</p>
+                <div className="flex-1">
+                  <IntegrationGrid />
+                </div>
+              </div>
+
+            </div>
+          </FadeUp>
         </div>
       </section>
 
