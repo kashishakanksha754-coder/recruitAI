@@ -28,7 +28,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const size = compact ? "w-[240px] h-[240px]" : "w-[320px] h-[320px]";
+  const size = compact ? "w-[280px] h-[280px]" : "w-[320px] h-[320px]";
 
   return (
     <div ref={ref} className={`relative ${size} mx-auto`}>
