@@ -3,21 +3,35 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
-const SPOKES = [
-  { x2: 160, y2: 50,  label: "Live Transcription",      anchor: { top: "2%",  left: "50%", transform: "translateX(-50%)" } },
-  { x2: 265, y2: 126, label: "Adaptive Follow-Ups",     anchor: { top: "30%", right: "0%" } },
-  { x2: 225, y2: 249, label: "Bias-Aware Scoring",      anchor: { bottom: "10%", right: "0%" } },
-  { x2: 95,  y2: 249, label: "Multilingual Ready",      anchor: { bottom: "10%", left: "0%" } },
-  { x2: 55,  y2: 126, label: "Voice + Video",           anchor: { top: "30%", left: "0%" } },
+interface SpokeConfig {
+  x2: number; y2: number; label: string;
+  anchor: Record<string, string>;
+}
+
+const DEFAULT_SPOKES: SpokeConfig[] = [
+  { x2: 160, y2: 50,  label: "Live Transcription",  anchor: { top: "2%",    left: "50%", transform: "translateX(-50%)" } },
+  { x2: 265, y2: 126, label: "Adaptive Follow-Ups", anchor: { top: "30%",   right: "0%" } },
+  { x2: 225, y2: 249, label: "Bias-Aware Scoring",  anchor: { bottom: "10%",right: "0%" } },
+  { x2: 95,  y2: 249, label: "Multilingual Ready",  anchor: { bottom: "10%",left: "0%"  } },
+  { x2: 55,  y2: 126, label: "Voice + Video",       anchor: { top: "30%",   left: "0%"  } },
 ];
 
-export default function AriaHub() {
+const COMPACT_SPOKES: SpokeConfig[] = [
+  { x2: 160, y2: 50,  label: "Live Analytics",  anchor: { top: "2%",    left: "50%", transform: "translateX(-50%)" } },
+  { x2: 265, y2: 126, label: "Bias Audit",       anchor: { top: "30%",  right: "0%" } },
+  { x2: 225, y2: 249, label: "Voice Calls",      anchor: { bottom: "10%",right: "0%" } },
+  { x2: 95,  y2: 249, label: "40+ Languages",   anchor: { bottom: "10%",left: "0%"  } },
+];
+
+export default function AriaHub({ compact = false }: { compact?: boolean }) {
+  const SPOKES = compact ? COMPACT_SPOKES : DEFAULT_SPOKES;
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const size = compact ? "w-[240px] h-[240px]" : "w-[320px] h-[320px]";
 
   return (
-    <div ref={ref} className="relative w-[320px] h-[320px] mx-auto">
+    <div ref={ref} className={`relative ${size} mx-auto`}>
       <svg viewBox="0 0 320 320" className="absolute inset-0 w-full h-full overflow-visible">
         <defs>
           <linearGradient id="hub-grad" x1="0%" y1="0%" x2="100%" y2="100%">
