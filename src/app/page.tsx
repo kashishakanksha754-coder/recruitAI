@@ -241,22 +241,23 @@ export default function HomePage() {
               ))}
             </FadeUp>
             <FadeUp delay={0.3}>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { icon: Phone,    label: "Voice Calls"    },
-                  { icon: Globe,    label: "40+ Languages"  },
-                  { icon: Shield,   label: "Bias Audit"     },
-                  { icon: BarChart2,label: "Live Analytics" },
-                  { icon: Clock,    label: "48h Turnaround" },
-                  { icon: Star,     label: "98% CSAT"       },
-                ].map(({ icon: Icon, label }) => (
-                  <div key={label} className="card p-4 flex flex-col items-center gap-2 text-center">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center">
-                      <Icon size={18} className="text-coral-500" />
+              <div className="rounded-2xl bg-surface overflow-hidden">
+                <div className="grid grid-cols-2 divide-x divide-y divide-purple-100">
+                  {[
+                    { icon: Phone,    label: "Voice Calls",    desc: "Calls every candidate automatically"  },
+                    { icon: Globe,    label: "40+ Languages",  desc: "Interviews in the candidate's language" },
+                    { icon: Shield,   label: "Bias Audit",     desc: "Every decision logged and explainable" },
+                    { icon: BarChart2,label: "Live Analytics", desc: "Real-time pipeline metrics"             },
+                    { icon: Clock,    label: "48h Turnaround", desc: "From 1,000 applicants to 10 verified"  },
+                    { icon: Star,     label: "98% CSAT",       desc: "Candidates rate Aria-led interviews"   },
+                  ].map(({ icon: Icon, label, desc }) => (
+                    <div key={label} className="p-5 flex flex-col gap-2">
+                      <Icon size={18} className="text-coral-500" style={{ filter: "drop-shadow(0 1px 3px rgba(240,98,90,0.25))" }} />
+                      <p className="text-purple-900 font-bold text-sm leading-tight">{label}</p>
+                      <p className="text-muted text-xs leading-relaxed">{desc}</p>
                     </div>
-                    <span className="text-xs font-semibold text-purple-900">{label}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </FadeUp>
           </div>
