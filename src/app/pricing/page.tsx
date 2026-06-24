@@ -1,239 +1,180 @@
 "use client";
 import { useState } from "react";
-import { CheckCircle, Phone, Video } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 
-const plans = [
+const PLANS = [
   {
-    name: "Pilot",
-    price: "Free",
-    period: "",
-    desc: "Test the full pipeline with a small batch. No credit card required.",
-    highlight: false,
+    name: "Starter",
+    monthly: 299, annually: 249,
+    desc: "For small teams hiring 1–3 roles/month",
     features: [
-      "3 active jobs",
-      "50 CV screens included",
-      "10 AI voice screening minutes",
-      "5 AI video interview minutes",
-      "Bulk upload and apply link",
-      "Email support",
+      "500 resume screens/mo",
+      "50 AI voice interviews/mo",
+      "3 active job roles",
+      "Basic analytics dashboard",
+      "Email + chat support",
     ],
-    cta: "Start for free",
-    href: "/signup",
+    cta: "Start free trial", primary: false,
   },
   {
     name: "Growth",
-    price: "₹9,999",
-    period: "/month",
-    desc: "For individual recruiters and small teams running multiple active roles.",
-    highlight: true,
+    monthly: 799, annually: 665,
+    desc: "For scaling teams with high volume",
     features: [
-      "Unlimited active jobs",
-      "Unlimited CV screens",
-      "500 AI voice minutes included",
-      "200 AI video minutes included",
-      "Shareable apply links",
-      "Aria question customization",
-      "Priority email support",
+      "2,000 resume screens/mo",
+      "200 AI voice interviews/mo",
+      "Unlimited active roles",
+      "ATS integrations",
+      "Advanced analytics",
+      "Priority support",
     ],
-    cta: "Start free trial",
-    href: "/signup",
+    cta: "Start free trial", primary: true,
   },
   {
-    name: "Scale",
-    price: "Custom",
-    period: "",
-    desc: "For staffing firms and enterprise teams with high-volume hiring needs.",
-    highlight: false,
+    name: "Enterprise",
+    monthly: null, annually: null,
+    desc: "For large orgs and custom workflows",
     features: [
-      "Everything in Growth",
-      "Custom voice and video credit pools",
-      "Team seats with role-based access",
-      "Audit logs and compliance exports",
-      "ATS / CRM integrations",
-      "Dedicated onboarding and account manager",
+      "Unlimited everything",
+      "Custom AI rubrics",
+      "SSO + audit logs",
+      "Dedicated CSM",
+      "SLA guarantee",
+      "Custom integrations",
     ],
-    cta: "Book a demo",
-    href: "/contact",
+    cta: "Talk to sales", primary: false,
   },
 ];
 
-function CreditEstimator() {
-  const [voiceMin, setVoiceMin] = useState(200);
-  const [videoMin, setVideoMin] = useState(100);
-  const voiceCost = (voiceMin * 3.5).toFixed(0);
-  const videoCost = (videoMin * 12).toFixed(0);
-  const total = (Number(voiceCost) + Number(videoCost)).toFixed(0);
-
-  return (
-    <div
-      className="rounded-xl border p-6 max-w-lg mx-auto"
-      style={{ borderColor: "rgba(99,102,241,0.2)", background: "rgba(99,102,241,0.04)" }}
-    >
-      <p className="text-white font-semibold mb-1">Estimate your monthly credit usage</p>
-      <p className="text-slate-500 text-sm mb-5">CV screening is always included. You pay only for AI voice and video minutes.</p>
-
-      <div className="space-y-5">
-        <div>
-          <div className="flex justify-between mb-1">
-            <label className="text-slate-400 text-sm flex items-center gap-1">
-              <Phone size={12} style={{ color: "#818cf8" }} /> Voice screening minutes
-            </label>
-            <span className="text-white text-sm font-medium">{voiceMin} min</span>
-          </div>
-          <input
-            type="range" min={0} max={2000} step={50}
-            value={voiceMin}
-            onChange={(e) => setVoiceMin(Number(e.target.value))}
-            className="w-full accent-indigo-500"
-          />
-          <p className="text-slate-600 text-xs mt-1">≈ {Math.round(voiceMin / 7)} candidates at 7 min avg call</p>
-        </div>
-
-        <div>
-          <div className="flex justify-between mb-1">
-            <label className="text-slate-400 text-sm flex items-center gap-1">
-              <Video size={12} style={{ color: "#818cf8" }} /> Video interview minutes
-            </label>
-            <span className="text-white text-sm font-medium">{videoMin} min</span>
-          </div>
-          <input
-            type="range" min={0} max={1000} step={25}
-            value={videoMin}
-            onChange={(e) => setVideoMin(Number(e.target.value))}
-            className="w-full accent-indigo-500"
-          />
-          <p className="text-slate-600 text-xs mt-1">≈ {Math.round(videoMin / 12)} candidates at 12 min avg interview</p>
-        </div>
-      </div>
-
-      <div className="mt-5 pt-5 border-t border-white/8 grid grid-cols-3 gap-3 text-center">
-        <div>
-          <p className="gradient-text font-bold">₹{voiceCost}</p>
-          <p className="text-slate-500 text-xs">Voice credits</p>
-        </div>
-        <div>
-          <p className="gradient-text font-bold">₹{videoCost}</p>
-          <p className="text-slate-500 text-xs">Video credits</p>
-        </div>
-        <div>
-          <p className="text-white font-bold">₹{total}</p>
-          <p className="text-slate-500 text-xs">Total / month</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+const FAQS = [
+  { q: "Is there a free trial?", a: "Yes — 14 days, full Growth plan features, no credit card required." },
+  { q: "What happens when I hit my screen limit?", a: "We'll notify you at 80%. You can upgrade instantly or wait for the next billing cycle." },
+  { q: "Can candidates tell they're talking to an AI?", a: "Aria introduces herself as an AI interviewer by default. Transparent disclosure is baked in." },
+  { q: "Do candidates need to create accounts?", a: "Never. Candidates interact purely via phone call or a one-time video link." },
+  { q: "Is our data used to train your models?", a: "No. Your data is never used for model training. Full data isolation per account." },
+];
 
 export default function PricingPage() {
+  const [annual, setAnnual] = useState(true);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
-    <main className="bg-navy-950 min-h-screen pt-24">
-      <section className="py-16 px-4 text-center">
-        <FadeUp>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white">
-            Simple pricing.{" "}
-            <span className="gradient-text">Pay only for what you use.</span>
-          </h1>
-          <p className="text-slate-500 mt-2 text-sm tracking-wide">
-            Unlimited jobs and screening, always included.&nbsp;&nbsp;You&apos;re billed only for AI voice and video minutes.
-          </p>
-          <p className="mt-4 text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
-            CV screening runs on every candidate at no extra cost. You pay only when Aria picks up a call or runs a video interview.
-          </p>
-        </FadeUp>
-      </section>
-
-      <section className="py-10 px-4">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-6">
-          {plans.map((plan, i) => (
-            <FadeUp key={plan.name} delay={i * 0.08}>
-              <div
-                className="rounded-xl border p-6 flex flex-col h-full"
-                style={{
-                  borderColor: plan.highlight ? "rgba(99,102,241,0.5)" : "rgba(255,255,255,0.08)",
-                  background: plan.highlight
-                    ? "linear-gradient(135deg,rgba(59,130,246,0.08),rgba(124,58,237,0.08))"
-                    : "rgba(255,255,255,0.02)",
-                  boxShadow: plan.highlight ? "0 0 30px rgba(99,102,241,0.15)" : "none",
-                }}
+    <main className="pt-24 pb-20 bg-white">
+      <section className="py-20 bg-surface">
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <FadeUp>
+            <h1 className="text-5xl font-extrabold text-purple-900 mb-4 tracking-tight">
+              Simple, <span className="gradient-text">transparent pricing</span>
+            </h1>
+            <p className="text-muted text-xl mb-8">No per-seat fees. No surprise charges. Cancel anytime.</p>
+            <div className="inline-flex items-center gap-1 bg-white rounded-xl p-1 shadow-card">
+              <button
+                onClick={() => setAnnual(false)}
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${!annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}
               >
-                {plan.highlight && (
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full w-fit mb-3"
-                    style={{ background: "linear-gradient(135deg,#3b82f6,#7c3aed)", color: "#fff" }}>
-                    Most popular
-                  </span>
-                )}
-                <p className="text-white font-bold text-lg">{plan.name}</p>
-                <div className="mt-2 mb-1">
-                  <span className="text-3xl font-bold text-white">{plan.price}</span>
-                  {plan.period && <span className="text-slate-500 text-sm">{plan.period}</span>}
-                </div>
-                <p className="text-slate-500 text-sm mb-5">{plan.desc}</p>
-                <ul className="space-y-2 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
-                      <CheckCircle size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#818cf8" }} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6">
-                  <GradientButton href={plan.href} className="w-full" outline={!plan.highlight}>
-                    {plan.cta}
-                  </GradientButton>
-                </div>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-      </section>
-
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <FadeUp>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8">
-              Estimate your credit usage.
-            </h2>
-            <CreditEstimator />
+                Monthly
+              </button>
+              <button
+                onClick={() => setAnnual(true)}
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}
+              >
+                Annual
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${annual ? "bg-white/20 text-white" : "bg-coral-100 text-coral-500"}`}>-17%</span>
+              </button>
+            </div>
           </FadeUp>
         </div>
       </section>
 
-      <section className="py-20 px-4 border-t border-white/5">
-        <div className="max-w-2xl mx-auto">
-          <FadeUp>
-            <h2 className="text-2xl font-bold text-white text-center mb-10">Common questions</h2>
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            {PLANS.map(({ name, monthly, annually, desc, features, cta, primary }, i) => (
+              <FadeUp key={name} delay={i * 0.08}>
+                <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
+                  {primary && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                      Most popular
+                    </span>
+                  )}
+                  <p className="text-purple-900 font-bold text-xl mb-1">{name}</p>
+                  <p className="text-muted text-sm mb-6">{desc}</p>
+                  <div className="mb-7">
+                    {monthly !== null ? (
+                      <>
+                        <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                        <span className="text-muted text-sm ml-1">/month</span>
+                        {annual && <p className="text-xs text-muted/70 mt-1">billed annually</p>}
+                      </>
+                    ) : (
+                      <span className="text-4xl font-extrabold gradient-text">Custom</span>
+                    )}
+                  </div>
+                  <ul className="space-y-3 flex-1 mb-8">
+                    {features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
+                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={cta === "Talk to sales" ? "/contact" : "/signup"}
+                    className={`block text-center py-3.5 rounded-xl text-sm font-semibold transition-all ${
+                      primary
+                        ? "gradient-bg text-white shadow-btn hover:opacity-90"
+                        : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"
+                    }`}
+                  >
+                    {cta} {primary && <ArrowRight size={14} className="inline ml-1" />}
+                  </a>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-surface">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6">
+          <FadeUp className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-purple-900">Frequently asked questions</h2>
           </FadeUp>
-          {[
-            {
-              q: "What counts as a CV screen?",
-              a: "Every resume uploaded or submitted through your apply link is parsed and scored. CV screening is always included — it never counts against a credit balance.",
-            },
-            {
-              q: "What counts as a voice minute?",
-              a: "Each minute Aria spends on a live call with a candidate. The average screening call is 6–8 minutes. You're billed only for actual call time.",
-            },
-            {
-              q: "What counts as a video minute?",
-              a: "Each minute of video interview recorded and analyzed by Aria. Async video interviews average 10–15 minutes per candidate.",
-            },
-            {
-              q: "Can I roll over unused credits?",
-              a: "Credits on the Growth plan roll over for one billing period. Custom agreements on Scale can include larger rollover windows.",
-            },
-            {
-              q: "Is there a contract on Growth?",
-              a: "No. Growth is month-to-month. Cancel any time. Scale plans typically involve an annual agreement.",
-            },
-          ].map((item, i) => (
-            <FadeUp key={i} delay={i * 0.05}>
-              <div className="border-b border-white/8 py-5">
-                <p className="text-white font-medium mb-2">{item.q}</p>
-                <p className="text-slate-400 text-sm leading-relaxed">{item.a}</p>
-              </div>
-            </FadeUp>
-          ))}
+          <div className="space-y-3">
+            {FAQS.map(({ q, a }, i) => (
+              <FadeUp key={i} delay={i * 0.06}>
+                <div className="card overflow-hidden">
+                  <button
+                    className="w-full text-left px-6 py-4 font-semibold text-purple-900 text-sm flex items-center justify-between"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  >
+                    {q}
+                    <span className={`text-muted transition-transform ${openFaq === i ? "rotate-45" : ""}`}>+</span>
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-6 pb-5 text-sm text-muted leading-relaxed border-t border-purple-50 pt-3">
+                      {a}
+                    </div>
+                  )}
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="max-w-xl mx-auto px-4 text-center">
+          <FadeUp>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Still have questions?</h2>
+            <p className="text-muted mb-8">Talk to a human on our team — no sales pressure.</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <GradientButton href="/signup">Start free trial</GradientButton>
+              <GradientButton href="/contact" outline>Talk to sales</GradientButton>
+            </div>
+          </FadeUp>
         </div>
       </section>
     </main>

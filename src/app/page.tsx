@@ -1,479 +1,483 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FileText, Phone, ClipboardCheck, Video, CheckCircle, Mail,
-  Upload, UserPlus, Link2, Users, Building2, Briefcase,
-  Mic, Languages, Brain, BarChart3, Zap, Clock, TrendingDown, Target,
-  ChevronDown
-} from "lucide-react";
+import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, Clock, Globe, Shield, Star, ChevronLeft } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
-import HeroBackground from "@/components/HeroBackground";
+import FloatingShapes from "@/components/FloatingShapes";
+import AriaHub from "@/components/AriaHub";
 
-function CodeTexture() {
-  const lines = [
-    "parsing_resume.pdf...",
-    "scoring_candidate_0042...",
-    "transcribing_call.wav",
-    "running_cv_screen()",
-    "aria.conduct_interview()",
-    "rank_candidates(pool=1200)",
-    "extracting_skills[]",
-    "bias_check: passed",
-    "generate_offer_letter()",
-    "pipeline.stage = 'voice_call'",
-    "match_score: 94.2",
-    "scheduling_aria_call()",
-    "parsing_resume.pdf...",
-    "scoring_candidate_0019...",
-  ];
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden>
-      <div className="absolute top-10 right-8 space-y-3 text-right">
-        {lines.map((l, i) => (
-          <p
-            key={i}
-            className="text-xs font-mono"
-            style={{ color: `rgba(99,102,241,${0.06 + (i % 4) * 0.015})`, lineHeight: 1.8 }}
-          >
-            {l}
-          </p>
-        ))}
-      </div>
-    </div>
-  );
-}
+const LOGOS = ["Stripe", "Shopify", "Notion", "Vercel", "Linear", "Figma"];
 
-function IconChip({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-white/10 bg-white/5">
-      <span
-        className="w-4 h-4 rounded flex items-center justify-center flex-shrink-0"
-        style={{ background: "linear-gradient(135deg,#3b82f620,#7c3aed20)" }}
-      >
-        <Icon size={10} style={{ color: "#818cf8" }} />
-      </span>
-      <span className="text-slate-300">{label}</span>
-    </span>
-  );
-}
+const FEATURES = [
+  { icon: FileText,  title: "Resume Parsing",   desc: "AI extracts skills, tenure, and signals in under 3 seconds per CV." },
+  { icon: Phone,     title: "Voice Interviews",  desc: "Aria calls candidates, adapts questions in real-time, transcribes everything." },
+  { icon: BarChart2, title: "Smart Scoring",     desc: "Candidates ranked by fit — not keyword matching — using role-specific rubrics." },
+  { icon: Users,     title: "Recruiter Handoff", desc: "Top 10 verified matches land in your inbox with full interview summaries." },
+];
 
-const stages = [
+const CAPS = [
+  { icon: Globe,    title: "Multilingual",    desc: "Aria interviews in 40+ languages automatically.", large: true  },
+  { icon: Shield,   title: "Bias Checks",     desc: "Every decision logged with EEOC-safe audit trails.", large: false },
+  { icon: Clock,    title: "2-Day Turnaround",desc: "From 1,000 applicants to 10 verified matches.", large: false },
+  { icon: Zap,      title: "ATS Integrations",desc: "Connects to Greenhouse, Lever, Workday, and 30+ more.", large: false },
+  { icon: Star,     title: "98% Satisfaction",desc: "Hiring managers rate Aria-screened candidates higher.", large: true  },
+];
+
+const TESTIMONIALS = [
   {
-    icon: FileText,
-    name: "CV Screening",
-    desc: "AI parses and ranks every resume against your job criteria. You see a ranked shortlist — not 800 PDFs.",
-    cta: "See a sample screening score",
-    snippet: `Candidate: Priya M.\nRole fit: 91/100\nSkills matched: React, Node.js, AWS\nExperience gap: none\nRecommendation: Advance to voice call`,
+    quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced 8 genuinely great candidates. Our recruiters finally have time to recruit.",
+    name: "Sarah Chen", role: "Head of Talent · Acme Corp",
   },
   {
-    icon: Phone,
-    name: "AI Voice Call",
-    desc: "Aria calls every shortlisted candidate. She asks role-specific questions and scores each answer live.",
-    cta: "Hear Aria run a screening call",
-    snippet: `Aria: "Walk me through your last deployment pipeline."\nCandidate: "We used GitHub Actions with..."\n[Aria scores: Technical depth 8/10, Communication 9/10]\nCall duration: 7m 42s`,
+    quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.",
+    name: "Marcus Riley", role: "VP People · Novatech",
   },
   {
-    icon: ClipboardCheck,
-    name: "Skill Assessment",
-    desc: "Role-specific tests run automatically after the call. Results attach directly to the candidate profile.",
-    cta: "See a sample assessment report",
-    snippet: `Assessment: Full-Stack Engineer\nScore: 78/100\nTime taken: 38 min\nStrong: System design, APIs\nWeak: Database indexing\nProctoring: Clean`,
-  },
-  {
-    icon: Video,
-    name: "AI Video Interview",
-    desc: "Aria runs a structured async video interview. She adapts follow-up questions based on each response.",
-    cta: "Watch the pipeline in action",
-    snippet: `Q3: "Describe a time you led a cross-team project."\n[Candidate response: 2m 14s]\nAria follow-up: "How did you handle the conflicting priorities?"\nSentiment: Confident. Clarity: High.`,
-  },
-  {
-    icon: CheckCircle,
-    name: "Selection",
-    desc: "You review ranked candidates with full evidence — transcripts, scores, recordings. You make the call.",
-    cta: "See the decision dashboard",
-    snippet: `Top 5 candidates ready for your review\n#1 Ravi K. — 94/100\n#2 Anya S. — 91/100\n#3 James T. — 88/100\n[Your decision: advance / reject / hold]`,
-  },
-  {
-    icon: Mail,
-    name: "Offer Letter",
-    desc: "Generate and send a branded offer letter in two clicks once you've made your decision.",
-    cta: "See a sample offer letter",
-    snippet: `Offer: Senior Frontend Engineer\nCompensation: ₹28 LPA + ESOPs\nStart date: 15 Aug 2025\nSent to: ravi.k@email.com\nStatus: Awaiting signature`,
+    quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse hire rates improved 22% in Q1.",
+    name: "Priya Nair", role: "Chief People Officer · Luminos",
   },
 ];
 
-function PipelineCard({ stage, index }: { stage: (typeof stages)[0]; index: number }) {
-  const [expanded, setExpanded] = useState(false);
-  const Icon = stage.icon;
-  return (
-    <FadeUp delay={index * 0.07}>
-      <div className="rounded-xl border border-white/8 bg-white/3 p-5 flex flex-col gap-3 hover:border-indigo-500/30 transition-colors h-full">
-        <div
-          className="w-10 h-10 rounded-lg flex items-center justify-center"
-          style={{ background: "linear-gradient(135deg,#3b82f615,#7c3aed15)", border: "1px solid rgba(99,102,241,0.2)" }}
-        >
-          <Icon size={18} style={{ color: "#818cf8" }} />
-        </div>
-        <p className="text-white font-semibold text-sm">{stage.name}</p>
-        <p className="text-slate-400 text-sm leading-relaxed">{stage.desc}</p>
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-1 text-xs font-medium mt-auto"
-          style={{ color: "#818cf8" }}
-        >
-          {stage.cta}
-          <ChevronDown size={12} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
-        </button>
-        {expanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            className="rounded-lg p-3 text-xs font-mono text-slate-400 whitespace-pre-line leading-relaxed"
-            style={{ background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.15)" }}
-          >
-            {stage.snippet}
-          </motion.div>
-        )}
-      </div>
-    </FadeUp>
-  );
-}
+const INTEGRATIONS = [
+  { name: "Greenhouse", highlight: false },
+  { name: "Lever",      highlight: false },
+  { name: "Workday",    highlight: true  },
+  { name: "BambooHR",   highlight: false },
+  { name: "Ashby",      highlight: false },
+  { name: "Slack",      highlight: false },
+  { name: "Google Meet",highlight: false },
+  { name: "Zoom",       highlight: false },
+];
+
+const PLANS = [
+  {
+    name: "Starter",
+    monthly: 299, annually: 249,
+    desc: "For small teams hiring 1–3 roles/month",
+    features: ["500 resume screens/mo", "50 AI voice interviews/mo", "3 active job roles", "Email + chat support"],
+    cta: "Start free trial", primary: false,
+  },
+  {
+    name: "Growth",
+    monthly: 799, annually: 665,
+    desc: "For scaling teams with high volume",
+    features: ["2,000 resume screens/mo", "200 AI voice interviews/mo", "Unlimited active roles", "ATS integrations", "Priority support"],
+    cta: "Start free trial", primary: true,
+  },
+  {
+    name: "Enterprise",
+    monthly: null, annually: null,
+    desc: "For large orgs and custom workflows",
+    features: ["Unlimited everything", "Custom AI rubrics", "SSO + audit logs", "Dedicated CSM", "SLA guarantee"],
+    cta: "Talk to sales", primary: false,
+  },
+];
 
 export default function HomePage() {
+  const [annual, setAnnual] = useState(true);
+  const [testimonialIdx, setTestimonialIdx] = useState(0);
+  const t = TESTIMONIALS[testimonialIdx];
+
   return (
-    <main className="bg-navy-950 min-h-screen">
-      {/* HERO */}
-      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-        <HeroBackground />
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <FadeUp>
-            <p className="inline-block text-xs font-medium px-3 py-1 rounded-full border border-indigo-500/30 text-indigo-400 mb-6"
-              style={{ background: "rgba(79,70,229,0.08)" }}>
-              AI hiring platform for recruiters
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
-              Stop reading resumes.{" "}
-              <span className="gradient-text">Start interviewing finalists.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.14}>
-            <p className="mt-4 text-slate-500 text-sm font-medium tracking-wide">
-              No pileups.&nbsp;&nbsp;No scheduling chaos.&nbsp;&nbsp;No guesswork.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <p className="mt-6 text-slate-300 text-lg max-w-xl mx-auto leading-relaxed">
-              AI screens resumes, calls candidates, and runs interviews. You make the final call.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.26}>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <GradientButton href="/signup">Start free trial</GradientButton>
-              <GradientButton href="/how-it-works" outline>See how it works</GradientButton>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
+    <main className="overflow-x-hidden">
 
-      {/* STATS */}
-      <section className="py-14 px-4 border-y border-white/5">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {[
-            { stat: "1,000 → 10", label: "candidates screened to shortlist in 2 days" },
-            { stat: "78%", label: "reduction in time-to-shortlist" },
-            { stat: "6 min", label: "average AI voice screening call" },
-            { stat: "4×", label: "more roles filled per recruiter per month" },
-          ].map((s, i) => (
-            <FadeUp key={i} delay={i * 0.07}>
-              <div className="text-center">
-                <p className="text-2xl sm:text-3xl font-bold gradient-text">{s.stat}</p>
-                <p className="text-slate-500 text-xs mt-1 leading-snug">{s.label}</p>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-      </section>
-
-      {/* PROBLEM */}
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <FadeUp>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center">
-              Manual hiring kills your pipeline.
-            </h2>
-            <p className="text-center text-slate-500 mt-2 text-sm tracking-wide">
-              Bottlenecks pile up.&nbsp;&nbsp;Good candidates leave.&nbsp;&nbsp;Time disappears.
-            </p>
-          </FadeUp>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { icon: Clock, stat: "6–8 hrs", label: "Average recruiter time reviewing resumes per open role" },
-              { icon: TrendingDown, stat: "38 days", label: "Average time-to-hire — top candidates drop off by day 7" },
-              { icon: Target, stat: "60%", label: "Of candidates never hear back, hurting your employer brand" },
-              { icon: Zap, stat: "3× slower", label: "Manual screening means losing finalists to faster competitors" },
-            ].map((item, i) => (
-              <FadeUp key={i} delay={i * 0.08}>
-                <div className="rounded-xl border border-white/8 bg-white/3 p-5">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
-                    style={{ background: "linear-gradient(135deg,#3b82f615,#7c3aed15)", border: "1px solid rgba(99,102,241,0.2)" }}
-                  >
-                    <item.icon size={16} style={{ color: "#818cf8" }} />
-                  </div>
-                  <p className="text-2xl font-bold text-white">{item.stat}</p>
-                  <p className="text-slate-500 text-xs mt-1 leading-snug">{item.label}</p>
+      {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
+      <section className="pt-32 pb-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <FadeUp delay={0}>
+                <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6">
+                  <Zap size={12} /> AI-native recruiting platform
+                </span>
+              </FadeUp>
+              <FadeUp delay={0.08}>
+                <h1 className="text-5xl lg:text-6xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
+                  Hire 10× faster with{" "}
+                  <span className="gradient-text">Aria</span>,<br />
+                  your AI recruiter
+                </h1>
+              </FadeUp>
+              <FadeUp delay={0.16}>
+                <p className="text-lg text-muted leading-relaxed mb-8 max-w-lg">
+                  Aria screens resumes, calls candidates, and runs full voice interviews — so your team reviews only the top 1%.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.22}>
+                <div className="flex flex-wrap gap-4 mb-8">
+                  {["No candidate accounts needed", "Setup in 15 minutes", "Cancel anytime"].map((item) => (
+                    <span key={item} className="inline-flex items-center gap-1.5 text-sm text-purple-900 font-medium">
+                      <Check size={14} className="text-coral-500" /> {item}
+                    </span>
+                  ))}
                 </div>
               </FadeUp>
+              <FadeUp delay={0.28}>
+                <div className="flex flex-wrap gap-3">
+                  <GradientButton href="/signup" className="px-7 py-3.5 text-base">
+                    Start free trial <ArrowRight size={16} className="ml-2" />
+                  </GradientButton>
+                  <GradientButton href="/how-it-works" outline className="px-7 py-3.5 text-base">
+                    See how it works
+                  </GradientButton>
+                </div>
+              </FadeUp>
+            </div>
+            <FadeUp delay={0.1} className="hidden lg:block">
+              <FloatingShapes />
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2. TRUST STRIP ──────────────────────────────────────────────────── */}
+      <section className="py-12 border-y border-purple-100 bg-surface">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">Trusted by teams at</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+            {LOGOS.map((logo) => (
+              <span key={logo} className="text-purple-300 font-bold text-lg tracking-tight select-none">{logo}</span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* MEET ARIA */}
-      <section className="py-20 px-4 relative overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 30% 50%,rgba(124,58,237,0.08) 0%,transparent 60%)" }}
-        />
-        <div className="relative max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <FadeUp>
-              <p className="text-indigo-400 text-xs font-medium tracking-widest uppercase mb-3">Meet Aria</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-                Your AI interviewer.{" "}
-                <span className="gradient-text">She screens. She probes. You decide.</span>
-              </h2>
-              <p className="text-slate-500 mt-2 text-sm tracking-wide">
-                Live on calls.&nbsp;&nbsp;Sharp in video.&nbsp;&nbsp;Ready for every candidate.
-              </p>
-              <p className="mt-5 text-slate-300 leading-relaxed">
-                Aria handles every voice screening call and video interview in your pipeline. She asks role-specific questions,
-                listens for depth, and scores each response in real time.
-              </p>
-              <p className="mt-3 text-slate-300 leading-relaxed">
-                Aria screens. She adapts follow-up questions on the fly. You don&apos;t hear junk calls.
-                You see five decision-ready candidates with scores, transcripts, and evidence.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+      {/* ── 3. ARIA HUB ─────────────────────────────────────────────────────── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet Aria — your AI interviewer</h2>
+            <p className="text-muted text-lg max-w-xl mx-auto">She adapts every conversation in real-time, in any language, on any device.</p>
+          </FadeUp>
+          <div className="grid lg:grid-cols-3 gap-12 items-start">
+            <FadeUp delay={0.1} className="flex items-center justify-center">
+              <AriaHub />
+            </FadeUp>
+            <FadeUp delay={0.2} className="space-y-3">
+              {[
+                { step: "1", label: "Candidate applies",  sub: "Resume auto-parsed in 3s" },
+                { step: "2", label: "Aria calls them",    sub: "Adaptive voice interview" },
+                { step: "3", label: "Score + transcript", sub: "Delivered to your inbox" },
+              ].map(({ step, label, sub }) => (
+                <div key={step} className="card p-5 flex items-center gap-4">
+                  <span className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0">
+                    {step}
+                  </span>
+                  <div>
+                    <p className="text-purple-900 font-semibold text-sm">{label}</p>
+                    <p className="text-muted text-xs mt-0.5">{sub}</p>
+                  </div>
+                </div>
+              ))}
+            </FadeUp>
+            <FadeUp delay={0.3}>
+              <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: Mic, label: "Live Transcription" },
-                  { icon: Brain, label: "Adaptive Follow-Ups" },
-                  { icon: Languages, label: "Multilingual Ready" },
-                  { icon: BarChart3, label: "Bias-Aware Scoring" },
-                  { icon: FileText, label: "ATS-Ready Reports" },
-                ].map((chip) => (
-                  <IconChip key={chip.label} icon={chip.icon} label={chip.label} />
+                  { icon: Phone,    label: "Voice Calls"    },
+                  { icon: Globe,    label: "40+ Languages"  },
+                  { icon: Shield,   label: "Bias Audit"     },
+                  { icon: BarChart2,label: "Live Analytics" },
+                  { icon: Clock,    label: "48h Turnaround" },
+                  { icon: Star,     label: "98% CSAT"       },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="card p-4 flex flex-col items-center gap-2 text-center">
+                    <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center">
+                      <Icon size={18} className="text-coral-500" />
+                    </div>
+                    <span className="text-xs font-semibold text-purple-900">{label}</span>
+                  </div>
                 ))}
               </div>
             </FadeUp>
+          </div>
+        </div>
+      </section>
 
-            <FadeUp delay={0.12}>
-              <div
-                className="rounded-2xl p-6 border"
-                style={{
-                  background: "linear-gradient(135deg,rgba(59,130,246,0.06),rgba(124,58,237,0.06))",
-                  borderColor: "rgba(99,102,241,0.2)",
-                  boxShadow: "0 0 40px rgba(99,102,241,0.1)",
-                }}
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold text-white"
-                    style={{ background: "linear-gradient(135deg,#3b82f6,#7c3aed)" }}
-                  >
-                    A
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold">Aria</p>
-                    <p className="text-indigo-400 text-xs">AI Interviewer · Online now</p>
-                  </div>
-                  <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                </div>
-                <div className="space-y-3">
-                  {[
-                    { from: "Aria", msg: "Hi Priya, I'm Aria from Recruit AI. Ready for your screening call?" },
-                    { from: "Priya", msg: "Yes, absolutely." },
-                    { from: "Aria", msg: "Walk me through the last backend system you designed from scratch." },
-                    { from: "Priya", msg: "Sure — it was a real-time notification service handling 50k events per minute..." },
-                    { from: "Aria", msg: "Interesting. How did you handle backpressure when the downstream consumer slowed down?" },
-                  ].map((m, i) => (
-                    <div key={i} className={`flex ${m.from === "Aria" ? "justify-start" : "justify-end"}`}>
-                      <div
-                        className={`max-w-xs rounded-xl px-3 py-2 text-xs leading-relaxed ${
-                          m.from === "Aria"
-                            ? "bg-white/5 text-slate-300 rounded-tl-none"
-                            : "text-white rounded-tr-none"
-                        }`}
-                        style={m.from !== "Aria" ? { background: "linear-gradient(135deg,#3b82f6,#7c3aed)" } : {}}
-                      >
-                        {m.msg}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/8 grid grid-cols-3 gap-2 text-center">
-                  {[
-                    { label: "Technical depth", score: "9/10" },
-                    { label: "Communication", score: "8/10" },
-                    { label: "Overall", score: "92/100" },
-                  ].map((s) => (
-                    <div key={s.label}>
-                      <p className="gradient-text font-bold text-sm">{s.score}</p>
-                      <p className="text-slate-500 text-xs">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────── */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[35%_65%] gap-16 items-start">
+            <FadeUp>
+              <h2 className="text-4xl font-extrabold text-purple-900 leading-tight mb-6">
+                Every step of the funnel, automated
+              </h2>
+              <p className="text-muted text-base leading-relaxed mb-8">
+                From 1,000 applicants to a shortlist of 10 verified, interview-ready candidates — in 48 hours.
+              </p>
+              <GradientButton href="/how-it-works">
+                See the full pipeline <ChevronRight size={16} className="ml-1" />
+              </GradientButton>
             </FadeUp>
-          </div>
-        </div>
-      </section>
-
-      {/* PIPELINE STAGES */}
-      <section id="pipeline" className="py-20 px-4 relative overflow-hidden">
-        <CodeTexture />
-        <div className="relative max-w-6xl mx-auto">
-          <FadeUp>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center">
-              AI does the screening. You do the deciding.
-            </h2>
-            <p className="text-center text-slate-500 mt-2 text-sm tracking-wide">
-              Six stages.&nbsp;&nbsp;Any combination.&nbsp;&nbsp;You choose what runs.
-            </p>
-          </FadeUp>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {stages.map((s, i) => (
-              <PipelineCard key={s.name} stage={s} index={i} />
-            ))}
-          </div>
-          <FadeUp delay={0.2}>
-            <p className="text-center text-slate-500 text-sm mt-6">
-              Pick the stages you need. Skip the rest.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* CANDIDATE INTAKE */}
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <FadeUp>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center">
-              Bring candidates in however you already work.
-            </h2>
-            <p className="text-center text-slate-500 mt-2 text-sm tracking-wide">
-              No new process.&nbsp;&nbsp;No new platform.&nbsp;&nbsp;Just your workflow, faster.
-            </p>
-          </FadeUp>
-          <div className="mt-12 grid sm:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Upload,
-                title: "Upload what you have",
-                desc: "Drag and drop up to 5,000 resumes at once. Our AI parses, standardizes, and ranks every one in minutes. No cleanup required.",
-              },
-              {
-                icon: UserPlus,
-                title: "Add one at a time",
-                desc: "Manually add a candidate with a name and email. Aria sends the invite. They get a secure link — no login, no profile required.",
-              },
-              {
-                icon: Link2,
-                title: "Share one link",
-                desc: "Post your apply link to LinkedIn, Naukri, or your own careers page. Every submission enters your pipeline automatically.",
-              },
-            ].map((card, i) => (
-              <FadeUp key={i} delay={i * 0.08}>
-                <div className="rounded-xl border border-white/8 bg-white/3 p-6 h-full">
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
-                    style={{ background: "linear-gradient(135deg,#3b82f615,#7c3aed15)", border: "1px solid rgba(99,102,241,0.2)" }}
-                  >
-                    <card.icon size={18} style={{ color: "#818cf8" }} />
+            <div className="grid sm:grid-cols-2 gap-px bg-purple-100 rounded-2xl overflow-hidden">
+              {FEATURES.map(({ icon: Icon, title, desc }, i) => (
+                <FadeUp key={title} delay={i * 0.08}>
+                  <div className="bg-white p-8 h-full">
+                    <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center mb-5">
+                      <Icon size={20} className="text-coral-500" />
+                    </div>
+                    <h3 className="text-purple-900 font-bold text-base mb-2">{title}</h3>
+                    <p className="text-muted text-sm leading-relaxed">{desc}</p>
                   </div>
-                  <p className="text-white font-semibold mb-2">{card.title}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed">{card.desc}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* BUILT FOR EVERY RECRUITER */}
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <FadeUp>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center">
-              Built for every kind of recruiter.
-            </h2>
-            <p className="text-center text-slate-500 mt-2 text-sm tracking-wide">
-              Solo desk.&nbsp;&nbsp;Agency floor.&nbsp;&nbsp;Enterprise team.
-            </p>
-          </FadeUp>
-          <div className="mt-12 grid sm:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Briefcase,
-                title: "Individual recruiters",
-                desc: "Run your entire pipeline without a coordinator. Aria handles calls while you focus on building relationships with finalists.",
-              },
-              {
-                icon: Users,
-                title: "Staffing companies",
-                desc: "Screen once, reuse scores across every client role. Cut your cost-per-screen and move candidates faster than your competitors.",
-              },
-              {
-                icon: Building2,
-                title: "Enterprise teams",
-                desc: "Consistent, defensible screening across every hire. Centralized dashboards, audit trails, and role-based access for your full team.",
-              },
-            ].map((card, i) => (
-              <FadeUp key={i} delay={i * 0.08}>
-                <div className="rounded-xl border border-white/8 bg-white/3 p-6 h-full hover:border-indigo-500/30 transition-colors">
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
-                    style={{ background: "linear-gradient(135deg,#3b82f615,#7c3aed15)", border: "1px solid rgba(99,102,241,0.2)" }}
-                  >
-                    <card.icon size={18} style={{ color: "#818cf8" }} />
-                  </div>
-                  <p className="text-white font-semibold mb-2">{card.title}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed">{card.desc}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section className="py-24 px-4">
-        <FadeUp>
-          <div
-            className="max-w-2xl mx-auto text-center rounded-2xl p-10 border"
-            style={{
-              background: "linear-gradient(135deg,rgba(59,130,246,0.08),rgba(124,58,237,0.08))",
-              borderColor: "rgba(99,102,241,0.2)",
-              boxShadow: "0 0 60px rgba(99,102,241,0.1)",
-            }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              Start screening smarter today.
-            </h2>
-            <p className="text-slate-400 mt-3">
-              No setup call required. Import your first job and upload resumes in under 5 minutes.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <GradientButton href="/signup">Start free trial</GradientButton>
-              <GradientButton href="/contact" outline>Book a demo</GradientButton>
+                </FadeUp>
+              ))}
             </div>
           </div>
-        </FadeUp>
+        </div>
       </section>
+
+      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Built for how recruiters actually work</h2>
+            <p className="text-muted text-lg max-w-xl mx-auto">No clunky setup. No training candidates. Just results.</p>
+          </FadeUp>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Candidate pipeline",
+                sub: "Drag-and-drop board, auto-updated by Aria",
+                accent: "bg-purple-50",
+                rows: ["Applied · 1,204", "Screened · 480", "Interviewed · 96", "Shortlisted · 10"],
+              },
+              {
+                title: "Interview transcript",
+                sub: "Full transcript + key quotes highlighted",
+                accent: "bg-coral-50",
+                rows: ["Q: Walk me through your last role", "A: I led a team of 12 engineers…", "⭐ Strong leadership signal", "Score: 91 / 100"],
+              },
+              {
+                title: "Recruiter dashboard",
+                sub: "Live metrics, no manual reporting",
+                accent: "bg-surface",
+                rows: ["Time-to-screen: 2.1 days", "Interview pass rate: 8.2%", "Diverse shortlists: 74%", "Avg match score: 88.4"],
+              },
+            ].map(({ title, sub, accent, rows }, i) => (
+              <FadeUp key={title} delay={i * 0.1}>
+                <div className="card-lg p-6 h-full flex flex-col">
+                  <div className={`${accent} rounded-xl p-4 mb-5`}>
+                    <div className="space-y-2">
+                      {rows.map((r) => (
+                        <div key={r} className="bg-white rounded-lg px-3 py-2 text-xs font-medium text-purple-900 shadow-card">
+                          {r}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <h3 className="text-purple-900 font-bold text-base mb-1">{title}</h3>
+                  <p className="text-muted text-sm">{sub}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. CAPABILITIES — mixed grid ────────────────────────────────────── */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Advanced capabilities, out of the box</h2>
+            <p className="text-muted text-lg max-w-xl mx-auto">Everything you need to run enterprise-grade hiring at scale.</p>
+          </FadeUp>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+            {CAPS.map(({ icon: Icon, title, desc, large }, i) => (
+              <FadeUp key={title} delay={i * 0.07} className={large ? "col-span-2 md:col-span-1" : ""}>
+                <div className="card p-7 h-full">
+                  <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center mb-5">
+                    <Icon size={20} className="text-coral-500" />
+                  </div>
+                  <h3 className="text-purple-900 font-bold mb-2">{title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────── */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeUp>
+            <span className="text-7xl gradient-text font-black leading-none select-none">&ldquo;</span>
+            <motion.p
+              key={testimonialIdx}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="text-2xl md:text-3xl font-semibold text-purple-900 leading-snug mt-2 mb-10"
+            >
+              {t.quote}
+            </motion.p>
+            <motion.div
+              key={`meta-${testimonialIdx}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex flex-col items-center gap-2"
+            >
+              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white font-bold text-lg">
+                {t.name[0]}
+              </div>
+              <p className="text-purple-900 font-semibold text-sm">{t.name}</p>
+              <p className="text-muted text-xs">{t.role}</p>
+            </motion.div>
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+                className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <div className="flex gap-2">
+                {TESTIMONIALS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setTestimonialIdx(i)}
+                    className={`h-2 rounded-full transition-all ${i === testimonialIdx ? "gradient-bg w-5" : "bg-purple-200 w-2"}`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)}
+                className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 8. INTEGRATION BADGES ───────────────────────────────────────────── */}
+      <section className="py-16 bg-surface border-y border-purple-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-8">
+            <p className="text-sm font-semibold text-muted/70 uppercase tracking-widest">Plugs into your existing stack</p>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {INTEGRATIONS.map(({ name, highlight }) => (
+                <span
+                  key={name}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                    highlight
+                      ? "gradient-bg text-white shadow-btn"
+                      : "bg-white text-purple-900 border border-purple-100 shadow-card"
+                  }`}
+                >
+                  {name}
+                </span>
+              ))}
+              <span className="px-4 py-2 rounded-full text-sm font-semibold text-muted bg-white border border-dashed border-purple-200">
+                +30 more
+              </span>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 9. PRICING ──────────────────────────────────────────────────────── */}
+      <section className="py-24 bg-white" id="pricing">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-12">
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Simple, transparent pricing</h2>
+            <p className="text-muted text-lg mb-8 max-w-lg mx-auto">No per-seat fees. No surprise charges. Cancel anytime.</p>
+            <div className="inline-flex items-center gap-1 bg-surface rounded-xl p-1">
+              <button
+                onClick={() => setAnnual(false)}
+                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setAnnual(true)}
+                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}
+              >
+                Annual
+                <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-17%</span>
+              </button>
+            </div>
+          </FadeUp>
+          <div className="grid md:grid-cols-3 gap-6">
+            {PLANS.map(({ name, monthly, annually, desc, features, cta, primary }, i) => (
+              <FadeUp key={name} delay={i * 0.08}>
+                <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
+                  {primary && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                      Most popular
+                    </span>
+                  )}
+                  <p className="text-purple-900 font-bold text-lg mb-1">{name}</p>
+                  <p className="text-muted text-sm mb-5">{desc}</p>
+                  <div className="mb-6">
+                    {monthly !== null ? (
+                      <>
+                        <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                        <span className="text-muted text-sm ml-1">/month</span>
+                        {annual && <p className="text-xs text-muted/70 mt-1">billed annually</p>}
+                      </>
+                    ) : (
+                      <span className="text-3xl font-extrabold gradient-text">Custom</span>
+                    )}
+                  </div>
+                  <ul className="space-y-3 flex-1 mb-8">
+                    {features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
+                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={cta === "Talk to sales" ? "/contact" : "/signup"}
+                    className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${
+                      primary
+                        ? "gradient-bg text-white shadow-btn hover:opacity-90"
+                        : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"
+                    }`}
+                  >
+                    {cta}
+                  </a>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 10. FINAL CTA ───────────────────────────────────────────────────── */}
+      <section className="py-28 bg-surface relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden>
+          <div className="absolute rounded-[40px] gradient-bg opacity-[0.07]"
+               style={{ width: 400, height: 400, top: "-15%", right: "-8%", transform: "rotate(20deg)" }} />
+          <div className="absolute rounded-[32px] opacity-[0.05]"
+               style={{ width: 260, height: 260, bottom: "-10%", left: "-5%", transform: "rotate(-15deg)",
+                        background: "linear-gradient(135deg, #E8E4F8, #FCE8E7)" }} />
+        </div>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <FadeUp>
+            <h2 className="text-5xl font-extrabold text-purple-900 mb-5">
+              Ready to hire <span className="gradient-text">10× faster?</span>
+            </h2>
+            <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
+              Join hundreds of recruiting teams who&apos;ve handed the volume work to Aria — and got their time back.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <GradientButton href="/signup" className="px-8 py-4 text-base">
+                Start free trial — no credit card <ArrowRight size={16} className="ml-2" />
+              </GradientButton>
+              <GradientButton href="/contact" outline className="px-8 py-4 text-base">
+                Talk to sales
+              </GradientButton>
+            </div>
+            <p className="text-xs text-muted/60 mt-6">14-day free trial · Cancel anytime · GDPR compliant</p>
+          </FadeUp>
+        </div>
+      </section>
+
     </main>
   );
 }
