@@ -176,7 +176,7 @@ export default function HomePage() {
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 xl:grid-cols-[62%_38%] gap-16 items-center">
             <div>
               <FadeUp delay={0}>
                 <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6">
@@ -184,9 +184,12 @@ export default function HomePage() {
                 </span>
               </FadeUp>
               <FadeUp delay={0.08}>
-                <h1 className="text-5xl lg:text-6xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
-                  Hire 10× faster with{" "}
-                  <span className="gradient-text">Aria</span>,<br />
+                <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
+                  <span className="xl:whitespace-nowrap">
+                    Hire 10× faster with{" "}
+                    <span className="gradient-text">Aria</span>,
+                  </span>
+                  <br />
                   your AI recruiter
                 </h1>
               </FadeUp>

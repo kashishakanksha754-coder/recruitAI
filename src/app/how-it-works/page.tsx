@@ -72,7 +72,9 @@ export default function HowItWorksPage() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
+            {/* Vertical timeline line */}
             <div className="absolute left-[28px] top-0 bottom-0 w-px bg-purple-100 hidden sm:block" />
+
             <div className="space-y-12">
               {STAGES.map(({ icon: Icon, step, title, desc, detail }, i) => (
                 <StageRow key={step} icon={Icon} step={step} title={title} desc={desc} detail={detail} index={i} />
@@ -83,8 +85,16 @@ export default function HowItWorksPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-surface">
-        <div className="max-w-2xl mx-auto px-4 text-center">
+      <section className="py-20 bg-white relative overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+          <defs>
+            <pattern id="hiw-cta-dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C4C2E0" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hiw-cta-dot-grid)" opacity="0.45" />
+        </svg>
+        <div className="max-w-2xl mx-auto px-4 text-center relative">
           <FadeUp>
             <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Ready to see it live?</h2>
             <p className="text-muted mb-8">Get your first shortlist in 48 hours. No credit card required.</p>
@@ -114,11 +124,13 @@ function StageRow({
       transition={{ duration: 0.5, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       className="flex gap-8 items-start"
     >
+      {/* Icon in circle */}
       <div className="relative shrink-0">
         <div className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-btn">
           <Icon size={22} className="text-white" />
         </div>
       </div>
+      {/* Content */}
       <div className="flex-1 pt-1">
         <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">Step {step}</span>
         <h3 className="text-xl font-bold text-purple-900 mb-2">{title}</h3>

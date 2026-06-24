@@ -344,8 +344,16 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20">
-        <div className="max-w-xl mx-auto px-4 text-center">
+      <section className="py-20 bg-white relative overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+          <defs>
+            <pattern id="pricing-cta-dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C4C2E0" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#pricing-cta-dot-grid)" opacity="0.45" />
+        </svg>
+        <div className="max-w-xl mx-auto px-4 text-center relative">
           <FadeUp>
             <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Still have questions?</h2>
             <p className="text-muted mb-8">Talk to a human on our team — no sales pressure.</p>
