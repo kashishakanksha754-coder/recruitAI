@@ -1,6 +1,6 @@
 "use client";
 import { motion, useReducedMotion, type Transition } from "framer-motion";
-import { FileText, CheckCircle, Phone, Star } from "lucide-react";
+import { FileText, CheckCircle, Phone, Star, Clock } from "lucide-react";
 
 const float = (y: number[], duration: number) => {
   const transition: Transition = { duration, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" };
@@ -24,6 +24,10 @@ const badges = [
     icon: Star,        label: "Aria recommended", color: "text-purple-700",
     bg: "bg-purple-50", top: "24%", right: "4%",
   },
+  {
+    icon: Clock,       label: "Decision in 2 days", color: "text-coral-500",
+    bg: "bg-coral-50", top: "72%", left: "46%",
+  },
 ];
 
 export default function FloatingShapes() {
@@ -32,7 +36,7 @@ export default function FloatingShapes() {
   return (
     <div className="relative w-full h-[480px] select-none" aria-hidden>
 
-      {/* Large primary shape */}
+      {/* Large primary shape — coral/purple gradient, 20% opacity with soft glow */}
       <motion.div
         className="absolute rounded-[36px]"
         style={{
@@ -45,7 +49,7 @@ export default function FloatingShapes() {
         {...(reduced ? {} : float([0, -16, 0], 7))}
       />
 
-      {/* Medium secondary shape */}
+      {/* Medium secondary shape — lavender tint, solid enough to read */}
       <motion.div
         className="absolute rounded-[28px]"
         style={{
@@ -58,7 +62,7 @@ export default function FloatingShapes() {
         {...(reduced ? {} : float([0, 12, 0], 9))}
       />
 
-      {/* Small accent circle */}
+      {/* Small accent circle — gradient, visible opacity */}
       <motion.div
         className="absolute rounded-full"
         style={{
@@ -71,7 +75,7 @@ export default function FloatingShapes() {
         {...(reduced ? {} : float([0, -10, 0], 5))}
       />
 
-      {/* Floating pill badges */}
+      {/* Floating pill badges — white with real drop-shadow for lift on white bg */}
       {badges.map(({ icon: Icon, label, color, bg, top, left, right }, i) => (
         <motion.div
           key={label}
