@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import { Mail, Calendar } from "lucide-react";
+import { Mail, Calendar, ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -12,121 +13,115 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="bg-navy-950 min-h-screen pt-24">
-      <section className="py-16 px-4">
-        <div className="max-w-xl mx-auto">
+    <main className="pt-24 pb-20 bg-white">
+      <section className="py-20 bg-surface">
+        <div className="max-w-xl mx-auto px-4 sm:px-6 text-center">
           <FadeUp>
-            <h1 className="text-4xl font-bold text-white">Get in touch.</h1>
-            <p className="text-slate-500 mt-2 text-sm">
-              Questions about the product, a custom pricing conversation, or just want to see it in action — send us a note.
-            </p>
+            <h1 className="text-5xl font-extrabold text-purple-900 mb-4 tracking-tight">
+              Let&apos;s <span className="gradient-text">talk</span>
+            </h1>
+            <p className="text-muted text-xl">We respond to every message within one business day.</p>
           </FadeUp>
+        </div>
+      </section>
 
-          {submitted ? (
-            <FadeUp delay={0.05}>
-              <div
-                className="mt-10 rounded-xl border p-8 text-center"
-                style={{ borderColor: "rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.06)" }}
-              >
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                  style={{ background: "linear-gradient(135deg,#3b82f6,#7c3aed)" }}
-                >
-                  <Mail size={20} className="text-white" />
+      <section className="py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[40%_60%] gap-16 items-start">
+            <FadeUp>
+              <div className="space-y-5">
+                <div className="card p-6 flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center shrink-0">
+                    <Mail size={20} className="text-coral-500" />
+                  </div>
+                  <div>
+                    <p className="text-purple-900 font-bold text-sm mb-1">Email us</p>
+                    <p className="text-muted text-sm">hello@recruitai.app</p>
+                    <p className="text-xs text-muted/70 mt-1">Responses within 24 hours</p>
+                  </div>
                 </div>
-                <p className="text-white font-semibold text-lg">Message received.</p>
-                <p className="text-slate-400 text-sm mt-2">We&apos;ll reply to your work email within one business day.</p>
+                <div className="card p-6 flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center shrink-0">
+                    <Calendar size={20} className="text-coral-500" />
+                  </div>
+                  <div>
+                    <p className="text-purple-900 font-bold text-sm mb-1">Book a demo</p>
+                    <p className="text-muted text-sm">30-minute live walkthrough</p>
+                    <p className="text-xs text-muted/70 mt-1">No sales pressure. See the product live.</p>
+                  </div>
+                </div>
+                <div className="bg-gradient-to-br from-purple-50 to-coral-50 rounded-2xl p-6">
+                  <p className="text-purple-900 font-bold text-sm mb-2">Enterprise inquiry?</p>
+                  <p className="text-muted text-sm leading-relaxed">
+                    For custom contracts, volume pricing, SSO, or dedicated support — use the form and mention &ldquo;Enterprise&rdquo; in your message.
+                  </p>
+                </div>
               </div>
             </FadeUp>
-          ) : (
-            <FadeUp delay={0.08}>
-              <form onSubmit={handleSubmit} className="mt-10 space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
+
+            <FadeUp delay={0.1}>
+              {submitted ? (
+                <div className="card-lg p-12 text-center">
+                  <div className="w-16 h-16 rounded-full gradient-bg mx-auto mb-5 flex items-center justify-center">
+                    <ArrowRight size={24} className="text-white" />
+                  </div>
+                  <h2 className="text-2xl font-extrabold text-purple-900 mb-3">Message sent!</h2>
+                  <p className="text-muted">We&apos;ll get back to you within one business day.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="card-lg p-8 space-y-5">
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-xs font-semibold text-purple-900 mb-1.5">Name</label>
+                      <input
+                        type="text" required
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white"
+                        placeholder="Your name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-purple-900 mb-1.5">Work email</label>
+                      <input
+                        type="email" required
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white"
+                        placeholder="you@company.com"
+                      />
+                    </div>
+                  </div>
                   <div>
-                    <label className="block text-slate-400 text-sm mb-1">Full name</label>
+                    <label className="block text-xs font-semibold text-purple-900 mb-1.5">Company</label>
                     <input
-                      required
                       type="text"
-                      className="w-full rounded-lg px-4 py-2.5 text-sm text-white bg-white/5 border border-white/10 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30"
-                      placeholder="Kashish Anand"
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white"
+                      placeholder="Your company (optional)"
                     />
                   </div>
                   <div>
-                    <label className="block text-slate-400 text-sm mb-1">Work email</label>
-                    <input
-                      required
-                      type="email"
-                      className="w-full rounded-lg px-4 py-2.5 text-sm text-white bg-white/5 border border-white/10 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30"
-                      placeholder="you@company.com"
+                    <label className="block text-xs font-semibold text-purple-900 mb-1.5">Message</label>
+                    <textarea
+                      required rows={5}
+                      value={form.message}
+                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white resize-none"
+                      placeholder="Tell us about your hiring needs…"
                     />
                   </div>
-                </div>
-                <div>
-                  <label className="block text-slate-400 text-sm mb-1">Company name</label>
-                  <input
-                    type="text"
-                    className="w-full rounded-lg px-4 py-2.5 text-sm text-white bg-white/5 border border-white/10 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30"
-                    placeholder="Acme Staffing"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-400 text-sm mb-1">I am a:</label>
-                  <select
-                    className="w-full rounded-lg px-4 py-2.5 text-sm text-white bg-navy-900 border border-white/10 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30"
-                    style={{ background: "#0d1528" }}
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 rounded-xl text-sm font-semibold text-white gradient-bg shadow-btn hover:opacity-90 transition-all"
                   >
-                    <option value="">Select one</option>
-                    <option>Individual recruiter</option>
-                    <option>Staffing company</option>
-                    <option>Enterprise team</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-slate-400 text-sm mb-1">Message</label>
-                  <textarea
-                    rows={4}
-                    className="w-full rounded-lg px-4 py-2.5 text-sm text-white bg-white/5 border border-white/10 focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 resize-none"
-                    placeholder="Tell us what you're looking for..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-3 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg,#3b82f6,#7c3aed)" }}
-                >
-                  Send message
-                </button>
-              </form>
+                    Send message <ArrowRight size={14} className="inline ml-1.5" />
+                  </button>
+                </form>
+              )}
             </FadeUp>
-          )}
-
-          <FadeUp delay={0.15}>
-            <div
-              className="mt-8 rounded-xl border p-5 flex items-start gap-4"
-              style={{ borderColor: "rgba(99,102,241,0.2)", background: "rgba(99,102,241,0.04)" }}
-            >
-              <div
-                className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ background: "linear-gradient(135deg,#3b82f615,#7c3aed15)", border: "1px solid rgba(99,102,241,0.2)" }}
-              >
-                <Calendar size={16} style={{ color: "#818cf8" }} />
-              </div>
-              <div>
-                <p className="text-white text-sm font-medium">Running a larger team?</p>
-                <p className="text-slate-500 text-sm mt-1">
-                  Book a 30-minute live demo. We&apos;ll walk through the full pipeline with your actual job requirements.
-                </p>
-                <a
-                  href="#"
-                  className="text-xs font-medium mt-2 inline-block"
-                  style={{ color: "#818cf8" }}
-                >
-                  Book a demo call →
-                </a>
-              </div>
-            </div>
-          </FadeUp>
+          </div>
         </div>
       </section>
     </main>
