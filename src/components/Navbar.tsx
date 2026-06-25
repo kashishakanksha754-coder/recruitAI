@@ -53,11 +53,11 @@ export default function Navbar() {
             Log in
           </Link>
           <Link
-            href="/signup"
+            href="/demo"
             className="text-sm px-5 py-2.5 rounded-xl font-semibold text-white shadow-btn transition-all hover:opacity-90"
             style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
           >
-            Start free trial
+            Try the demo
           </Link>
         </div>
 
@@ -83,11 +83,11 @@ export default function Navbar() {
               Log in
             </Link>
             <Link
-              href="/signup"
+              href="/demo"
               className="text-center text-sm font-semibold text-white py-2.5 rounded-xl"
               style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
             >
-              Start free trial
+              Try the demo
             </Link>
           </div>
         </div>
