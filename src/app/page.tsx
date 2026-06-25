@@ -53,7 +53,6 @@ function AuditFeed() {
 function DiamondStack() {
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="diamond-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -62,25 +61,20 @@ function DiamondStack() {
         </defs>
         <rect width="100%" height="100%" fill="url(#diamond-grid)" />
       </svg>
-      {/* Glow beam */}
       <div className="absolute top-4 bottom-12 left-1/2 -translate-x-1/2 w-px pointer-events-none"
            style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.55) 0%, rgba(45,27,105,0.45) 100%)" }} />
-      {/* Diamond 1 — coral */}
       <div className="absolute left-1/2"
            style={{ top: 16, width: 48, height: 48, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
-      {/* Diamond 2 — mid purple */}
       <div className="absolute left-1/2"
            style={{ top: 72, width: 40, height: 40, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
-      {/* Diamond 3 — deep purple */}
       <div className="absolute left-1/2"
            style={{ top: 122, width: 32, height: 32, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
-      {/* Pill */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
         <span className="text-[11px] font-semibold text-purple-900">1,000 → 10 in 48 hours</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
@@ -100,7 +94,6 @@ function IntegrationGrid() {
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -109,7 +102,6 @@ function IntegrationGrid() {
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
       </svg>
-      {/* Icon badges */}
       {ITEMS.map(({ icon: Icon, color, bg, style }, i) => (
         <div
           key={i}
@@ -139,7 +131,6 @@ const TESTIMONIALS = [
     name: "Priya Nair", role: "Chief People Officer · Luminos",
   },
 ];
-
 
 const PLANS = [
   {
@@ -238,7 +229,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 3. ARIA HUB ───────────────────────────────────────────────────── */}
-      <section className="py-24 bg-surface">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet Aria — your AI interviewer</h2>
