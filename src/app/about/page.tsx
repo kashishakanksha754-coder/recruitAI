@@ -9,17 +9,11 @@ const VALUES = [
   { icon: Globe,  title: "Global by default", desc: "40+ languages, GDPR compliance, and EEOC-safe audit trails built in from day one." },
 ];
 
-const TEAM = [
-  { name: "Elena Vasquez",   role: "CEO & Co-founder",         bg: "from-coral-400 to-purple-700" },
-  { name: "James Okonkwo",   role: "CTO & Co-founder",         bg: "from-purple-700 to-coral-400" },
-  { name: "Aiko Tanaka",     role: "Head of AI Research",      bg: "from-coral-300 to-purple-600" },
-  { name: "David Brennan",   role: "VP of Customer Success",   bg: "from-purple-600 to-coral-300" },
-];
-
 export default function AboutPage() {
   return (
     <main className="pt-24 pb-20">
 
+      {/* Header */}
       <section className="py-24 bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
@@ -34,19 +28,26 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Mission */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
             <FadeUp>
               <h2 className="text-4xl font-extrabold text-purple-900 mb-6">The problem we&apos;re solving</h2>
               <div className="space-y-4 text-muted leading-relaxed">
-                <p>The average recruiter reviews 250 resumes per role. They conduct 30+ screening calls to produce 5 candidates worth presenting. That&apos;s weeks of work before a single qualified person reaches the hiring manager.</p>
-                <p>Aria handles the entire volume layer — resume parsing, phone screens, structured interviews — so your team&apos;s judgment goes where it matters most: relationship building and final assessment.</p>
-                <p>We don&apos;t replace recruiters. We give them back the parts of the job they actually love.</p>
+                <p>
+                  The average recruiter reviews 250 resumes per role. They conduct 30+ screening calls to produce 5 candidates worth presenting. That&apos;s weeks of work before a single qualified person reaches the hiring manager.
+                </p>
+                <p>
+                  Aria handles the entire volume layer — resume parsing, phone screens, structured interviews — so your team&apos;s judgment goes where it matters most: relationship building and final assessment.
+                </p>
+                <p>
+                  We don&apos;t replace recruiters. We give them back the parts of the job they actually love.
+                </p>
               </div>
             </FadeUp>
-            <FadeUp delay={0.15}>
-              <div className="grid grid-cols-2 gap-4">
+            <FadeUp delay={0.15} className="h-full">
+              <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
                 {[
                   { stat: "1,200",  label: "Avg applicants per role processed" },
                   { stat: "48h",    label: "Average time to verified shortlist" },
@@ -64,18 +65,17 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Values */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900">What we stand for</h2>
           </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
               <FadeUp key={title} delay={i * 0.08}>
-                <div className="card p-7 h-full">
-                  <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center mb-5">
-                    <Icon size={20} className="text-coral-500" />
-                  </div>
+                <div className="p-7 h-full">
+                  <Icon size={22} className="text-coral-500 mb-5" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
                   <h3 className="text-purple-900 font-bold mb-2">{title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{desc}</p>
                 </div>
@@ -85,30 +85,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-purple-900">The team</h2>
-            <p className="text-muted mt-3 text-lg">Former engineers and recruiters from Google, Greenhouse, and Sequoia-backed startups.</p>
-          </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TEAM.map(({ name, role, bg }, i) => (
-              <FadeUp key={name} delay={i * 0.08}>
-                <div className="card p-6 text-center">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${bg} mx-auto mb-4 flex items-center justify-center text-white text-xl font-bold`}>
-                    {name[0]}
-                  </div>
-                  <p className="text-purple-900 font-bold text-sm">{name}</p>
-                  <p className="text-muted text-xs mt-1">{role}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-surface">
-        <div className="max-w-xl mx-auto px-4 text-center">
+      {/* CTA */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+          <defs>
+            <pattern id="about-cta-dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C4C2E0" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#about-cta-dot-grid)" opacity="0.45" />
+        </svg>
+        <div className="max-w-xl mx-auto px-4 text-center relative">
           <FadeUp>
             <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Come build with us</h2>
             <p className="text-muted mb-8">We&apos;re hiring across engineering, research, and customer success.</p>
