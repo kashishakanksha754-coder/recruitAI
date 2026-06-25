@@ -6,8 +6,8 @@ import { Mic2, MessageCircle, ShieldCheck, Globe, Video, Sparkles } from "lucide
 const BASE = 600;
 const CX = BASE / 2;
 const CY = BASE / 2;
-const RING_R = 215;
-const CARD = 76;
+const RING_R = 210;
+const CARD = 72;
 
 function polar(deg: number, r = RING_R) {
   const rad = (deg * Math.PI) / 180;
@@ -57,7 +57,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
 
           {/* Outer pulsing glow */}
           <motion.circle
-            cx={CX} cy={CY} r={145}
+            cx={CX} cy={CY} r={140}
             fill="url(#ah-glow)" filter="url(#ah-halo)"
             style={{ transformOrigin: `${CX}px ${CY}px` }}
             animate={reduced ? {} : { scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
@@ -73,7 +73,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             transition={{ duration: 1, delay: 0.2 }}
           />
 
-          {/* Mid-point dots */}
+          {/* Mid-point dots on ring */}
           {MID_DOTS.map((a, i) => {
             const { x, y } = polar(a);
             return (
@@ -99,7 +99,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         </svg>
 
-        {/* ── Center "Aria" label (inside orb) ── */}
+        {/* ── Center \"Aria\" label ── */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <motion.div
             className="flex flex-col items-center"
@@ -110,69 +110,61 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             <Sparkles size={26} strokeWidth={1.5} className="mb-2" style={{ color: "rgba(255,255,255,0.85)" }} />
             <span
               className="text-[34px] font-extrabold leading-none tracking-tight"
-              style={{ color: "#1E1057", textShadow: "0 1px 0 rgba(255,255,255,0.4)" }}
+              style={{ color: "#1E1057" }}
             >
               Aria
             </span>
             <span
               className="text-[12px] font-semibold tracking-wider mt-1.5"
-              style={{ color: "rgba(255,255,255,0.7)" }}
+              style={{ color: "rgba(255,255,255,0.75)" }}
             >
               AI Interviewer
             </span>
           </motion.div>
         </div>
 
-        {/* ── Node icon cards ── */}
-        {NODES.map(({ angle, Icon, coral }, i) => {
+        {/* ── Node groups: card + label, card center ON ring ── */}
+        {NODES.map(({ angle, lines, Icon, coral }, i) => {
           const { x, y } = polar(angle);
           return (
             <motion.div
-              key={`card-${i}`}
-              className="absolute flex items-center justify-center rounded-[20px] bg-white"
+              key={i}
+              className="absolute flex flex-col items-center"
               style={{
-                left: x, top: y,
-                width: CARD, height: CARD,
-                transform: "translate(-50%, -50%)",
-                boxShadow: "0 6px 28px rgba(139,92,246,0.15), 0 1px 4px rgba(139,92,246,0.07)",
+                left: x,
+                top: y - CARD / 2,
+                transform: "translateX(-50%)",
+                gap: 10,
               }}
-              initial={{ opacity: 0, scale: 0.55 }}
+              initial={{ opacity: 0, scale: 0.6 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: reduced ? 0 : 0.45 + i * 0.1, ease: "easeOut" }}
             >
+              {/* White icon card */}
               <div
-                className="w-11 h-11 rounded-2xl flex items-center justify-center"
+                className="flex items-center justify-center rounded-[18px] bg-white shrink-0"
                 style={{
-                  background: coral
-                    ? "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)"
-                    : "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)",
+                  width: CARD, height: CARD,
+                  boxShadow: "0 6px 28px rgba(139,92,246,0.15), 0 1px 4px rgba(139,92,246,0.06)",
                 }}
               >
-                <Icon size={22} className="text-white" strokeWidth={1.8} />
+                <div
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center"
+                  style={{
+                    background: coral
+                      ? "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)"
+                      : "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)",
+                  }}
+                >
+                  <Icon size={22} className="text-white" strokeWidth={1.8} />
+                </div>
               </div>
-            </motion.div>
-          );
-        })}
-
-        {/* ── Node labels (below each card) ── */}
-        {NODES.map(({ angle, lines }, i) => {
-          const { x, y } = polar(angle);
-          return (
-            <motion.div
-              key={`label-${i}`}
-              className="absolute text-center"
-              style={{
-                left: x,
-                top: y + CARD / 2 + 10,
-                transform: "translateX(-50%)",
-              }}
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.4, delay: reduced ? 0 : 0.6 + i * 0.1 }}
-            >
-              {lines.map((l, j) => (
-                <p key={j} className="text-[12px] font-bold text-purple-900 leading-[1.45] whitespace-nowrap">{l}</p>
-              ))}
+              {/* Label */}
+              <div className="text-center">
+                {lines.map((l, j) => (
+                  <p key={j} className="text-[12px] font-bold text-purple-900 leading-[1.45] whitespace-nowrap">{l}</p>
+                ))}
+              </div>
             </motion.div>
           );
         })}
