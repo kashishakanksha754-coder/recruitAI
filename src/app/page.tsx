@@ -53,7 +53,6 @@ function AuditFeed() {
 function DiamondStack() {
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="diamond-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -62,25 +61,20 @@ function DiamondStack() {
         </defs>
         <rect width="100%" height="100%" fill="url(#diamond-grid)" />
       </svg>
-      {/* Glow beam */}
       <div className="absolute top-4 bottom-12 left-1/2 -translate-x-1/2 w-px pointer-events-none"
            style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.55) 0%, rgba(45,27,105,0.45) 100%)" }} />
-      {/* Diamond 1 — coral */}
       <div className="absolute left-1/2"
            style={{ top: 16, width: 48, height: 48, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
-      {/* Diamond 2 — mid purple */}
       <div className="absolute left-1/2"
            style={{ top: 72, width: 40, height: 40, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
-      {/* Diamond 3 — deep purple */}
       <div className="absolute left-1/2"
            style={{ top: 122, width: 32, height: 32, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
-      {/* Pill */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
         <span className="text-[11px] font-semibold text-purple-900">1,000 → 10 in 48 hours</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
@@ -100,7 +94,6 @@ function IntegrationGrid() {
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -109,7 +102,6 @@ function IntegrationGrid() {
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
       </svg>
-      {/* Icon badges */}
       {ITEMS.map(({ icon: Icon, color, bg, style }, i) => (
         <div
           key={i}
@@ -139,7 +131,6 @@ const TESTIMONIALS = [
     name: "Priya Nair", role: "Chief People Officer · Luminos",
   },
 ];
-
 
 const PLANS = [
   {
@@ -248,29 +239,44 @@ export default function HomePage() {
             <FadeUp delay={0.1} className="flex justify-center">
               <AriaHub />
             </FadeUp>
-            <FadeUp delay={0.2} className="space-y-4">
-              {[
-                { step: "1", label: "Candidate applies",  sub: "Resume auto-parsed in 3s" },
-                { step: "2", label: "Aria calls them",    sub: "Adaptive voice interview" },
-                { step: "3", label: "Score + transcript", sub: "Delivered to your inbox" },
-              ].map(({ step, label, sub }) => (
+            <FadeUp delay={0.2}>
+              <div className="relative">
+                {/* Timeline vertical line */}
                 <div
-                  key={step}
-                  className="flex items-center gap-4 rounded-2xl p-5 bg-white"
-                  style={{ boxShadow: "0 4px 24px rgba(45,27,105,0.08), 0 1px 4px rgba(45,27,105,0.04)" } as React.CSSProperties}
-                >
-                  <span
-                    className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0"
-                    style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}
+                  className="absolute left-[17px] top-[44px]"
+                  style={{
+                    width: 2,
+                    bottom: 44,
+                    background: "linear-gradient(180deg, #F0625A 0%, #7B5CC4 50%, #2D1B69 100%)",
+                    borderRadius: 2,
+                    opacity: 0.2,
+                  } as React.CSSProperties}
+                />
+                {[
+                  { step: "1", label: "Candidate applies",  sub: "Resume auto-parsed in 3s" },
+                  { step: "2", label: "Aria calls them",    sub: "Adaptive voice interview" },
+                  { step: "3", label: "Score + transcript", sub: "Delivered to your inbox" },
+                ].map(({ step, label, sub }, i) => (
+                  <div
+                    key={step}
+                    className={`flex items-center gap-4 ${i < 2 ? "mb-5" : ""}`}
                   >
-                    {step}
-                  </span>
-                  <div>
-                    <p className="text-purple-900 font-semibold text-sm">{label}</p>
-                    <p className="text-muted text-xs mt-0.5">{sub}</p>
+                    <span
+                      className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0 relative z-10"
+                      style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}
+                    >
+                      {step}
+                    </span>
+                    <div
+                      className="flex-1 rounded-2xl p-5 bg-white"
+                      style={{ boxShadow: "0 4px 20px rgba(45,27,105,0.07), 0 1px 3px rgba(45,27,105,0.04)" } as React.CSSProperties}
+                    >
+                      <p className="text-purple-900 font-semibold text-sm">{label}</p>
+                      <p className="text-muted text-xs mt-0.5">{sub}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </FadeUp>
           </div>
         </div>
@@ -365,17 +371,11 @@ export default function HomePage() {
           </FadeUp>
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
-
-              {/* Col 1 — Built-in fairness */}
               <div className="flex flex-col pr-0 md:pr-10 pb-10 md:pb-0">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">Built-in fairness</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">40+ languages. Every decision logged with audit trails.</p>
-                <div className="flex-1">
-                  <AuditFeed />
-                </div>
+                <div className="flex-1"><AuditFeed /></div>
               </div>
-
-              {/* Col 2 — Speed at scale */}
               <div className="flex flex-col border-t md:border-t-0 md:border-l border-coral-300 pt-10 md:pt-0 md:px-10 pb-10 md:pb-0">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">2-day turnaround</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">From 1,000 applicants to 10 verified matches.</p>
@@ -386,16 +386,11 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-
-              {/* Col 3 — ATS integrations */}
               <div className="flex flex-col border-t md:border-t-0 md:border-l border-purple-200 pt-10 md:pt-0 md:pl-10">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">ATS integrations</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">Works with Greenhouse, Lever, Workday, and 30+ more.</p>
-                <div className="flex-1">
-                  <IntegrationGrid />
-                </div>
+                <div className="flex-1"><IntegrationGrid /></div>
               </div>
-
             </div>
           </FadeUp>
         </div>
