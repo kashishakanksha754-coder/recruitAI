@@ -6,7 +6,7 @@ import { Mic2, MessageCircle, ShieldCheck, Globe, Video, Sparkles } from "lucide
 const BASE = 600;
 const CX = BASE / 2;
 const CY = BASE / 2;
-const RING_R = 210;
+const RING_R = 225;
 const CARD = 72;
 
 function polar(deg: number, r = RING_R) {
@@ -28,7 +28,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const size = compact ? 340 : 480;
+  const size = compact ? 360 : 500;
   const scale = size / BASE;
 
   return (
@@ -51,7 +51,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
               <stop offset="100%" stopColor="#A78BFA" stopOpacity="0"   />
             </radialGradient>
             <filter id="ah-halo" filterUnits="userSpaceOnUse" x="60" y="60" width="480" height="480">
-              <feGaussianBlur stdDeviation="28" />
+              <feGaussianBlur stdDeviation="18" />
             </filter>
           </defs>
 
@@ -99,7 +99,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         </svg>
 
-        {/* ── Center \"Aria\" label ── */}
+        {/* ── Center "Aria" label ── */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <motion.div
             className="flex flex-col items-center"
