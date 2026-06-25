@@ -48,6 +48,18 @@ body {
   }
 }
 
+/* Stat grid icon — default glow + hover intensify */
+.stat-icon {
+  filter: drop-shadow(0 1px 3px rgba(240, 98, 90, 0.25));
+  transition: filter 0.3s ease;
+}
+.stat-icon-cell:hover .stat-icon {
+  filter: drop-shadow(0 3px 10px rgba(240, 98, 90, 0.55));
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-icon { transition: none; }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #F5F4F8; }
