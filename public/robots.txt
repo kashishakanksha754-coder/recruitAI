@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /demo
+Disallow: /api/
+
+Sitemap: https://recruitai.app/sitemap.xml

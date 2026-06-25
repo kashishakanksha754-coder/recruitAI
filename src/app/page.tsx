@@ -7,7 +7,14 @@ import GradientButton from "@/components/GradientButton";
 import FloatingShapes from "@/components/FloatingShapes";
 import AriaHub from "@/components/AriaHub";
 
-const LOGOS = ["Stripe", "Shopify", "Notion", "Vercel", "Linear", "Figma"];
+const TRUST_MESSAGES = [
+  "Voice + video interviewing",
+  "Bias-aware scoring",
+  "40+ languages",
+  "GDPR compliant",
+  "ATS integrations",
+  "Candidate notifications",
+];
 
 const FEATURES = [
   { icon: FileText,  title: "Resume Parsing",   desc: "AI extracts skills, tenure, and signals in under 3 seconds per CV." },
@@ -15,8 +22,6 @@ const FEATURES = [
   { icon: BarChart2, title: "Smart Scoring",     desc: "Candidates ranked by fit — not keyword matching — using role-specific rubrics." },
   { icon: Users,     title: "Recruiter Handoff", desc: "Top 10 verified matches land in your inbox with full interview summaries." },
 ];
-
-// ── Capabilities illustrations ─────────────────────────────────────────────
 
 function AuditFeed() {
   const ENTRIES = [
@@ -120,15 +125,15 @@ function IntegrationGrid() {
 const TESTIMONIALS = [
   {
     quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced 8 genuinely great candidates. Our recruiters finally have time to recruit.",
-    name: "Sarah Chen", role: "Head of Talent · Acme Corp",
+    name: "Sarah C.", role: "Head of Talent · Series B startup",
   },
   {
     quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.",
-    name: "Marcus Riley", role: "VP People · Novatech",
+    name: "Marcus R.", role: "VP People · Tech company",
   },
   {
     quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse hire rates improved 22% in Q1.",
-    name: "Priya Nair", role: "Chief People Officer · Luminos",
+    name: "Priya N.", role: "Chief People Officer · Scale-up",
   },
 ];
 
@@ -164,7 +169,7 @@ export default function HomePage() {
   return (
     <main className="overflow-x-hidden">
 
-      {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── 1. HERO ─────────────────────────────────────────────── */}
       <section className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 xl:grid-cols-[62%_38%] gap-16 items-center">
@@ -200,8 +205,8 @@ export default function HomePage() {
               </FadeUp>
               <FadeUp delay={0.28}>
                 <div className="flex flex-wrap gap-3">
-                  <GradientButton href="/signup" className="px-7 py-3.5 text-base">
-                    Start free trial <ArrowRight size={16} className="ml-2" />
+                  <GradientButton href="/demo" className="px-7 py-3.5 text-base">
+                    Try the demo <ArrowRight size={16} className="ml-2" />
                   </GradientButton>
                   <GradientButton href="/how-it-works" outline className="px-7 py-3.5 text-base">
                     See how it works
@@ -216,19 +221,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. TRUST STRIP ──────────────────────────────────────────────────── */}
+      {/* ── 2. FEATURE STRIP ────────────────────────────────────────── */}
       <section className="py-12 border-y border-purple-100 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">Trusted by teams at</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-            {LOGOS.map((logo) => (
-              <span key={logo} className="text-purple-300 font-bold text-lg tracking-tight select-none">{logo}</span>
+          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">Teams like yours are switching to AI-first hiring</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+            {TRUST_MESSAGES.map((msg) => (
+              <span key={msg} className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-coral-400 shrink-0" />
+                {msg}
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 3. ARIA HUB ─────────────────────────────────────────────────────── */}
+      {/* ── 3. ARIA HUB ─────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -241,7 +249,6 @@ export default function HomePage() {
             </FadeUp>
             <FadeUp delay={0.2}>
               <div className="relative">
-                {/* Timeline vertical line */}
                 <div
                   className="absolute left-[17px] top-[44px]"
                   style={{
@@ -282,7 +289,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────── */}
+      {/* ── 4. FEATURE HIGHLIGHT ─────────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[35%_65%] gap-16 items-start">
@@ -362,7 +369,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────── */}
+      {/* ── 6. CAPABILITIES ──────────────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -382,7 +389,10 @@ export default function HomePage() {
                 <div className="flex-1">
                   <DiamondStack />
                   <p className="mt-3 text-[11px] text-muted/60 text-center max-w-[200px] mx-auto">
-                    98% of hiring managers rate Aria-screened candidates higher
+                    98% of hiring managers rate Aria-screened candidates higher*
+                  </p>
+                  <p className="mt-1 text-[10px] text-muted/40 text-center max-w-[200px] mx-auto italic">
+                    *Projected target metric
                   </p>
                 </div>
               </div>
@@ -396,10 +406,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────── */}
+      {/* ── 7. TESTIMONIAL ─────────────────────────────────────────────── */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
+            <p className="text-xs text-muted/50 font-medium tracking-wide uppercase mb-6">Illustrative — based on early pilot conversations</p>
             <span className="text-7xl gradient-text font-black leading-none select-none">&ldquo;</span>
             <motion.p
               key={testimonialIdx}
@@ -427,6 +438,7 @@ export default function HomePage() {
               <button
                 onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
                 className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
+                aria-label="Previous testimonial"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -435,6 +447,7 @@ export default function HomePage() {
                   <button
                     key={i}
                     onClick={() => setTestimonialIdx(i)}
+                    aria-label={`Testimonial ${i + 1}`}
                     className={`h-2 rounded-full transition-all ${i === testimonialIdx ? "gradient-bg w-5" : "bg-purple-200 w-2"}`}
                   />
                 ))}
@@ -442,6 +455,7 @@ export default function HomePage() {
               <button
                 onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)}
                 className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
+                aria-label="Next testimonial"
               >
                 <ChevronRight size={16} />
               </button>
@@ -450,7 +464,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
+      {/* ── 8. PRICING ────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
@@ -503,7 +517,7 @@ export default function HomePage() {
                     ))}
                   </ul>
                   <a
-                    href={cta === "Talk to sales" ? "/contact" : "/signup"}
+                    href={cta === "Talk to sales" ? "/contact" : "/demo"}
                     className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${
                       primary
                         ? "gradient-bg text-white shadow-btn hover:opacity-90"
@@ -516,10 +530,11 @@ export default function HomePage() {
               </FadeUp>
             ))}
           </div>
+          <p className="text-center text-[11px] text-muted/50 mt-6 italic">Prices are indicative. Final pricing confirmed at account setup.</p>
         </div>
       </section>
 
-      {/* ── 9. FINAL CTA ────────────────────────────────────────────────────── */}
+      {/* ── 9. FINAL CTA ────────────────────────────────────────────────── */}
       <section className="py-28 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
@@ -535,11 +550,11 @@ export default function HomePage() {
               Ready to hire <span className="gradient-text">10× faster?</span>
             </h2>
             <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
-              Join hundreds of recruiting teams who&apos;ve handed the volume work to Aria — and got their time back.
+              Built for recruiting teams who need to move fast without sacrificing quality — hand the volume work to Aria and get your time back.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <GradientButton href="/signup" className="px-8 py-4 text-base">
-                Start free trial — no credit card <ArrowRight size={16} className="ml-2" />
+              <GradientButton href="/demo" className="px-8 py-4 text-base">
+                Explore the demo <ArrowRight size={16} className="ml-2" />
               </GradientButton>
               <GradientButton href="/contact" outline className="px-8 py-4 text-base">
                 Talk to sales
