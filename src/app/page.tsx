@@ -16,7 +16,7 @@ const FEATURES = [
   { icon: Users,     title: "Recruiter Handoff", desc: "Top 10 verified matches land in your inbox with full interview summaries." },
 ];
 
-// ── Capabilities illustrations ───────────────────────────────────────────────
+// ── Capabilities illustrations ─────────────────────────────────────────────
 
 function AuditFeed() {
   const ENTRIES = [
@@ -53,6 +53,7 @@ function AuditFeed() {
 function DiamondStack() {
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
+      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="diamond-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -61,20 +62,25 @@ function DiamondStack() {
         </defs>
         <rect width="100%" height="100%" fill="url(#diamond-grid)" />
       </svg>
+      {/* Glow beam */}
       <div className="absolute top-4 bottom-12 left-1/2 -translate-x-1/2 w-px pointer-events-none"
            style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.55) 0%, rgba(45,27,105,0.45) 100%)" }} />
+      {/* Diamond 1 — coral */}
       <div className="absolute left-1/2"
            style={{ top: 16, width: 48, height: 48, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
+      {/* Diamond 2 — mid purple */}
       <div className="absolute left-1/2"
            style={{ top: 72, width: 40, height: 40, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
+      {/* Diamond 3 — deep purple */}
       <div className="absolute left-1/2"
            style={{ top: 122, width: 32, height: 32, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
+      {/* Pill */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
         <span className="text-[11px] font-semibold text-purple-900">1,000 → 10 in 48 hours</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
@@ -94,6 +100,7 @@ function IntegrationGrid() {
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
+      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -102,6 +109,7 @@ function IntegrationGrid() {
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
       </svg>
+      {/* Icon badges */}
       {ITEMS.map(({ icon: Icon, color, bg, style }, i) => (
         <div
           key={i}
@@ -131,6 +139,7 @@ const TESTIMONIALS = [
     name: "Priya Nair", role: "Chief People Officer · Luminos",
   },
 ];
+
 
 const PLANS = [
   {
@@ -164,7 +173,7 @@ export default function HomePage() {
   return (
     <main className="overflow-x-hidden">
 
-      {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
+      {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 xl:grid-cols-[62%_38%] gap-16 items-center">
@@ -228,18 +237,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. ARIA HUB ───────────────────────────────────────────────────── */}
+      {/* ── 3. ARIA HUB ─────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet Aria — your AI interviewer</h2>
             <p className="text-muted text-lg max-w-xl mx-auto">She adapts every conversation in real-time, in any language, on any device.</p>
           </FadeUp>
-          <div className="grid lg:grid-cols-3 gap-12 items-start">
+          <div className="grid lg:grid-cols-[58%_42%] gap-12 items-center">
             <FadeUp delay={0.1} className="flex justify-center">
               <AriaHub />
             </FadeUp>
-            <FadeUp delay={0.2} className="space-y-3">
+            <FadeUp delay={0.2} className="space-y-4">
               {[
                 { step: "1", label: "Candidate applies",  sub: "Resume auto-parsed in 3s" },
                 { step: "2", label: "Aria calls them",    sub: "Adaptive voice interview" },
@@ -247,14 +256,8 @@ export default function HomePage() {
               ].map(({ step, label, sub }) => (
                 <div
                   key={step}
-                  className="flex items-center gap-4 rounded-2xl p-5"
-                  style={{
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    background: "rgba(255,255,255,0.80)",
-                    border: "1px solid rgba(255,255,255,0.25)",
-                    boxShadow: "0 4px 24px rgba(45,27,105,0.08), 0 1px 4px rgba(45,27,105,0.05)",
-                  } as React.CSSProperties}
+                  className="flex items-center gap-4 rounded-2xl p-5 bg-white"
+                  style={{ boxShadow: "0 4px 24px rgba(45,27,105,0.08), 0 1px 4px rgba(45,27,105,0.04)" } as React.CSSProperties}
                 >
                   <span
                     className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0"
@@ -269,31 +272,11 @@ export default function HomePage() {
                 </div>
               ))}
             </FadeUp>
-            <FadeUp delay={0.3}>
-              <div className="rounded-2xl bg-surface overflow-hidden">
-                <div className="grid grid-cols-2 divide-x divide-y divide-purple-100">
-                  {[
-                    { icon: Phone,    label: "Voice Calls",    desc: "Calls every candidate automatically"  },
-                    { icon: Globe,    label: "40+ Languages",  desc: "Interviews in the candidate's language" },
-                    { icon: Shield,   label: "Bias Audit",     desc: "Every decision logged and explainable" },
-                    { icon: BarChart2,label: "Live Analytics", desc: "Real-time pipeline metrics"             },
-                    { icon: Clock,    label: "48h Turnaround", desc: "From 1,000 applicants to 10 verified"  },
-                    { icon: Star,     label: "98% CSAT",       desc: "Candidates rate Aria-led interviews"   },
-                  ].map(({ icon: Icon, label, desc }) => (
-                    <div key={label} className="stat-icon-cell p-5 flex flex-col gap-2">
-                      <Icon size={18} className="text-coral-500 stat-icon" />
-                      <p className="text-purple-900 font-bold text-sm leading-tight">{label}</p>
-                      <p className="text-muted text-xs leading-relaxed">{desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
           </div>
         </div>
       </section>
 
-      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────────── */}
+      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[35%_65%] gap-16 items-start">
@@ -325,7 +308,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────────── */}
+      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -373,7 +356,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────────────── */}
+      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -418,7 +401,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────────────── */}
+      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────── */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
@@ -472,7 +455,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. PRICING ──────────────────────────────────────────────────────────────── */}
+      {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
@@ -541,7 +524,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 9. FINAL CTA ──────────────────────────────────────────────────────────────── */}
+      {/* ── 9. FINAL CTA ────────────────────────────────────────────────────── */}
       <section className="py-28 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
