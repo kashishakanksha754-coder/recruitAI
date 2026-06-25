@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Mail, Calendar, Building2, Copy, Check, ArrowRight, ExternalLink } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 
-// ─── Copy-to-clipboard value box ──────────────────────────────────────────────────
+// ─── Copy-to-clipboard value box ─────────────────────────────────────────────
 function CopyBox({ value, href }: { value: string; href?: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -49,7 +49,7 @@ function CopyBox({ value, href }: { value: string; href?: string }) {
   );
 }
 
-// ─── Lightweight SVG dot-map of the world ────────────────────────────────────────────
+// ─── Lightweight SVG dot-map of the world ────────────────────────────────────
 function WorldDotMap() {
   const DOT_GRID: [number, number][] = [
     // North America
@@ -146,7 +146,7 @@ function WorldDotMap() {
   );
 }
 
-// ─── Contact page ─────────────────────────────────────────────────────────────────────
+// ─── Contact page ─────────────────────────────────────────────────────────────
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
@@ -171,60 +171,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Divided strip ──────────────────────────────────────────────────────── */}
-      <section className="py-16 bg-[#FAFBFF] border-y border-purple-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100">
-
-              {/* Col 1 — Email */}
-              <div className="flex flex-col px-8 py-8 lg:py-0 first:pl-0 last:pr-0">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
-                  <Mail size={18} className="text-purple-900" />
-                </div>
-                <p className="text-purple-900 font-bold text-sm mb-1">Email us</p>
-                <p className="text-muted text-xs leading-relaxed">Responses within 24 hours, every working day.</p>
-                <CopyBox value="hello@recruitai.app" />
-              </div>
-
-              {/* Col 2 — Book a demo */}
-              <div className="flex flex-col px-8 py-8 lg:py-0">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
-                  <Calendar size={18} className="text-purple-900" />
-                </div>
-                <p className="text-purple-900 font-bold text-sm mb-1">Book a demo</p>
-                <p className="text-muted text-xs leading-relaxed">30-minute live walkthrough. No sales pressure.</p>
-                <CopyBox value="30-min live walkthrough" href="https://calendly.com/recruitai" />
-              </div>
-
-              {/* Col 3 — Enterprise */}
-              <div className="flex flex-col px-8 py-8 lg:py-0">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
-                  <Building2 size={18} className="text-purple-900" />
-                </div>
-                <p className="text-purple-900 font-bold text-sm mb-1">Enterprise inquiry</p>
-                <p className="text-muted text-xs leading-relaxed">
-                  Custom contracts, volume pricing, SSO, and dedicated CSM. Mention &ldquo;Enterprise&rdquo; in the form below.
-                </p>
-                <div className="mt-4 flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-xs font-medium text-muted">
-                  Use the contact form ↓
-                </div>
-              </div>
-
-              {/* Col 4 — World map */}
-              <div className="flex flex-col items-center justify-center px-8 py-8 lg:py-0">
-                <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-3 text-center">
-                  Teams in 40+ countries
-                </p>
-                <WorldDotMap />
-              </div>
-
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── Contact form ─────────────────────────────────────────────────────── */}
+      {/* ── Contact form ───────────────────────────────────────────────────── */}
       <section className="py-20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <FadeUp className="text-center mb-10">
@@ -292,6 +239,59 @@ export default function ContactPage() {
                 </button>
               </form>
             )}
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── Contact methods ─────────────────────────────────────────────────── */}
+      <section className="py-16 bg-[#FAFBFF] border-y border-purple-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100">
+
+              {/* Col 1 — Email */}
+              <div className="flex flex-col px-8 py-8 lg:py-0 first:pl-0 last:pr-0">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
+                  <Mail size={18} className="text-purple-900" />
+                </div>
+                <p className="text-purple-900 font-bold text-sm mb-1">Email us</p>
+                <p className="text-muted text-xs leading-relaxed">Responses within 24 hours, every working day.</p>
+                <CopyBox value="hello@recruitai.app" />
+              </div>
+
+              {/* Col 2 — Book a demo */}
+              <div className="flex flex-col px-8 py-8 lg:py-0">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
+                  <Calendar size={18} className="text-purple-900" />
+                </div>
+                <p className="text-purple-900 font-bold text-sm mb-1">Book a demo</p>
+                <p className="text-muted text-xs leading-relaxed">30-minute live walkthrough. No sales pressure.</p>
+                <CopyBox value="30-min live walkthrough" href="https://calendly.com/recruitai" />
+              </div>
+
+              {/* Col 3 — Enterprise */}
+              <div className="flex flex-col px-8 py-8 lg:py-0">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
+                  <Building2 size={18} className="text-purple-900" />
+                </div>
+                <p className="text-purple-900 font-bold text-sm mb-1">Enterprise inquiry</p>
+                <p className="text-muted text-xs leading-relaxed">
+                  Custom contracts, volume pricing, SSO, and dedicated CSM. Mention &ldquo;Enterprise&rdquo; in the form above.
+                </p>
+                <div className="mt-4 flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-xs font-medium text-muted">
+                  Use the contact form ↑
+                </div>
+              </div>
+
+              {/* Col 4 — World map */}
+              <div className="flex flex-col items-center justify-center px-8 py-8 lg:py-0">
+                <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-3 text-center">
+                  Teams in 40+ countries
+                </p>
+                <WorldDotMap />
+              </div>
+
+            </div>
           </FadeUp>
         </div>
       </section>
