@@ -42,11 +42,9 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             <stop offset="55%"  stopColor="#7B5CC4" stopOpacity="0.25" />
             <stop offset="100%" stopColor="#2D1B69" stopOpacity="0"    />
           </radialGradient>
-          {/* Fixed-radius blur for glow halo — only opacity/scale are animated */}
           <filter id="orb-blur-filter" filterUnits="userSpaceOnUse" x="40" y="40" width="240" height="240">
             <feGaussianBlur stdDeviation="12" />
           </filter>
-          {/* Spoke glow: blurred copy merged under the sharp original */}
           <filter id="spoke-glow-filter" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="320">
             <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
             <feMerge>
@@ -56,7 +54,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           </filter>
         </defs>
 
-        {/* ── Outer glow halo — slow opacity+scale pulse (GPU: transform+opacity only) ── */}
         <motion.circle
           cx="160" cy="160" r="70"
           fill="url(#orb-glow-grad)"
@@ -69,7 +66,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* ── Spoke lines with soft glow ── */}
         {SPOKES.map((s, i) => (
           <motion.path
             key={i}
@@ -85,7 +81,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         ))}
 
-        {/* ── Traveling pulse dots — CSS x/y transforms (GPU-accelerated) ── */}
         {SPOKES.map((s, i) => (
           <motion.circle
             key={`pulse-${i}`}
@@ -108,7 +103,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         ))}
 
-        {/* ── Spoke endpoint dots ── */}
         {SPOKES.map((s, i) => (
           <motion.circle
             key={`dot-${i}`}
@@ -121,7 +115,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         ))}
 
-        {/* ── Orb inner halo ring ── */}
         <motion.circle
           cx="160" cy="160" r="44"
           fill="url(#hub-grad)"
@@ -130,7 +123,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           transition={{ duration: 0.5, delay: 0.1 }}
         />
 
-        {/* ── Solid orb ── */}
         <motion.circle
           cx="160" cy="160" r="32"
           fill="url(#hub-grad)"
@@ -141,7 +133,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
         />
       </svg>
 
-      {/* ── Center “Aria” label ── */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.span
           className="text-white text-sm font-bold tracking-wide"
@@ -153,7 +144,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
         </motion.span>
       </div>
 
-      {/* ── Glassmorphic spoke labels ── */}
       {SPOKES.map((s, i) => (
         <motion.div
           key={`label-${i}`}
@@ -164,9 +154,9 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             padding: "5px 12px",
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
-            background: "rgba(255,255,255,0.72)",
-            border: "1px solid rgba(139,92,246,0.14)",
-            boxShadow: "0 4px 16px rgba(45,27,105,0.12), 0 1px 3px rgba(45,27,105,0.07)",
+            background: "rgba(255,255,255,0.78)",
+            border: "1px solid rgba(255,255,255,0.22)",
+            boxShadow: "0 4px 16px rgba(45,27,105,0.10), 0 1px 3px rgba(45,27,105,0.06)",
           } as React.CSSProperties}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
