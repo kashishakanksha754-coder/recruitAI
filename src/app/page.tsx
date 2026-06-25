@@ -16,7 +16,7 @@ const FEATURES = [
   { icon: Users,     title: "Recruiter Handoff", desc: "Top 10 verified matches land in your inbox with full interview summaries." },
 ];
 
-// ── Capabilities illustrations ─────────────────────────────────────────────
+// ── Capabilities illustrations ───────────────────────────────────────────────
 
 function AuditFeed() {
   const ENTRIES = [
@@ -173,7 +173,7 @@ export default function HomePage() {
   return (
     <main className="overflow-x-hidden">
 
-      {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── 1. HERO ───────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 xl:grid-cols-[62%_38%] gap-16 items-center">
@@ -237,8 +237,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. ARIA HUB ─────────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      {/* ── 3. ARIA HUB ───────────────────────────────────────────────────── */}
+      <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet Aria — your AI interviewer</h2>
@@ -254,8 +254,21 @@ export default function HomePage() {
                 { step: "2", label: "Aria calls them",    sub: "Adaptive voice interview" },
                 { step: "3", label: "Score + transcript", sub: "Delivered to your inbox" },
               ].map(({ step, label, sub }) => (
-                <div key={step} className="card p-5 flex items-center gap-4">
-                  <span className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0">
+                <div
+                  key={step}
+                  className="flex items-center gap-4 rounded-2xl p-5"
+                  style={{
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    background: "rgba(255,255,255,0.80)",
+                    border: "1px solid rgba(255,255,255,0.25)",
+                    boxShadow: "0 4px 24px rgba(45,27,105,0.08), 0 1px 4px rgba(45,27,105,0.05)",
+                  } as React.CSSProperties}
+                >
+                  <span
+                    className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0"
+                    style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}
+                  >
                     {step}
                   </span>
                   <div>
@@ -276,8 +289,8 @@ export default function HomePage() {
                     { icon: Clock,    label: "48h Turnaround", desc: "From 1,000 applicants to 10 verified"  },
                     { icon: Star,     label: "98% CSAT",       desc: "Candidates rate Aria-led interviews"   },
                   ].map(({ icon: Icon, label, desc }) => (
-                    <div key={label} className="p-5 flex flex-col gap-2">
-                      <Icon size={18} className="text-coral-500" style={{ filter: "drop-shadow(0 1px 3px rgba(240,98,90,0.25))" }} />
+                    <div key={label} className="stat-icon-cell p-5 flex flex-col gap-2">
+                      <Icon size={18} className="text-coral-500 stat-icon" />
                       <p className="text-purple-900 font-bold text-sm leading-tight">{label}</p>
                       <p className="text-muted text-xs leading-relaxed">{desc}</p>
                     </div>
@@ -289,7 +302,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────── */}
+      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[35%_65%] gap-16 items-start">
@@ -321,7 +334,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────── */}
+      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -369,7 +382,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────── */}
+      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -414,7 +427,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────── */}
+      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────────────── */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
@@ -468,7 +481,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
+      {/* ── 8. PRICING ──────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
@@ -537,7 +550,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 9. FINAL CTA ────────────────────────────────────────────────────── */}
+      {/* ── 9. FINAL CTA ──────────────────────────────────────────────────────────────── */}
       <section className="py-28 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>

@@ -164,9 +164,9 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             padding: "5px 12px",
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
-            background: "rgba(255,255,255,0.78)",
-            border: "1px solid rgba(255,255,255,0.22)",
-            boxShadow: "0 4px 16px rgba(45,27,105,0.10), 0 1px 3px rgba(45,27,105,0.06)",
+            background: "rgba(255,255,255,0.72)",
+            border: "1px solid rgba(139,92,246,0.14)",
+            boxShadow: "0 4px 16px rgba(45,27,105,0.12), 0 1px 3px rgba(45,27,105,0.07)",
           } as React.CSSProperties}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
