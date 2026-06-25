@@ -54,7 +54,7 @@ export default function AboutPage() {
                   { stat: "94%",    label: "Hiring manager satisfaction rate" },
                   { stat: "40+",    label: "Languages Aria interviews in" },
                 ].map(({ stat, label }) => (
-                  <div key={stat} className="card p-6 text-center">
+                  <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-3xl font-extrabold gradient-text mb-1">{stat}</p>
                     <p className="text-xs text-muted leading-snug">{label}</p>
                   </div>
