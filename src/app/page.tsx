@@ -7,7 +7,14 @@ import GradientButton from "@/components/GradientButton";
 import FloatingShapes from "@/components/FloatingShapes";
 import AriaHub from "@/components/AriaHub";
 
-const LOGOS = ["Stripe", "Shopify", "Notion", "Vercel", "Linear", "Figma"];
+const TRUST_MESSAGES = [
+  "Voice + video interviewing",
+  "Bias-aware scoring",
+  "40+ languages",
+  "GDPR compliant",
+  "Multi-board job distribution",
+  "Candidate notifications",
+];
 
 const FEATURES = [
   { icon: FileText,  title: "Resume Parsing",   desc: "AI extracts skills, tenure, and signals in under 3 seconds per CV." },
@@ -53,7 +60,6 @@ function AuditFeed() {
 function DiamondStack() {
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="diamond-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -62,25 +68,20 @@ function DiamondStack() {
         </defs>
         <rect width="100%" height="100%" fill="url(#diamond-grid)" />
       </svg>
-      {/* Glow beam */}
       <div className="absolute top-4 bottom-12 left-1/2 -translate-x-1/2 w-px pointer-events-none"
            style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.55) 0%, rgba(45,27,105,0.45) 100%)" }} />
-      {/* Diamond 1 — coral */}
       <div className="absolute left-1/2"
            style={{ top: 16, width: 48, height: 48, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
-      {/* Diamond 2 — mid purple */}
       <div className="absolute left-1/2"
            style={{ top: 72, width: 40, height: 40, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
-      {/* Diamond 3 — deep purple */}
       <div className="absolute left-1/2"
            style={{ top: 122, width: 32, height: 32, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
-      {/* Pill */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
         <span className="text-[11px] font-semibold text-purple-900">1,000 → 10 in 48 hours</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
@@ -98,7 +99,6 @@ function JobDistributionVisual() {
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -106,7 +106,6 @@ function JobDistributionVisual() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
-        {/* Fan lines from source icon to each platform badge */}
         {[30, 42, 55, 68].map((pct, i) => (
           <line
             key={i}
@@ -116,7 +115,6 @@ function JobDistributionVisual() {
           />
         ))}
       </svg>
-      {/* Source: job post icon */}
       <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
         <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
           <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
@@ -125,7 +123,6 @@ function JobDistributionVisual() {
         </div>
         <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">Job post</span>
       </div>
-      {/* Platform badges */}
       <div className="absolute flex flex-col gap-2" style={{ right: "8%", top: "50%", transform: "translateY(-50%)" }}>
         {PLATFORMS.map(({ label, color, text }) => (
           <span
@@ -143,16 +140,16 @@ function JobDistributionVisual() {
 
 const TESTIMONIALS = [
   {
-    quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced 8 genuinely great candidates. Our recruiters finally have time to recruit.",
-    name: "Sarah Chen", role: "Head of Talent · Acme Corp",
+    quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.",
+    name: "S.C.", role: "Head of Talent · Series B startup",
   },
   {
     quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.",
-    name: "Marcus Riley", role: "VP People · Novatech",
+    name: "M.R.", role: "VP People · Growth-stage tech company",
   },
   {
-    quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse hire rates improved 22% in Q1.",
-    name: "Priya Nair", role: "Chief People Officer · Luminos",
+    quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.",
+    name: "P.N.", role: "Chief People Officer · Enterprise SaaS",
   },
 ];
 
@@ -225,8 +222,8 @@ export default function HomePage() {
               </FadeUp>
               <FadeUp delay={0.28}>
                 <div className="flex flex-wrap gap-3">
-                  <GradientButton href="/signup" className="px-7 py-3.5 text-base">
-                    Start free trial <ArrowRight size={16} className="ml-2" />
+                  <GradientButton href="/demo" className="px-7 py-3.5 text-base">
+                    Try the demo <ArrowRight size={16} className="ml-2" />
                   </GradientButton>
                   <GradientButton href="/how-it-works" outline className="px-7 py-3.5 text-base">
                     See how it works
@@ -244,10 +241,13 @@ export default function HomePage() {
       {/* ── 2. TRUST STRIP ──────────────────────────────────────────────────── */}
       <section className="py-12 border-y border-purple-100 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">Trusted by teams at</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-            {LOGOS.map((logo) => (
-              <span key={logo} className="text-purple-300 font-bold text-lg tracking-tight select-none">{logo}</span>
+          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">Teams like yours are switching to AI-first hiring</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+            {TRUST_MESSAGES.map((msg) => (
+              <span key={msg} className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-700/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-coral-400 shrink-0" />
+                {msg}
+              </span>
             ))}
           </div>
         </div>
@@ -266,7 +266,6 @@ export default function HomePage() {
             </FadeUp>
             <FadeUp delay={0.2}>
               <div className="relative">
-                {/* Timeline vertical line */}
                 <div
                   className="absolute left-[17px] top-[44px]"
                   style={{
@@ -397,7 +396,6 @@ export default function HomePage() {
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
 
-              {/* Col 1 — Built-in fairness */}
               <div className="flex flex-col pr-0 md:pr-10 pb-10 md:pb-0">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">Built-in fairness</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">40+ languages. Every decision logged with audit trails.</p>
@@ -406,7 +404,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Col 2 — Speed at scale */}
               <div className="flex flex-col border-t md:border-t-0 md:border-l border-coral-300 pt-10 md:pt-0 md:px-10 pb-10 md:pb-0">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">2-day turnaround</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">From 1,000 applicants to 10 verified matches.</p>
@@ -418,7 +415,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Col 3 — Job distribution */}
               <div className="flex flex-col border-t md:border-t-0 md:border-l border-purple-200 pt-10 md:pt-0 md:pl-10">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">Post once, everywhere</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">Publish a job and it goes out to LinkedIn, Naukri, Glassdoor, and more — instantly, no extra work.</p>
@@ -436,6 +432,7 @@ export default function HomePage() {
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
+            <p className="text-[11px] text-muted/50 italic mb-6">Illustrative — based on early pilot conversations</p>
             <span className="text-7xl gradient-text font-black leading-none select-none">&ldquo;</span>
             <motion.p
               key={testimonialIdx}
@@ -463,6 +460,7 @@ export default function HomePage() {
               <button
                 onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
                 className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
+                aria-label="Previous testimonial"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -471,6 +469,7 @@ export default function HomePage() {
                   <button
                     key={i}
                     onClick={() => setTestimonialIdx(i)}
+                    aria-label={`Testimonial ${i + 1}`}
                     className={`h-2 rounded-full transition-all ${i === testimonialIdx ? "gradient-bg w-5" : "bg-purple-200 w-2"}`}
                   />
                 ))}
@@ -478,6 +477,7 @@ export default function HomePage() {
               <button
                 onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)}
                 className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
+                aria-label="Next testimonial"
               >
                 <ChevronRight size={16} />
               </button>
@@ -552,6 +552,7 @@ export default function HomePage() {
               </FadeUp>
             ))}
           </div>
+          <p className="text-center text-[11px] text-muted/50 mt-6 italic">Prices are indicative.</p>
         </div>
       </section>
 
@@ -574,14 +575,14 @@ export default function HomePage() {
               Join hundreds of recruiting teams who&apos;ve handed the volume work to Aria — and got their time back.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <GradientButton href="/signup" className="px-8 py-4 text-base">
-                Start free trial — no credit card <ArrowRight size={16} className="ml-2" />
+              <GradientButton href="/demo" className="px-8 py-4 text-base">
+                Try the demo — free, no signup <ArrowRight size={16} className="ml-2" />
               </GradientButton>
               <GradientButton href="/contact" outline className="px-8 py-4 text-base">
                 Talk to sales
               </GradientButton>
             </div>
-            <p className="text-xs text-muted/60 mt-6">14-day free trial · Cancel anytime · GDPR compliant</p>
+            <p className="text-xs text-muted/60 mt-6">No account needed · Cancel anytime · GDPR compliant</p>
           </FadeUp>
         </div>
       </section>

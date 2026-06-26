@@ -1,29 +1,20 @@
-import type { Metadata } from "next";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import { Users, Shield, Zap, Globe } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "About Recruit AI — Our Mission and Values",
-  description: "Learn why we built Aria, our mission to give recruiters their time back, and the values that guide how we build.",
-  openGraph: {
-    title: "About Recruit AI — Our Mission and Values",
-    description: "Learn why we built Aria, our mission to give recruiters their time back, and the values that guide how we build.",
-    url: "https://recruitai.app/about",
-  },
-};
-
 const VALUES = [
   { icon: Users,  title: "Recruiters first",  desc: "Every feature is designed for the recruiter experience. Candidates only interact via Aria — never log in." },
-  { icon: Shield, title: "Transparent AI",    desc: "Aria always discloses she’s an AI. Every score is explainable. Every decision is auditable." },
-  { icon: Zap,    title: "Speed with depth",  desc: "Fast doesn’t mean shallow. Our rubrics surface nuance that keyword matching misses entirely." },
+  { icon: Shield, title: "Transparent AI",    desc: "Aria always discloses she's an AI. Every score is explainable. Every decision is auditable." },
+  { icon: Zap,    title: "Speed with depth",  desc: "Fast doesn't mean shallow. Our rubrics surface nuance that keyword matching misses entirely." },
   { icon: Globe,  title: "Global by default", desc: "40+ languages, GDPR compliance, and EEOC-safe audit trails built in from day one." },
 ];
+
 
 export default function AboutPage() {
   return (
     <main className="pt-24 pb-20">
 
+      {/* Header */}
       <section className="py-24 bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
@@ -38,6 +29,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Mission */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-stretch">
@@ -77,6 +69,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Values */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -96,6 +89,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="py-20 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
@@ -111,7 +105,7 @@ export default function AboutPage() {
             <p className="text-muted mb-8">We&apos;re hiring across engineering, research, and customer success.</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <GradientButton href="/contact">Get in touch</GradientButton>
-              <GradientButton href="/demo" outline>Try Recruit AI</GradientButton>
+              <GradientButton href="/demo" outline>Try the demo</GradientButton>
             </div>
           </FadeUp>
         </div>

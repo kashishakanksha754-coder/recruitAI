@@ -17,9 +17,9 @@ export default function Footer() {
             <div className="space-y-2.5">
               {[
                 { href: "/how-it-works", label: "How It Works" },
-                { href: "/pricing", label: "Pricing" },
-                { href: "/#pipeline", label: "Pipeline Stages" },
-                { href: "/demo", label: "Live Demo" },
+                { href: "/pricing",      label: "Pricing" },
+                { href: "/demo",         label: "Live Demo" },
+                { href: "/#pipeline",    label: "Pipeline Stages" },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="block text-muted hover:text-purple-900 text-sm transition-colors">
                   {l.label}
@@ -32,10 +32,10 @@ export default function Footer() {
             <p className="text-purple-900 text-sm font-semibold mb-4">Company</p>
             <div className="space-y-2.5">
               {[
-                { href: "/about", label: "About" },
+                { href: "/about",   label: "About" },
                 { href: "/contact", label: "Contact" },
-                { href: "/login", label: "Log in" },
-                { href: "/signup", label: "Create account" },
+                { href: "/login",   label: "Log in" },
+                { href: "/demo",    label: "Try the demo" },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="block text-muted hover:text-purple-900 text-sm transition-colors">
                   {l.label}
@@ -49,7 +49,7 @@ export default function Footer() {
             <div className="space-y-2.5">
               {[
                 { href: "/legal/privacy", label: "Privacy Policy" },
-                { href: "/legal/terms", label: "Terms of Service" },
+                { href: "/legal/terms",   label: "Terms of Service" },
                 { href: "/legal/cookies", label: "Cookie Policy" },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="block text-muted hover:text-purple-900 text-sm transition-colors">
@@ -64,7 +64,7 @@ export default function Footer() {
           <p className="text-muted/60 text-xs">© 2025 Recruit AI. All rights reserved.</p>
           <div className="flex gap-5">
             <Link href="/legal/privacy" className="text-muted/60 hover:text-muted text-xs transition-colors">Privacy</Link>
-            <Link href="/legal/terms" className="text-muted/60 hover:text-muted text-xs transition-colors">Terms</Link>
+            <Link href="/legal/terms"   className="text-muted/60 hover:text-muted text-xs transition-colors">Terms</Link>
             <Link href="/legal/cookies" className="text-muted/60 hover:text-muted text-xs transition-colors">Cookies</Link>
           </div>
         </div>
