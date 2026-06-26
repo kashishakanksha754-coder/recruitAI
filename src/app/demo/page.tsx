@@ -2,11 +2,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Briefcase,
   Users,
   ChevronRight,
   ArrowLeft,
-  Star,
   MapPin,
   Clock,
   Plus,
@@ -15,8 +13,7 @@ import {
   Upload,
   Zap,
   BarChart2,
-  MessageSquare,
-  ChevronLeft,
+  MessageSquare, 
 } from "lucide-react";
 
 // ── Mock Data ──────────────────────────────────────────────────────────────────
