@@ -1,82 +1,116 @@
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
+import { Users, Shield, Zap, Globe } from "lucide-react";
+
+const VALUES = [
+  { icon: Users,  title: "Recruiters first",  desc: "Every feature is designed for the recruiter experience. Candidates only interact via Aria — never log in." },
+  { icon: Shield, title: "Transparent AI",    desc: "Aria always discloses she's an AI. Every score is explainable. Every decision is auditable." },
+  { icon: Zap,    title: "Speed with depth",  desc: "Fast doesn't mean shallow. Our rubrics surface nuance that keyword matching misses entirely." },
+  { icon: Globe,  title: "Global by default", desc: "40+ languages, GDPR compliance, and EEOC-safe audit trails built in from day one." },
+];
+
 
 export default function AboutPage() {
   return (
-    <main className="bg-navy-950 min-h-screen pt-24">
-      <section className="py-16 px-4">
-        <div className="max-w-2xl mx-auto">
+    <main className="pt-24 pb-20">
+
+      {/* Header */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
-            <p className="text-indigo-400 text-xs font-medium tracking-widest uppercase mb-3">About</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
-              We built this because{" "}
-              <span className="gradient-text">recruiters deserve better tools.</span>
+            <h1 className="text-5xl font-extrabold text-purple-900 mb-6 tracking-tight">
+              We built Aria so recruiters can{" "}
+              <span className="gradient-text">actually recruit</span>
             </h1>
-            <p className="text-slate-500 mt-2 text-sm tracking-wide">
-              Less admin.&nbsp;&nbsp;Faster pipelines.&nbsp;&nbsp;Better hires.
+            <p className="text-muted text-xl leading-relaxed">
+              Recruit AI started because we watched talented recruiters spend 80% of their week on screening calls they never wanted to do. Aria fixes that.
             </p>
           </FadeUp>
+        </div>
+      </section>
 
-          <FadeUp delay={0.1}>
-            <div className="mt-10 space-y-5 text-slate-300 leading-relaxed">
-              <p>
-                Recruiting is skilled work. It requires judgment, relationship-building, and the ability to spot talent that doesn&apos;t fit a standard template.
-              </p>
-              <p>
-                But most of a recruiter&apos;s week isn&apos;t spent on any of that. It&apos;s spent reading resumes that all look the same, sending scheduling emails that never land, and running first-round calls that cover the same five questions every time.
-              </p>
-              <p>
-                We built Recruit AI to take that repetitive work off your plate — so you spend your time on the part only you can do.
-              </p>
-            </div>
-          </FadeUp>
-
-          <FadeUp delay={0.15}>
-            <div
-              className="mt-10 rounded-xl border p-6"
-              style={{ borderColor: "rgba(99,102,241,0.2)", background: "rgba(99,102,241,0.04)" }}
-            >
-              <p className="text-white font-semibold mb-3">Our position on AI and hiring</p>
-              <div className="space-y-3 text-slate-400 text-sm leading-relaxed">
+      {/* Mission */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
+            <FadeUp>
+              <h2 className="text-4xl font-extrabold text-purple-900 mb-6">The problem we&apos;re solving</h2>
+              <div className="space-y-4 text-muted leading-relaxed">
                 <p>
-                  AI is fast and consistent. It doesn&apos;t get tired at resume 400. It doesn&apos;t bring unconscious preference into question scoring.
+                  The average recruiter reviews 250 resumes per role. They conduct 30+ screening calls to produce 5 candidates worth presenting. That&apos;s weeks of work before a single qualified person reaches the hiring manager.
                 </p>
                 <p>
-                  But AI doesn&apos;t know your culture. It doesn&apos;t understand the nuance of what &quot;senior&quot; means at your company, or why the candidate with the non-linear career path is actually the right call.
+                  Aria handles the entire volume layer — resume parsing, phone screens, structured interviews — so your team&apos;s judgment goes where it matters most: relationship building and final assessment.
                 </p>
                 <p>
-                  So we built a clear division: AI handles the volume. You make the final call. Every time, on every hire.
+                  We don&apos;t replace recruiters. We give them back the parts of the job they actually love.
                 </p>
               </div>
-            </div>
-          </FadeUp>
-
-          <FadeUp delay={0.2}>
-            <div className="mt-12">
-              <p className="text-slate-500 text-xs font-medium tracking-widest uppercase mb-4">Built for</p>
-              <div className="grid sm:grid-cols-3 gap-3">
+            </FadeUp>
+            <FadeUp delay={0.15} className="h-full">
+              <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
                 {[
-                  { title: "Independent recruiters", desc: "Running a desk solo and competing against larger teams." },
-                  { title: "Staffing agencies", desc: "Managing high-volume pipelines across multiple client accounts." },
-                  { title: "In-house teams", desc: "Needing consistent, auditable screening across every department." },
-                ].map((item) => (
-                  <div key={item.title} className="rounded-lg border border-white/8 bg-white/3 p-4">
-                    <p className="text-white text-sm font-medium mb-1">{item.title}</p>
-                    <p className="text-slate-500 text-xs leading-snug">{item.desc}</p>
+                  { stat: "1,200",  label: "Avg applicants per role processed" },
+                  { stat: "48h",    label: "Average time to verified shortlist" },
+                  { stat: "94%",    label: "Hiring manager satisfaction rate" },
+                  { stat: "40+",    label: "Languages Aria interviews in" },
+                ].map(({ stat, label }) => (
+                  <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center">
+                    <p className="text-3xl font-extrabold gradient-text mb-1">{stat}</p>
+                    <p className="text-xs text-muted leading-snug">{label}</p>
                   </div>
                 ))}
               </div>
-            </div>
-          </FadeUp>
+              <p className="text-[10px] text-muted/40 text-center mt-3 italic">
+                Figures are projected targets for Phase 1, not yet measured results.
+              </p>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
 
-          <FadeUp delay={0.25}>
-            <div className="mt-14 pt-10 border-t border-white/5 flex flex-col sm:flex-row gap-3">
-              <GradientButton href="/signup">Start free trial</GradientButton>
-              <GradientButton href="/contact" outline>Get in touch</GradientButton>
+      {/* Values */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-16">
+            <h2 className="text-4xl font-extrabold text-purple-900">What we stand for</h2>
+          </FadeUp>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
+            {VALUES.map(({ icon: Icon, title, desc }, i) => (
+              <FadeUp key={title} delay={i * 0.08}>
+                <div className="p-7 h-full">
+                  <Icon size={22} className="text-coral-500 mb-5" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
+                  <h3 className="text-purple-900 font-bold mb-2">{title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+          <defs>
+            <pattern id="about-cta-dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C4C2E0" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#about-cta-dot-grid)" opacity="0.45" />
+        </svg>
+        <div className="max-w-xl mx-auto px-4 text-center relative">
+          <FadeUp>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Come build with us</h2>
+            <p className="text-muted mb-8">We&apos;re hiring across engineering, research, and customer success.</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <GradientButton href="/contact">Get in touch</GradientButton>
+              <GradientButton href="/demo" outline>Try the demo</GradientButton>
             </div>
           </FadeUp>
         </div>
       </section>
+
     </main>
   );
 }

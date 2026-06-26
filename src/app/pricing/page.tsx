@@ -1,245 +1,559 @@
 "use client";
-import { useState } from "react";
-import { CheckCircle, Phone, Video } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Check, ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 
-const plans = [
+const PLANS = [
   {
-    name: "Pilot",
-    price: "Free",
-    period: "",
-    desc: "Test the full pipeline with a small batch. No credit card required.",
-    highlight: false,
+    name: "Starter",
+    monthly: 299, annually: 249,
+    desc: "For small teams hiring 1–3 roles/month",
+    screenLimit: 500, interviewLimit: 50,
     features: [
-      "3 active jobs",
-      "50 CV screens included",
-      "10 AI voice screening minutes",
-      "5 AI video interview minutes",
-      "Bulk upload and apply link",
-      "Email support",
+      "500 resume screens/mo",
+      "50 AI voice interviews/mo",
+      "3 active job roles",
+      "Basic analytics dashboard",
+      "Email + chat support",
     ],
-    cta: "Start for free",
-    href: "/signup",
+    cta: "Start free trial", primary: false,
   },
   {
     name: "Growth",
-    price: "₹9,999",
-    period: "/month",
-    desc: "For individual recruiters and small teams running multiple active roles.",
-    highlight: true,
+    monthly: 799, annually: 665,
+    desc: "For scaling teams with high volume",
+    screenLimit: 2000, interviewLimit: 200,
     features: [
-      "Unlimited active jobs",
-      "Unlimited CV screens",
-      "500 AI voice minutes included",
-      "200 AI video minutes included",
-      "Shareable apply links",
-      "Aria question customization",
-      "Priority email support",
+      "2,000 resume screens/mo",
+      "200 AI voice interviews/mo",
+      "Unlimited active roles",
+      "Multi-board job distribution",
+      "Advanced analytics",
+      "Priority support",
     ],
-    cta: "Start free trial",
-    href: "/signup",
+    cta: "Start free trial", primary: true,
   },
   {
-    name: "Scale",
-    price: "Custom",
-    period: "",
-    desc: "For staffing firms and enterprise teams with high-volume hiring needs.",
-    highlight: false,
+    name: "Enterprise",
+    monthly: null, annually: null,
+    desc: "For large orgs and custom workflows",
+    screenLimit: Infinity, interviewLimit: Infinity,
     features: [
-      "Everything in Growth",
-      "Custom voice and video credit pools",
-      "Team seats with role-based access",
-      "Audit logs and compliance exports",
-      "ATS / CRM integrations",
-      "Dedicated onboarding and account manager",
+      "Unlimited everything",
+      "Custom AI rubrics",
+      "SSO + audit logs",
+      "Dedicated CSM",
+      "SLA guarantee",
+      "Custom integrations",
     ],
-    cta: "Book a demo",
-    href: "/contact",
+    cta: "Talk to sales", primary: false,
   },
 ];
 
-function CreditEstimator() {
-  const [voiceMin, setVoiceMin] = useState(200);
-  const [videoMin, setVideoMin] = useState(100);
-  const voiceCost = (voiceMin * 3.5).toFixed(0);
-  const videoCost = (videoMin * 12).toFixed(0);
-  const total = (Number(voiceCost) + Number(videoCost)).toFixed(0);
+const FAQS = [
+  { q: "Is there a free trial?", a: "Yes — 14 days, full Growth plan features, no credit card required." },
+  { q: "What happens when I hit my screen limit?", a: "We'll notify you at 80%. You can upgrade instantly or wait for the next billing cycle." },
+  { q: "Can candidates tell they're talking to an AI?", a: "Aria introduces herself as an AI interviewer by default. Transparent disclosure is baked in." },
+  { q: "Do candidates need to create accounts?", a: "Never. Candidates interact purely via phone call or a one-time video link." },
+  { q: "Is our data used to train your models?", a: "No. Your data is never used for model training. Full data isolation per account." },
+];
+
+const INR_RATE = 83;
+
+// Proportional widths: Small=250, Medium=1000, Large=5000 → total 6250
+// Visual weights compressed for readability: 12% / 25% / 63%
+const TOPUP_SEGMENTS = [
+  {
+    size: "Small", mins: 250, price: 150, badge: null,
+    weight: 12,
+    from: "#F0625A", to: "#D44E80",
+    glowColor: "rgba(240,98,90,0.55)",
+  },
+  {
+    size: "Medium", mins: 1_000, price: 450, badge: "Save 25%/min",
+    weight: 25,
+    from: "#C44E90", to: "#9B5CC4",
+    glowColor: "rgba(155,92,196,0.55)",
+  },
+  {
+    size: "Large", mins: 5_000, price: 1_750, badge: "Save 42%/min",
+    weight: 63,
+    from: "#7B5CC4", to: "#2D1B69",
+    glowColor: "rgba(45,27,105,0.55)",
+  },
+];
+const INR_RATE_TOPUP = 83;
+
+function TopUpMeter() {
+  const [active, setActive] = useState<number | null>(null);
+  const meterRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(meterRef, { once: true, margin: "-80px" });
 
   return (
-    <div
-      className="rounded-xl border p-6 max-w-lg mx-auto"
-      style={{ borderColor: "rgba(99,102,241,0.2)", background: "rgba(99,102,241,0.04)" }}
-    >
-      <p className="text-white font-semibold mb-1">Estimate your monthly credit usage</p>
-      <p className="text-slate-500 text-sm mb-5">CV screening is always included. You pay only for AI voice and video minutes.</p>
-
-      <div className="space-y-5">
-        <div>
-          <div className="flex justify-between mb-1">
-            <label className="text-slate-400 text-sm flex items-center gap-1">
-              <Phone size={12} style={{ color: "#818cf8" }} /> Voice screening minutes
-            </label>
-            <span className="text-white text-sm font-medium">{voiceMin} min</span>
-          </div>
-          <input
-            type="range" min={0} max={2000} step={50}
-            value={voiceMin}
-            onChange={(e) => setVoiceMin(Number(e.target.value))}
-            className="w-full accent-indigo-500"
-          />
-          <p className="text-slate-600 text-xs mt-1">≈ {Math.round(voiceMin / 7)} candidates at 7 min avg call</p>
+    <div>
+      {/* ── Meter bar ── */}
+      <div ref={meterRef} className="mb-1">
+        {/* Desktop: horizontal */}
+        <div className="hidden sm:flex h-10 rounded-2xl overflow-hidden gap-[3px] bg-purple-50 p-[3px]">
+          {TOPUP_SEGMENTS.map(({ size, weight, from, to, glowColor }, i) => (
+            <motion.div
+              key={size}
+              className="relative rounded-xl overflow-hidden cursor-pointer"
+              style={{
+                flexBasis: `${weight}%`,
+                background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
+                boxShadow: active === i ? `0 0 20px 2px ${glowColor}` : "none",
+              }}
+              initial={{ scaleX: 0, originX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              onHoverStart={() => setActive(i)}
+              onHoverEnd={() => setActive(null)}
+              onTap={() => setActive(active === i ? null : i)}
+            >
+              {/* Shine overlay */}
+              <div
+                className="absolute inset-0 transition-opacity duration-200"
+                style={{
+                  background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)",
+                  opacity: active === i ? 1 : 0.6,
+                }}
+              />
+              {/* Active pulse */}
+              {active === i && (
+                <motion.div
+                  className="absolute inset-0 rounded-xl"
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: 0 }}
+                  transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop" }}
+                  style={{ background: `linear-gradient(90deg, ${from}44 0%, ${to}44 100%)` }}
+                />
+              )}
+            </motion.div>
+          ))}
         </div>
 
-        <div>
-          <div className="flex justify-between mb-1">
-            <label className="text-slate-400 text-sm flex items-center gap-1">
-              <Video size={12} style={{ color: "#818cf8" }} /> Video interview minutes
-            </label>
-            <span className="text-white text-sm font-medium">{videoMin} min</span>
-          </div>
-          <input
-            type="range" min={0} max={1000} step={25}
-            value={videoMin}
-            onChange={(e) => setVideoMin(Number(e.target.value))}
-            className="w-full accent-indigo-500"
-          />
-          <p className="text-slate-600 text-xs mt-1">≈ {Math.round(videoMin / 12)} candidates at 12 min avg interview</p>
+        {/* Mobile: vertical stack */}
+        <div className="sm:hidden flex flex-col gap-[3px] rounded-2xl overflow-hidden bg-purple-50 p-[3px]">
+          {TOPUP_SEGMENTS.map(({ size, weight, from, to, glowColor }, i) => (
+            <motion.div
+              key={size}
+              className="relative rounded-xl overflow-hidden cursor-pointer"
+              style={{
+                height: `${Math.round(weight * 0.7)}px`,
+                minHeight: 28,
+                background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
+                boxShadow: active === i ? `0 0 16px 2px ${glowColor}` : "none",
+              }}
+              initial={{ scaleY: 0, originY: 0 }}
+              animate={inView ? { scaleY: 1 } : {}}
+              transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              onHoverStart={() => setActive(i)}
+              onHoverEnd={() => setActive(null)}
+              onTap={() => setActive(active === i ? null : i)}
+            >
+              <div
+                className="absolute inset-0 transition-opacity duration-200"
+                style={{
+                  background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)",
+                  opacity: active === i ? 1 : 0.6,
+                }}
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      <div className="mt-5 pt-5 border-t border-white/8 grid grid-cols-3 gap-3 text-center">
+      {/* ── Segment labels + pack info zones: equal thirds on desktop ── */}
+      {/* Desktop */}
+      <div className="hidden sm:flex mb-2 mt-2">
+        {TOPUP_SEGMENTS.map(({ size }, i) => (
+          <div key={size} className="flex-1 flex justify-center pt-1">
+            <span
+              className="text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200"
+              style={{ color: active === i ? "#2D1B69" : "#9B9BAD" }}
+            >
+              {size}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop pack info zones: equal thirds so content never squishes */}
+      <div className="hidden sm:flex gap-3">
+        {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
+          <div
+            key={size}
+            className="flex-1 group"
+            onMouseEnter={() => setActive(i)}
+            onMouseLeave={() => setActive(null)}
+          >
+            <div
+              className="px-5 py-5 rounded-2xl transition-all duration-200 cursor-default"
+              style={{
+                background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
+                boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
+              }}
+            >
+              {badge && (
+                <span
+                  className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-3"
+                  style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
+                >
+                  {badge}
+                </span>
+              )}
+              {!badge && <div className="mb-[21px]" />}
+              <p className="text-2xl font-extrabold mb-0.5" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                ${price}
+              </p>
+              <p className="text-sm font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
+              <p className="text-[11px] text-muted/70 mb-4">
+                ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(2)}/min
+              </p>
+              <a
+                href="/demo"
+                className="inline-block text-[11px] font-semibold px-3.5 py-1.5 rounded-lg border transition-all duration-200"
+                style={{
+                  borderColor: active === i ? from : "#E2DDF4",
+                  color: active === i ? from : "#6B6B7D",
+                }}
+              >
+                Buy {size}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile: vertical list */}
+      <div className="sm:hidden space-y-4 mt-6">
+        {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
+          <div
+            key={size}
+            className="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 cursor-pointer"
+            style={{
+              background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.4)",
+              boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
+            }}
+            onClick={() => setActive(active === i ? null : i)}
+          >
+            {/* Color swatch */}
+            <div
+              className="w-3 shrink-0 self-stretch rounded-full"
+              style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
+            />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-0.5">
+                <p className="text-sm font-bold text-purple-900">{size}</p>
+                {badge && (
+                  <span
+                    className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
+                    style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
+                  >
+                    {badge}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted">{mins.toLocaleString()} min · ${(price / mins).toFixed(2)}/min</p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                ${price}
+              </p>
+              <a
+                href="/demo"
+                className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors"
+              >
+                Buy →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-center text-xs text-muted/60 mt-8">
+        1 credit = 1 minute of AI voice or video. Credits are shared across your whole team and never expire while subscribed.
+      </p>
+    </div>
+  );
+}
+
+function EstimatorPanel({ annual }: { annual: boolean }) {
+  const [screens,    setScreens]    = useState(300);
+  const [interviews, setInterviews] = useState(40);
+
+  const plan =
+    screens <= 500 && interviews <= 50   ? PLANS[0] :
+    screens <= 2000 && interviews <= 200 ? PLANS[1] :
+                                           PLANS[2];
+
+  const basePrice: number | null =
+    plan.monthly === null ? null :
+    annual ? (plan.annually as number) : plan.monthly;
+
+  const extraScreens    = Math.max(0, screens    - (plan.screenLimit    === Infinity ? 0 : plan.screenLimit));
+  const extraInterviews = Math.max(0, interviews - (plan.interviewLimit === Infinity ? 0 : plan.interviewLimit));
+
+  return (
+    <div className="bg-surface rounded-2xl p-8 grid md:grid-cols-2 gap-10">
+      {/* Sliders */}
+      <div className="space-y-8">
         <div>
-          <p className="gradient-text font-bold">₹{voiceCost}</p>
-          <p className="text-slate-500 text-xs">Voice credits</p>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold text-purple-900">AI phone pre-screens / month</span>
+            <span className="text-lg font-extrabold gradient-text">{screens}</span>
+          </div>
+          <input
+            type="range" min={0} max={5000} step={50}
+            value={screens}
+            onChange={(e) => setScreens(Number(e.target.value))}
+            className="w-full accent-coral-500 h-1.5 rounded-full cursor-pointer"
+          />
+          <div className="flex justify-between text-[10px] text-muted/60 mt-1">
+            <span>0</span><span>5,000</span>
+          </div>
         </div>
         <div>
-          <p className="gradient-text font-bold">₹{videoCost}</p>
-          <p className="text-slate-500 text-xs">Video credits</p>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold text-purple-900">AI video interviews / month</span>
+            <span className="text-lg font-extrabold gradient-text">{interviews}</span>
+          </div>
+          <input
+            type="range" min={0} max={500} step={10}
+            value={interviews}
+            onChange={(e) => setInterviews(Number(e.target.value))}
+            className="w-full accent-coral-500 h-1.5 rounded-full cursor-pointer"
+          />
+          <div className="flex justify-between text-[10px] text-muted/60 mt-1">
+            <span>0</span><span>500</span>
+          </div>
         </div>
-        <div>
-          <p className="text-white font-bold">₹{total}</p>
-          <p className="text-slate-500 text-xs">Total / month</p>
+      </div>
+
+      {/* Recommended plan */}
+      <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
+        <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">Recommended plan</p>
+        <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{plan.name}</p>
+        {basePrice !== null ? (
+          <>
+            <p className="text-3xl font-extrabold gradient-text mb-0.5">
+              ${basePrice}<span className="text-base text-muted font-normal">/mo</span>
+            </p>
+            <p className="text-xs text-muted/70 mb-4">
+              ≈ ₹{(basePrice * INR_RATE).toLocaleString("en-IN")}/mo {annual ? "· billed annually" : "· billed monthly"}
+            </p>
+          </>
+        ) : (
+          <p className="text-3xl font-extrabold gradient-text mb-4">Custom pricing</p>
+        )}
+
+        {/* Cost breakdown */}
+        <div className="space-y-2 text-xs text-muted mb-5 flex-1">
+          <div className="flex justify-between">
+            <span>Included screens</span>
+            <span className="font-semibold text-purple-900">
+              {plan.screenLimit === Infinity ? "Unlimited" : plan.screenLimit.toLocaleString() + "/mo"}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span>Included interviews</span>
+            <span className="font-semibold text-purple-900">
+              {plan.interviewLimit === Infinity ? "Unlimited" : plan.interviewLimit.toLocaleString() + "/mo"}
+            </span>
+          </div>
+          {extraScreens > 0 && (
+            <div className="flex justify-between text-coral-500">
+              <span>{extraScreens.toLocaleString()} extra screens</span>
+              <span className="font-semibold">Need top-up ↓</span>
+            </div>
+          )}
+          {extraInterviews > 0 && (
+            <div className="flex justify-between text-coral-500">
+              <span>{extraInterviews.toLocaleString()} extra interviews</span>
+              <span className="font-semibold">Need top-up ↓</span>
+            </div>
+          )}
         </div>
+
+        <a
+          href={plan.cta === "Talk to sales" ? "/contact" : "/signup"}
+          className="block text-center py-3 rounded-xl text-sm font-semibold gradient-bg text-white shadow-btn hover:opacity-90 transition-all"
+        >
+          {plan.cta === "Talk to sales" ? "Talk to sales" : `Start ${plan.name}`}
+          <ArrowRight size={14} className="inline ml-1.5" />
+        </a>
       </div>
     </div>
   );
 }
 
 export default function PricingPage() {
-  return (
-    <main className="bg-navy-950 min-h-screen pt-24">
-      {/* HERO */}
-      <section className="py-16 px-4 text-center">
-        <FadeUp>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white">
-            Simple pricing.{" "}
-            <span className="gradient-text">Pay only for what you use.</span>
-          </h1>
-          <p className="text-slate-500 mt-2 text-sm tracking-wide">
-            Unlimited jobs and screening, always included.&nbsp;&nbsp;You&apos;re billed only for AI voice and video minutes.
-          </p>
-          <p className="mt-4 text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
-            CV screening runs on every candidate at no extra cost. You pay only when Aria picks up a call or runs a video interview.
-          </p>
-        </FadeUp>
-      </section>
+  const [annual,   setAnnual]   = useState(true);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-      {/* PLAN CARDS */}
-      <section className="py-10 px-4">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-6">
-          {plans.map((plan, i) => (
-            <FadeUp key={plan.name} delay={i * 0.08}>
-              <div
-                className="rounded-xl border p-6 flex flex-col h-full"
-                style={{
-                  borderColor: plan.highlight ? "rgba(99,102,241,0.5)" : "rgba(255,255,255,0.08)",
-                  background: plan.highlight
-                    ? "linear-gradient(135deg,rgba(59,130,246,0.08),rgba(124,58,237,0.08))"
-                    : "rgba(255,255,255,0.02)",
-                  boxShadow: plan.highlight ? "0 0 30px rgba(99,102,241,0.15)" : "none",
-                }}
+  return (
+    <main className="pt-24 pb-20 bg-white">
+
+      {/* Header */}
+      <section className="py-20 bg-surface">
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <FadeUp>
+            <h1 className="text-5xl font-extrabold text-purple-900 mb-4 tracking-tight">
+              Simple, <span className="gradient-text">transparent pricing</span>
+            </h1>
+            <p className="text-muted text-xl mb-8">No per-seat fees. No surprise charges. Cancel anytime.</p>
+            <div className="inline-flex items-center gap-1 bg-white rounded-xl p-1 shadow-card">
+              <button
+                onClick={() => setAnnual(false)}
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${!annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}
               >
-                {plan.highlight && (
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full w-fit mb-3"
-                    style={{ background: "linear-gradient(135deg,#3b82f6,#7c3aed)", color: "#fff" }}>
-                    Most popular
-                  </span>
-                )}
-                <p className="text-white font-bold text-lg">{plan.name}</p>
-                <div className="mt-2 mb-1">
-                  <span className="text-3xl font-bold text-white">{plan.price}</span>
-                  {plan.period && <span className="text-slate-500 text-sm">{plan.period}</span>}
-                </div>
-                <p className="text-slate-500 text-sm mb-5">{plan.desc}</p>
-                <ul className="space-y-2 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
-                      <CheckCircle size={14} className="mt-0.5 flex-shrink-0" style={{ color: "#818cf8" }} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6">
-                  <GradientButton href={plan.href} className="w-full" outline={!plan.highlight}>
-                    {plan.cta}
-                  </GradientButton>
-                </div>
-              </div>
-            </FadeUp>
-          ))}
+                Monthly
+              </button>
+              <button
+                onClick={() => setAnnual(true)}
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}
+              >
+                Annual
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${annual ? "bg-white/20 text-white" : "bg-coral-100 text-coral-500"}`}>-17%</span>
+              </button>
+            </div>
+          </FadeUp>
         </div>
       </section>
 
-      {/* ESTIMATOR */}
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <FadeUp>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8">
-              Estimate your credit usage.
-            </h2>
-            <CreditEstimator />
+      {/* Plans */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            {PLANS.map(({ name, monthly, annually, desc, features, cta, primary }, i) => (
+              <FadeUp key={name} delay={i * 0.08}>
+                <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
+                  {primary && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                      Most popular
+                    </span>
+                  )}
+                  <p className="text-purple-900 font-bold text-xl mb-1">{name}</p>
+                  <p className="text-muted text-sm mb-6">{desc}</p>
+                  <div className="mb-7">
+                    {monthly !== null ? (
+                      <>
+                        <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                        <span className="text-muted text-sm ml-1">/month</span>
+                        {annual && <p className="text-xs text-muted/70 mt-1">billed annually</p>}
+                      </>
+                    ) : (
+                      <span className="text-4xl font-extrabold gradient-text">Custom</span>
+                    )}
+                  </div>
+                  <ul className="space-y-3 flex-1 mb-8">
+                    {features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
+                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={cta === "Talk to sales" ? "/contact" : "/signup"}
+                    className={`block text-center py-3.5 rounded-xl text-sm font-semibold transition-all ${
+                      primary
+                        ? "gradient-bg text-white shadow-btn hover:opacity-90"
+                        : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"
+                    }`}
+                  >
+                    {cta} {primary && <ArrowRight size={14} className="inline ml-1" />}
+                  </a>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Estimator */}
+      <section className="py-20 bg-surface">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-3">Estimate your month</h2>
+            <p className="text-muted">Drag to match your hiring volume and see exactly what you&apos;d pay.</p>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <EstimatorPanel annual={annual} />
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* Top-ups */}
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4">
+              Voice &amp; video top-ups
+            </span>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-3">Need more minutes?</h2>
+            <p className="text-muted max-w-md mx-auto">Buy extra voice &amp; video credits any time. Bigger bundles cost less per minute.</p>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <TopUpMeter />
           </FadeUp>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-4 border-t border-white/5">
-        <div className="max-w-2xl mx-auto">
-          <FadeUp>
-            <h2 className="text-2xl font-bold text-white text-center mb-10">Common questions</h2>
+      <section className="py-20 bg-surface">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6">
+          <FadeUp className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-purple-900">Frequently asked questions</h2>
           </FadeUp>
-          {[
-            {
-              q: "What counts as a CV screen?",
-              a: "Every resume uploaded or submitted through your apply link is parsed and scored. CV screening is always included — it never counts against a credit balance.",
-            },
-            {
-              q: "What counts as a voice minute?",
-              a: "Each minute Aria spends on a live call with a candidate. The average screening call is 6–8 minutes. You're billed only for actual call time.",
-            },
-            {
-              q: "What counts as a video minute?",
-              a: "Each minute of video interview recorded and analyzed by Aria. Async video interviews average 10–15 minutes per candidate.",
-            },
-            {
-              q: "Can I roll over unused credits?",
-              a: "Credits on the Growth plan roll over for one billing period. Custom agreements on Scale can include larger rollover windows.",
-            },
-            {
-              q: "Is there a contract on Growth?",
-              a: "No. Growth is month-to-month. Cancel any time. Scale plans typically involve an annual agreement.",
-            },
-          ].map((item, i) => (
-            <FadeUp key={i} delay={i * 0.05}>
-              <div className="border-b border-white/8 py-5">
-                <p className="text-white font-medium mb-2">{item.q}</p>
-                <p className="text-slate-400 text-sm leading-relaxed">{item.a}</p>
-              </div>
-            </FadeUp>
-          ))}
+          <div className="space-y-3">
+            {FAQS.map(({ q, a }, i) => (
+              <FadeUp key={i} delay={i * 0.06}>
+                <div className="card overflow-hidden">
+                  <button
+                    className="w-full text-left px-6 py-4 font-semibold text-purple-900 text-sm flex items-center justify-between"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  >
+                    {q}
+                    <span className={`text-muted transition-transform ${openFaq === i ? "rotate-45" : ""}`}>+</span>
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-6 pb-5 text-sm text-muted leading-relaxed border-t border-purple-50 pt-3">
+                      {a}
+                    </div>
+                  )}
+                </div>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+          <defs>
+            <pattern id="pricing-cta-dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C4C2E0" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#pricing-cta-dot-grid)" opacity="0.45" />
+        </svg>
+        <div className="max-w-xl mx-auto px-4 text-center relative">
+          <FadeUp>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Still have questions?</h2>
+            <p className="text-muted mb-8">Talk to a human on our team — no sales pressure.</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <GradientButton href="/signup">Start free trial</GradientButton>
+              <GradientButton href="/contact" outline>Talk to sales</GradientButton>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
     </main>
   );
 }

@@ -23,7 +23,9 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-navy-900/95 backdrop-blur-md border-b border-white/5" : "bg-transparent"
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-[0_1px_20px_rgba(45,27,105,0.08)]"
+          : "bg-white/80 backdrop-blur-sm"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -36,7 +38,7 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-slate-400 hover:text-white text-sm transition-colors"
+              className="text-muted hover:text-purple-900 text-sm font-medium transition-colors"
             >
               {l.label}
             </Link>
@@ -46,46 +48,46 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/login"
-            className="text-slate-400 hover:text-white text-sm px-4 py-2 transition-colors"
+            className="text-muted hover:text-purple-900 text-sm font-medium px-4 py-2 transition-colors"
           >
             Log in
           </Link>
           <Link
-            href="/signup"
-            className="text-sm px-4 py-2 rounded-lg font-medium text-white"
-            style={{ background: "linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%)" }}
+            href="/demo"
+            className="text-sm px-5 py-2.5 rounded-xl font-semibold text-white shadow-btn transition-all hover:opacity-90"
+            style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
           >
-            Start free trial
+            Try the demo
           </Link>
         </div>
 
-        <button className="md:hidden text-slate-400" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-muted" onClick={() => setOpen(!open)}>
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
 
       {open && (
-        <div className="md:hidden bg-navy-900/98 backdrop-blur-md border-b border-white/5 px-4 py-4 space-y-3">
+        <div className="md:hidden bg-white border-b border-purple-100 px-4 py-4 space-y-1">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="block text-slate-400 hover:text-white text-sm py-2"
+              className="block text-muted hover:text-purple-900 text-sm font-medium py-2.5"
               onClick={() => setOpen(false)}
             >
               {l.label}
             </Link>
           ))}
-          <div className="pt-2 flex flex-col gap-2">
-            <Link href="/login" className="text-center text-sm text-slate-400 py-2 border border-white/10 rounded-lg">
+          <div className="pt-3 flex flex-col gap-2">
+            <Link href="/login" className="text-center text-sm text-muted font-medium py-2.5 border border-purple-200 rounded-xl">
               Log in
             </Link>
             <Link
-              href="/signup"
-              className="text-center text-sm font-medium text-white py-2 rounded-lg"
-              style={{ background: "linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%)" }}
+              href="/demo"
+              className="text-center text-sm font-semibold text-white py-2.5 rounded-xl"
+              style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
             >
-              Start free trial
+              Try the demo
             </Link>
           </div>
         </div>

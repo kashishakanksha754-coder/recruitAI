@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #030712;
-  --foreground: #f1f5f9;
-  --brand-blue: #3b82f6;
-  --brand-violet: #7c3aed;
+  --background: #FAFAFA;
+  --foreground: #2D1B69;
+  --muted: #6B6B7D;
+  --coral: #F0625A;
+  --purple: #2D1B69;
+  --surface: #F5F4F8;
 }
 
 body {
@@ -17,49 +19,48 @@ body {
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 
+  /* Purple-to-coral gradient text — the primary highlight treatment */
   .gradient-text {
-    background: linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #F0625A 0%, #2D1B69 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .gradient-border {
-    position: relative;
-    border: 1px solid transparent;
-    background-clip: padding-box;
+  /* Solid gradient fill — used on primary buttons and icon containers */
+  .gradient-bg {
+    background: linear-gradient(135deg, #F0625A 0%, #2D1B69 100%);
   }
 
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, #3b82f620, #7c3aed20);
-    z-index: -1;
+  /* Soft white card with purple shadow */
+  .card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 2px 20px rgba(45,27,105,0.08);
   }
 
-  .glow-blue {
-    box-shadow: 0 0 24px rgba(59, 130, 246, 0.2);
+  .card-lg {
+    background: #FFFFFF;
+    border-radius: 24px;
+    box-shadow: 0 4px 40px rgba(45,27,105,0.12);
   }
+}
 
-  .glow-violet {
-    box-shadow: 0 0 24px rgba(124, 58, 237, 0.2);
-  }
+/* Stat grid icon — default glow + hover intensify */
+.stat-icon {
+  filter: drop-shadow(0 1px 3px rgba(240, 98, 90, 0.25));
+  transition: filter 0.3s ease;
+}
+.stat-icon-cell:hover .stat-icon {
+  filter: drop-shadow(0 3px 10px rgba(240, 98, 90, 0.55));
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-icon { transition: none; }
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0a0f1e;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 3px;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F5F4F8; }
+::-webkit-scrollbar-thumb { background: #D0CBF0; border-radius: 3px; }
