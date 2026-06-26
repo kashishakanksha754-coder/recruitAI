@@ -62,7 +62,6 @@ const FAQS = [
 
 const INR_RATE = 83;
 
-// Visual weights: compressed so Small is wide enough for content (20/27/53)
 const TOPUP_SEGMENTS = [
   {
     size: "Small", mins: 250, price: 150, badge: null,
@@ -94,19 +93,17 @@ function TopUpMeter() {
 
   return (
     <div>
-      {/* ── Desktop: single flex row — each column owns its bar segment + info card ── */}
+      {/* ── Desktop: equal-width columns, bar fills column, cards breathe ── */}
       <div ref={meterRef} className="hidden sm:block">
-        {/* All columns in one flex row — bar segments on top, info below, same flexBasis */}
-        <div className="flex gap-[3px]">
+        <div className="flex gap-3">
           {TOPUP_SEGMENTS.map(({ size, weight, mins, price, badge, from, to, glowColor }, i) => (
             <div
               key={size}
-              className="flex flex-col"
-              style={{ flexBasis: `${weight}%`, minWidth: 0 }}
+              className="flex flex-col flex-1"
               onMouseEnter={() => setActive(i)}
               onMouseLeave={() => setActive(null)}
             >
-              {/* Meter segment */}
+              {/* Meter segment — fills full column width */}
               <motion.div
                 className="relative h-10 rounded-xl overflow-hidden cursor-pointer mb-2"
                 style={{
@@ -148,11 +145,11 @@ function TopUpMeter() {
                 </span>
               </div>
 
-              {/* Info card */}
+              {/* Info card — full size, never squished */}
               <div
-                className="flex-1 px-4 py-4 rounded-2xl transition-all duration-200 cursor-default"
+                className="flex-1 px-6 py-6 rounded-2xl transition-all duration-200 cursor-default"
                 style={{
-                  background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
+                  background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.5)",
                   boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
                 }}
               >
@@ -167,18 +164,18 @@ function TopUpMeter() {
                   <div className="mb-[21px]" />
                 )}
                 <p
-                  className="text-2xl font-extrabold mb-0.5"
+                  className="text-3xl font-extrabold mb-1"
                   style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
                 >
                   ${price}
                 </p>
-                <p className="text-sm font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
-                <p className="text-[11px] text-muted/70 mb-4">
-                  ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(2)}/min
+                <p className="text-sm font-semibold text-purple-900 mb-1">{mins.toLocaleString()} min</p>
+                <p className="text-[11px] text-muted/70 mb-5">
+                  ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(0)}/min
                 </p>
                 <a
                   href="/demo"
-                  className="inline-block text-[11px] font-semibold px-3.5 py-1.5 rounded-lg border transition-all duration-200"
+                  className="inline-block text-sm font-semibold px-4 py-2 rounded-xl border transition-all duration-200"
                   style={{
                     borderColor: active === i ? from : "#E2DDF4",
                     color: active === i ? from : "#6B6B7D",
@@ -223,7 +220,6 @@ function TopUpMeter() {
           ))}
         </div>
 
-        {/* Mobile info list */}
         <div className="space-y-4">
           {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
             <div
@@ -291,7 +287,6 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
 
   return (
     <div className="bg-surface rounded-2xl p-8 grid md:grid-cols-2 gap-10">
-      {/* Sliders */}
       <div className="space-y-8">
         <div>
           <div className="flex items-center justify-between mb-3">
@@ -325,7 +320,6 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         </div>
       </div>
 
-      {/* Recommended plan */}
       <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
         <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">Recommended plan</p>
         <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{plan.name}</p>
@@ -341,8 +335,6 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         ) : (
           <p className="text-3xl font-extrabold gradient-text mb-4">Custom pricing</p>
         )}
-
-        {/* Cost breakdown */}
         <div className="space-y-2 text-xs text-muted mb-5 flex-1">
           <div className="flex justify-between">
             <span>Included screens</span>
@@ -369,7 +361,6 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
             </div>
           )}
         </div>
-
         <a
           href={plan.cta === "Talk to sales" ? "/contact" : "/signup"}
           className="block text-center py-3 rounded-xl text-sm font-semibold gradient-bg text-white shadow-btn hover:opacity-90 transition-all"
@@ -389,7 +380,6 @@ export default function PricingPage() {
   return (
     <main className="pt-24 pb-20 bg-white">
 
-      {/* Header */}
       <section className="py-20 bg-surface">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <FadeUp>
@@ -416,7 +406,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Plans */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
@@ -466,7 +455,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Estimator */}
       <section className="py-20 bg-surface">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
@@ -481,7 +469,7 @@ export default function PricingPage() {
 
       {/* Top-ups */}
       <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
             <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4">
               Voice &amp; video top-ups
@@ -495,7 +483,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="py-20 bg-surface">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <FadeUp className="text-center mb-12">
@@ -524,7 +511,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
