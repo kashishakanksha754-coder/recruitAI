@@ -54,8 +54,8 @@ const PLANS = [
 
 const FAQS = [
   { q: "Is there a free trial?", a: "Yes — 14 days, full Growth plan features, no credit card required." },
-  { q: "What happens when I hit my screen limit?", a: "We’ll notify you at 80%. You can upgrade instantly or wait for the next billing cycle." },
-  { q: "Can candidates tell they’re talking to an AI?", a: "Aria introduces herself as an AI interviewer by default. Transparent disclosure is baked in." },
+  { q: "What happens when I hit my screen limit?", a: "We'll notify you at 80%. You can upgrade instantly or wait for the next billing cycle." },
+  { q: "Can candidates tell they're talking to an AI?", a: "Aria introduces herself as an AI interviewer by default. Transparent disclosure is baked in." },
   { q: "Do candidates need to create accounts?", a: "Never. Candidates interact purely via phone call or a one-time video link." },
   { q: "Is our data used to train your models?", a: "No. Your data is never used for model training. Full data isolation per account." },
 ];
@@ -113,6 +113,7 @@ function TopUpMeter() {
               onHoverEnd={() => setActive(null)}
               onTap={() => setActive(active === i ? null : i)}
             >
+              {/* Shine overlay */}
               <div
                 className="absolute inset-0 transition-opacity duration-200"
                 style={{
@@ -120,6 +121,7 @@ function TopUpMeter() {
                   opacity: active === i ? 1 : 0.6,
                 }}
               />
+              {/* Active pulse */}
               {active === i && (
                 <motion.div
                   className="absolute inset-0 rounded-xl"
@@ -164,7 +166,8 @@ function TopUpMeter() {
         </div>
       </div>
 
-      {/* Segment labels: equal thirds so they stay readable */}
+      {/* ── Segment labels + pack info zones: equal thirds on desktop ── */}
+      {/* Desktop */}
       <div className="hidden sm:flex mb-2 mt-2">
         {TOPUP_SEGMENTS.map(({ size }, i) => (
           <div key={size} className="flex-1 flex justify-center pt-1">
@@ -178,7 +181,7 @@ function TopUpMeter() {
         ))}
       </div>
 
-      {/* Pack info zones: equal thirds so content never squishes */}
+      {/* Desktop pack info zones: equal thirds so content never squishes */}
       <div className="hidden sm:flex gap-3">
         {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
           <div
@@ -237,6 +240,7 @@ function TopUpMeter() {
             }}
             onClick={() => setActive(active === i ? null : i)}
           >
+            {/* Color swatch */}
             <div
               className="w-3 shrink-0 self-stretch rounded-full"
               style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
@@ -259,7 +263,10 @@ function TopUpMeter() {
               <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 ${price}
               </p>
-              <a href="/demo" className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors">
+              <a
+                href="/demo"
+                className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors"
+              >
                 Buy →
               </a>
             </div>
@@ -292,6 +299,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
 
   return (
     <div className="bg-surface rounded-2xl p-8 grid md:grid-cols-2 gap-10">
+      {/* Sliders */}
       <div className="space-y-8">
         <div>
           <div className="flex items-center justify-between mb-3">
@@ -325,6 +333,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         </div>
       </div>
 
+      {/* Recommended plan */}
       <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
         <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">Recommended plan</p>
         <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{plan.name}</p>
@@ -341,6 +350,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
           <p className="text-3xl font-extrabold gradient-text mb-4">Custom pricing</p>
         )}
 
+        {/* Cost breakdown */}
         <div className="space-y-2 text-xs text-muted mb-5 flex-1">
           <div className="flex justify-between">
             <span>Included screens</span>
