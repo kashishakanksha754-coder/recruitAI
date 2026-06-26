@@ -11,7 +11,7 @@ const STAGES = [
     step: "01",
     title: "Post a role",
     desc: "Define the role in plain English. Aria generates a structured rubric — skills, signals, dealbreakers — in seconds. No ATS wizard required.",
-    detail: "Integrates directly with Greenhouse, Lever, Workday, and 30+ others. Or use our native job posting.",
+    detail: "Post once and distribute instantly to LinkedIn, Naukri, Glassdoor, Indeed, and more — no extra steps.",
   },
   {
     icon: FileText,
@@ -32,7 +32,7 @@ const STAGES = [
     step: "04",
     title: "Scores & transcripts",
     desc: "Every interview is transcribed, scored against your rubric, and summarized. Key quotes are highlighted. Red flags are flagged explicitly.",
-    detail: "EEOC-safe audit trail for every decision. Full export to PDF or your ATS.",
+    detail: "EEOC-safe audit trail for every decision. Full export to PDF for your review.",
   },
   {
     icon: CheckCircle,

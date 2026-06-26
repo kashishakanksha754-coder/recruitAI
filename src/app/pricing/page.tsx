@@ -28,7 +28,7 @@ const PLANS = [
       "2,000 resume screens/mo",
       "200 AI voice interviews/mo",
       "Unlimited active roles",
-      "ATS integrations",
+      "Multi-board job distribution",
       "Advanced analytics",
       "Priority support",
     ],
