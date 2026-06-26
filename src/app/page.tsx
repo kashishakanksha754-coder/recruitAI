@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, Clock, Globe, Shield, Star, ChevronLeft } from "lucide-react";
+import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, ChevronLeft } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import FloatingShapes from "@/components/FloatingShapes";
