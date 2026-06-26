@@ -25,7 +25,7 @@ const STAGES = [
     step: "03",
     title: "Aria calls candidates",
     desc: "Aria places a real phone call or video interview. She adapts questions based on each candidate's background, probes weak spots, and follows up naturally.",
-    detail: "40+ languages. Scheduled automatically or on-demand. Candidates consistently rate the experience highly.",
+    detail: "Scheduled automatically or on-demand. Candidates consistently rate the experience highly.",
   },
   {
     icon: BarChart2,
@@ -72,7 +72,9 @@ export default function HowItWorksPage() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
+            {/* Vertical timeline line */}
             <div className="absolute left-[28px] top-0 bottom-0 w-px bg-purple-100 hidden sm:block" />
+
             <div className="space-y-12">
               {STAGES.map(({ icon: Icon, step, title, desc, detail }, i) => (
                 <StageRow key={step} icon={Icon} step={step} title={title} desc={desc} detail={detail} index={i} />
@@ -95,7 +97,7 @@ export default function HowItWorksPage() {
         <div className="max-w-2xl mx-auto px-4 text-center relative">
           <FadeUp>
             <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Ready to see it live?</h2>
-            <p className="text-muted mb-8">No account needed. Explore the full Recruit AI experience in the demo.</p>
+            <p className="text-muted mb-8">Get your first shortlist in 48 hours. No credit card required.</p>
             <GradientButton href="/demo" className="px-8 py-4 text-base">
               Try the demo <ArrowRight size={16} className="ml-2" />
             </GradientButton>
@@ -122,11 +124,13 @@ function StageRow({
       transition={{ duration: 0.5, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       className="flex gap-8 items-start"
     >
+      {/* Icon in circle */}
       <div className="relative shrink-0">
         <div className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-btn">
           <Icon size={22} className="text-white" />
         </div>
       </div>
+      {/* Content */}
       <div className="flex-1 pt-1">
         <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">Step {step}</span>
         <h3 className="text-xl font-bold text-purple-900 mb-2">{title}</h3>
