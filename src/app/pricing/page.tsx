@@ -96,7 +96,7 @@ function TopUpMeter() {
       {/* ── Desktop: equal-width columns, bar fills column, cards breathe ── */}
       <div ref={meterRef} className="hidden sm:block">
         <div className="flex gap-3">
-          {TOPUP_SEGMENTS.map(({ size, weight, mins, price, badge, from, to, glowColor }, i) => (
+          {TOPUP_SEGMENTS.map(({ size, */weight*/, mins, price, badge, from, to, glowColor }, i) => (
             <div
               key={size}
               className="flex flex-col flex-1"
