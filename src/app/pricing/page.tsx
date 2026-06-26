@@ -96,7 +96,6 @@ function TopUpMeter() {
     <div>
       {/* ── Desktop: single flex row — each column owns its bar segment + info card ── */}
       <div ref={meterRef} className="hidden sm:block">
-        {/* All columns in one flex row — bar segments on top, info below, same flexBasis */}
         <div className="flex gap-[3px]">
           {TOPUP_SEGMENTS.map(({ size, weight, mins, price, badge, from, to, glowColor }, i) => (
             <div
@@ -150,7 +149,7 @@ function TopUpMeter() {
 
               {/* Info card */}
               <div
-                className="flex-1 px-4 py-4 rounded-2xl transition-all duration-200 cursor-default"
+                className="flex-1 px-3 py-3 rounded-xl transition-all duration-200 cursor-default"
                 style={{
                   background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
                   boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
@@ -158,27 +157,27 @@ function TopUpMeter() {
               >
                 {badge ? (
                   <span
-                    className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-3"
+                    className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-2"
                     style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
                   >
                     {badge}
                   </span>
                 ) : (
-                  <div className="mb-[21px]" />
+                  <div className="mb-[19px]" />
                 )}
                 <p
-                  className="text-2xl font-extrabold mb-0.5"
+                  className="text-xl font-extrabold mb-0.5"
                   style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
                 >
                   ${price}
                 </p>
-                <p className="text-sm font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
-                <p className="text-[11px] text-muted/70 mb-4">
-                  ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(2)}/min
+                <p className="text-xs font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
+                <p className="text-[10px] text-muted/70 mb-3">
+                  ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(0)}/min
                 </p>
                 <a
                   href="/demo"
-                  className="inline-block text-[11px] font-semibold px-3.5 py-1.5 rounded-lg border transition-all duration-200"
+                  className="inline-block text-[10px] font-semibold px-3 py-1 rounded-lg border transition-all duration-200"
                   style={{
                     borderColor: active === i ? from : "#E2DDF4",
                     color: active === i ? from : "#6B6B7D",
@@ -481,7 +480,7 @@ export default function PricingPage() {
 
       {/* Top-ups */}
       <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
             <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4">
               Voice &amp; video top-ups
