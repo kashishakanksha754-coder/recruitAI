@@ -6,7 +6,7 @@ const VALUES = [
   { icon: Users,  title: "Recruiters first",  desc: "Every feature is designed for the recruiter experience. Candidates only interact via Aria — never log in." },
   { icon: Shield, title: "Transparent AI",    desc: "Aria always discloses she's an AI. Every score is explainable. Every decision is auditable." },
   { icon: Zap,    title: "Speed with depth",  desc: "Fast doesn't mean shallow. Our rubrics surface nuance that keyword matching misses entirely." },
-  { icon: Globe,  title: "Global by default", desc: "40+ languages, GDPR compliance, and EEOC-safe audit trails built in from day one." },
+  { icon: Globe,  title: "Global by default", desc: "GDPR compliance and EEOC-safe audit trails built in from day one." },
 ];
 
 
@@ -53,7 +53,7 @@ export default function AboutPage() {
                   { stat: "1,200",  label: "Avg applicants per role processed" },
                   { stat: "48h",    label: "Average time to verified shortlist" },
                   { stat: "94%",    label: "Hiring manager satisfaction rate" },
-                  { stat: "40+",    label: "Languages Aria interviews in" },
+                  { stat: "100%",   label: "Of decisions logged with a full audit trail" },
                 ].map(({ stat, label }) => (
                   <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-3xl font-extrabold gradient-text mb-1">{stat}</p>

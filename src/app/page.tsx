@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, ChevronLeft } from "lucide-react";
+import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, Clock, Globe, Shield, Star, ChevronLeft } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import FloatingShapes from "@/components/FloatingShapes";
@@ -10,7 +10,7 @@ import AriaHub from "@/components/AriaHub";
 const TRUST_MESSAGES = [
   "Voice + video interviewing",
   "Bias-aware scoring",
-  "40+ languages",
+  "Consistent scoring rubric",
   "GDPR compliant",
   "Multi-board job distribution",
   "Candidate notifications",
@@ -60,6 +60,7 @@ function AuditFeed() {
 function DiamondStack() {
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
+      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="diamond-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -68,22 +69,27 @@ function DiamondStack() {
         </defs>
         <rect width="100%" height="100%" fill="url(#diamond-grid)" />
       </svg>
+      {/* Glow beam */}
       <div className="absolute top-4 bottom-12 left-1/2 -translate-x-1/2 w-px pointer-events-none"
            style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.55) 0%, rgba(45,27,105,0.45) 100%)" }} />
+      {/* Diamond 1 — coral */}
       <div className="absolute left-1/2"
            style={{ top: 16, width: 48, height: 48, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
+      {/* Diamond 2 — mid purple */}
       <div className="absolute left-1/2"
            style={{ top: 72, width: 40, height: 40, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
+      {/* Diamond 3 — deep purple */}
       <div className="absolute left-1/2"
            style={{ top: 122, width: 32, height: 32, borderRadius: 5,
                     transform: "translateX(-50%) rotate(45deg)",
                     background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
+      {/* Pill */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
-        <span className="text-[11px] font-semibold text-purple-900">1,000 → 10 in 48 hours</span>
+        <span className="text-[11px] font-semibold text-purple-900">1,000 → 10, fast</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
       </div>
     </div>
@@ -99,6 +105,7 @@ function JobDistributionVisual() {
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
+      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -106,6 +113,7 @@ function JobDistributionVisual() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
+        {/* Fan lines from source icon to each platform badge */}
         {[30, 42, 55, 68].map((pct, i) => (
           <line
             key={i}
@@ -115,6 +123,7 @@ function JobDistributionVisual() {
           />
         ))}
       </svg>
+      {/* Source: job post icon */}
       <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
         <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
           <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
@@ -123,6 +132,7 @@ function JobDistributionVisual() {
         </div>
         <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">Job post</span>
       </div>
+      {/* Platform badges */}
       <div className="absolute flex flex-col gap-2" style={{ right: "8%", top: "50%", transform: "translateY(-50%)" }}>
         {PLATFORMS.map(({ label, color, text }) => (
           <span
@@ -266,6 +276,7 @@ export default function HomePage() {
             </FadeUp>
             <FadeUp delay={0.2}>
               <div className="relative">
+                {/* Timeline vertical line */}
                 <div
                   className="absolute left-[17px] top-[44px]"
                   style={{
@@ -396,17 +407,19 @@ export default function HomePage() {
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
 
+              {/* Col 1 — Built-in fairness */}
               <div className="flex flex-col pr-0 md:pr-10 pb-10 md:pb-0">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">Built-in fairness</h3>
-                <p className="text-muted text-sm leading-relaxed mb-8">40+ languages. Every decision logged with audit trails.</p>
+                <p className="text-muted text-sm leading-relaxed mb-8">Every decision is scored against the same rubric and logged with a full audit trail.</p>
                 <div className="flex-1">
                   <AuditFeed />
                 </div>
               </div>
 
+              {/* Col 2 — Speed at scale */}
               <div className="flex flex-col border-t md:border-t-0 md:border-l border-coral-300 pt-10 md:pt-0 md:px-10 pb-10 md:pb-0">
-                <h3 className="text-xl font-extrabold text-purple-900 mb-2">2-day turnaround</h3>
-                <p className="text-muted text-sm leading-relaxed mb-8">From 1,000 applicants to 10 verified matches.</p>
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">Days, not weeks</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">From 1,000 applicants to 10 verified matches — without the weeks of back-and-forth.</p>
                 <div className="flex-1">
                   <DiamondStack />
                   <p className="mt-3 text-[11px] text-muted/60 text-center max-w-[200px] mx-auto">
@@ -415,6 +428,7 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {/* Col 3 — Job distribution */}
               <div className="flex flex-col border-t md:border-t-0 md:border-l border-purple-200 pt-10 md:pt-0 md:pl-10">
                 <h3 className="text-xl font-extrabold text-purple-900 mb-2">Post once, everywhere</h3>
                 <p className="text-muted text-sm leading-relaxed mb-8">Publish a job and it goes out to LinkedIn, Naukri, Glassdoor, and more — instantly, no extra work.</p>
@@ -460,7 +474,6 @@ export default function HomePage() {
               <button
                 onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
                 className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
-                aria-label="Previous testimonial"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -469,7 +482,6 @@ export default function HomePage() {
                   <button
                     key={i}
                     onClick={() => setTestimonialIdx(i)}
-                    aria-label={`Testimonial ${i + 1}`}
                     className={`h-2 rounded-full transition-all ${i === testimonialIdx ? "gradient-bg w-5" : "bg-purple-200 w-2"}`}
                   />
                 ))}
@@ -477,7 +489,6 @@ export default function HomePage() {
               <button
                 onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)}
                 className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
-                aria-label="Next testimonial"
               >
                 <ChevronRight size={16} />
               </button>
@@ -552,7 +563,6 @@ export default function HomePage() {
               </FadeUp>
             ))}
           </div>
-          <p className="text-center text-[11px] text-muted/50 mt-6 italic">Prices are indicative.</p>
         </div>
       </section>
 
