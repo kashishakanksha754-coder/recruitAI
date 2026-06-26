@@ -62,24 +62,23 @@ const FAQS = [
 
 const INR_RATE = 83;
 
-// Proportional widths: Small=250, Medium=1000, Large=5000 → total 6250
-// Visual weights compressed for readability: 12% / 25% / 63%
+// Visual weights: compressed so Small is wide enough for content (20/27/53)
 const TOPUP_SEGMENTS = [
   {
     size: "Small", mins: 250, price: 150, badge: null,
-    weight: 12,
+    weight: 20,
     from: "#F0625A", to: "#D44E80",
     glowColor: "rgba(240,98,90,0.55)",
   },
   {
     size: "Medium", mins: 1_000, price: 450, badge: "Save 25%/min",
-    weight: 25,
+    weight: 27,
     from: "#C44E90", to: "#9B5CC4",
     glowColor: "rgba(155,92,196,0.55)",
   },
   {
     size: "Large", mins: 5_000, price: 1_750, badge: "Save 42%/min",
-    weight: 63,
+    weight: 53,
     from: "#7B5CC4", to: "#2D1B69",
     glowColor: "rgba(45,27,105,0.55)",
   },
@@ -89,54 +88,113 @@ const INR_RATE_TOPUP = 83;
 function TopUpMeter() {
   const [active, setActive] = useState<number | null>(null);
   const meterRef = useRef<HTMLDivElement>(null);
+  const meterMobileRef = useRef<HTMLDivElement>(null);
   const inView = useInView(meterRef, { once: true, margin: "-80px" });
+  const inViewMobile = useInView(meterMobileRef, { once: true, margin: "-80px" });
 
   return (
     <div>
-      {/* ── Meter bar ── */}
-      <div ref={meterRef} className="mb-1">
-        {/* Desktop: horizontal */}
-        <div className="hidden sm:flex h-10 rounded-2xl overflow-hidden gap-[3px] bg-purple-50 p-[3px]">
-          {TOPUP_SEGMENTS.map(({ size, weight, from, to, glowColor }, i) => (
-            <motion.div
+      {/* ── Desktop: single flex row — each column owns its bar segment + info card ── */}
+      <div ref={meterRef} className="hidden sm:block">
+        {/* All columns in one flex row — bar segments on top, info below, same flexBasis */}
+        <div className="flex gap-[3px]">
+          {TOPUP_SEGMENTS.map(({ size, weight, mins, price, badge, from, to, glowColor }, i) => (
+            <div
               key={size}
-              className="relative rounded-xl overflow-hidden cursor-pointer"
-              style={{
-                flexBasis: `${weight}%`,
-                background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
-                boxShadow: active === i ? `0 0 20px 2px ${glowColor}` : "none",
-              }}
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              onHoverStart={() => setActive(i)}
-              onHoverEnd={() => setActive(null)}
-              onTap={() => setActive(active === i ? null : i)}
+              className="flex flex-col"
+              style={{ flexBasis: `${weight}%`, minWidth: 0 }}
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
             >
-              {/* Shine overlay */}
-              <div
-                className="absolute inset-0 transition-opacity duration-200"
+              {/* Meter segment */}
+              <motion.div
+                className="relative h-10 rounded-xl overflow-hidden cursor-pointer mb-2"
                 style={{
-                  background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)",
-                  opacity: active === i ? 1 : 0.6,
+                  background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
+                  boxShadow: active === i ? `0 0 20px 2px ${glowColor}` : "none",
                 }}
-              />
-              {/* Active pulse */}
-              {active === i && (
-                <motion.div
-                  className="absolute inset-0 rounded-xl"
-                  initial={{ opacity: 0.5 }}
-                  animate={{ opacity: 0 }}
-                  transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop" }}
-                  style={{ background: `linear-gradient(90deg, ${from}44 0%, ${to}44 100%)` }}
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                onHoverStart={() => setActive(i)}
+                onHoverEnd={() => setActive(null)}
+                onTap={() => setActive(active === i ? null : i)}
+              >
+                <div
+                  className="absolute inset-0 transition-opacity duration-200"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)",
+                    opacity: active === i ? 1 : 0.6,
+                  }}
                 />
-              )}
-            </motion.div>
+                {active === i && (
+                  <motion.div
+                    className="absolute inset-0 rounded-xl"
+                    initial={{ opacity: 0.5 }}
+                    animate={{ opacity: 0 }}
+                    transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop" }}
+                    style={{ background: `linear-gradient(90deg, ${from}44 0%, ${to}44 100%)` }}
+                  />
+                )}
+              </motion.div>
+
+              {/* Label */}
+              <div className="flex justify-center mb-2">
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200"
+                  style={{ color: active === i ? "#2D1B69" : "#9B9BAD" }}
+                >
+                  {size}
+                </span>
+              </div>
+
+              {/* Info card */}
+              <div
+                className="flex-1 px-4 py-4 rounded-2xl transition-all duration-200 cursor-default"
+                style={{
+                  background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
+                  boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
+                }}
+              >
+                {badge ? (
+                  <span
+                    className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-3"
+                    style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
+                  >
+                    {badge}
+                  </span>
+                ) : (
+                  <div className="mb-[21px]" />
+                )}
+                <p
+                  className="text-2xl font-extrabold mb-0.5"
+                  style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
+                  ${price}
+                </p>
+                <p className="text-sm font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
+                <p className="text-[11px] text-muted/70 mb-4">
+                  ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(2)}/min
+                </p>
+                <a
+                  href="/demo"
+                  className="inline-block text-[11px] font-semibold px-3.5 py-1.5 rounded-lg border transition-all duration-200"
+                  style={{
+                    borderColor: active === i ? from : "#E2DDF4",
+                    color: active === i ? from : "#6B6B7D",
+                  }}
+                >
+                  Buy {size}
+                </a>
+              </div>
+            </div>
           ))}
         </div>
+      </div>
 
-        {/* Mobile: vertical stack */}
-        <div className="sm:hidden flex flex-col gap-[3px] rounded-2xl overflow-hidden bg-purple-50 p-[3px]">
+      {/* ── Mobile: vertical stack ── */}
+      <div className="sm:hidden">
+        <div ref={meterMobileRef} className="flex flex-col gap-[3px] rounded-2xl overflow-hidden bg-purple-50 p-[3px] mb-6">
           {TOPUP_SEGMENTS.map(({ size, weight, from, to, glowColor }, i) => (
             <motion.div
               key={size}
@@ -148,7 +206,7 @@ function TopUpMeter() {
                 boxShadow: active === i ? `0 0 16px 2px ${glowColor}` : "none",
               }}
               initial={{ scaleY: 0, originY: 0 }}
-              animate={inView ? { scaleY: 1 } : {}}
+              animate={inViewMobile ? { scaleY: 1 } : {}}
               transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               onHoverStart={() => setActive(i)}
               onHoverEnd={() => setActive(null)}
@@ -164,114 +222,48 @@ function TopUpMeter() {
             </motion.div>
           ))}
         </div>
-      </div>
 
-      {/* ── Segment labels + pack info zones: equal thirds on desktop ── */}
-      {/* Desktop */}
-      <div className="hidden sm:flex mb-2 mt-2">
-        {TOPUP_SEGMENTS.map(({ size }, i) => (
-          <div key={size} className="flex-1 flex justify-center pt-1">
-            <span
-              className="text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200"
-              style={{ color: active === i ? "#2D1B69" : "#9B9BAD" }}
-            >
-              {size}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Desktop pack info zones: equal thirds so content never squishes */}
-      <div className="hidden sm:flex gap-3">
-        {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
-          <div
-            key={size}
-            className="flex-1 group"
-            onMouseEnter={() => setActive(i)}
-            onMouseLeave={() => setActive(null)}
-          >
+        {/* Mobile info list */}
+        <div className="space-y-4">
+          {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
             <div
-              className="px-5 py-5 rounded-2xl transition-all duration-200 cursor-default"
+              key={size}
+              className="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 cursor-pointer"
               style={{
-                background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
+                background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.4)",
                 boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
               }}
+              onClick={() => setActive(active === i ? null : i)}
             >
-              {badge && (
-                <span
-                  className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-3"
-                  style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
-                >
-                  {badge}
-                </span>
-              )}
-              {!badge && <div className="mb-[21px]" />}
-              <p className="text-2xl font-extrabold mb-0.5" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                ${price}
-              </p>
-              <p className="text-sm font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
-              <p className="text-[11px] text-muted/70 mb-4">
-                ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(2)}/min
-              </p>
-              <a
-                href="/demo"
-                className="inline-block text-[11px] font-semibold px-3.5 py-1.5 rounded-lg border transition-all duration-200"
-                style={{
-                  borderColor: active === i ? from : "#E2DDF4",
-                  color: active === i ? from : "#6B6B7D",
-                }}
-              >
-                Buy {size}
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Mobile: vertical list */}
-      <div className="sm:hidden space-y-4 mt-6">
-        {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
-          <div
-            key={size}
-            className="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 cursor-pointer"
-            style={{
-              background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.4)",
-              boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
-            }}
-            onClick={() => setActive(active === i ? null : i)}
-          >
-            {/* Color swatch */}
-            <div
-              className="w-3 shrink-0 self-stretch rounded-full"
-              style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
-            />
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-0.5">
-                <p className="text-sm font-bold text-purple-900">{size}</p>
-                {badge && (
-                  <span
-                    className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
-                    style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
-                  >
-                    {badge}
-                  </span>
-                )}
+              <div
+                className="w-3 shrink-0 self-stretch rounded-full"
+                style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <p className="text-sm font-bold text-purple-900">{size}</p>
+                  {badge && (
+                    <span
+                      className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
+                      style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
+                    >
+                      {badge}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted">{mins.toLocaleString()} min · ${(price / mins).toFixed(2)}/min</p>
               </div>
-              <p className="text-xs text-muted">{mins.toLocaleString()} min · ${(price / mins).toFixed(2)}/min</p>
+              <div className="text-right shrink-0">
+                <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  ${price}
+                </p>
+                <a href="/demo" className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors">
+                  Buy →
+                </a>
+              </div>
             </div>
-            <div className="text-right shrink-0">
-              <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                ${price}
-              </p>
-              <a
-                href="/demo"
-                className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors"
-              >
-                Buy →
-              </a>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <p className="text-center text-xs text-muted/60 mt-8">
