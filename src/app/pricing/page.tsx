@@ -164,14 +164,10 @@ function TopUpMeter() {
         </div>
       </div>
 
-      {/* Desktop segment labels aligned under meter */}
-      <div className="hidden sm:flex mb-8">
-        {TOPUP_SEGMENTS.map(({ size, weight }, i) => (
-          <div
-            key={size}
-            style={{ flexBasis: `${weight}%` }}
-            className="flex justify-center pt-1"
-          >
+      {/* Segment labels: equal thirds so they stay readable */}
+      <div className="hidden sm:flex mb-2 mt-2">
+        {TOPUP_SEGMENTS.map(({ size }, i) => (
+          <div key={size} className="flex-1 flex justify-center pt-1">
             <span
               className="text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200"
               style={{ color: active === i ? "#2D1B69" : "#9B9BAD" }}
@@ -182,17 +178,17 @@ function TopUpMeter() {
         ))}
       </div>
 
-      {/* Desktop pack info zones */}
-      <div className="hidden sm:flex gap-[3px]">
+      {/* Pack info zones: equal thirds so content never squishes */}
+      <div className="hidden sm:flex gap-3">
         {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
           <div
             key={size}
-            style={{ flexBasis: `${TOPUP_SEGMENTS[i].weight}%` }}
+            className="flex-1 group"
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(null)}
           >
             <div
-              className="px-3 py-5 rounded-2xl transition-all duration-200 cursor-default"
+              className="px-5 py-5 rounded-2xl transition-all duration-200 cursor-default"
               style={{
                 background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
                 boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
@@ -229,7 +225,7 @@ function TopUpMeter() {
         ))}
       </div>
 
-      {/* Mobile vertical list */}
+      {/* Mobile: vertical list */}
       <div className="sm:hidden space-y-4 mt-6">
         {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
           <div
