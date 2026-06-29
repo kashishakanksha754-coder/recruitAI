@@ -2,7 +2,6 @@ export type Lang = "en" | "ar";
 
 const t = {
   en: {
-    // ── Nav ────────────────────────────────────────────────────────────────
     nav: {
       howItWorks: "How It Works",
       pricing: "Pricing",
@@ -13,7 +12,6 @@ const t = {
       english: "English",
       arabic: "العربية",
     },
-    // ── Footer ─────────────────────────────────────────────────────────────
     footer: {
       tagline: "AI screening and interviewing for recruiters. You stay in control. Aria handles the volume.",
       product: "Product",
@@ -35,7 +33,6 @@ const t = {
       cookiesShort: "Cookies",
       copyright: "© 2025 Recruit AI. All rights reserved.",
     },
-    // ── Home ───────────────────────────────────────────────────────────────
     home: {
       badge: "AI-native recruiting platform",
       heroTitle1: "Hire 10× faster with",
@@ -112,7 +109,6 @@ const t = {
       feature4Title: "Recruiter Handoff",
       feature4Desc: "Top 10 verified matches land in your inbox with full interview summaries.",
     },
-    // ── How It Works ───────────────────────────────────────────────────────
     hiw: {
       heroTitle1: "From 1,000 applicants to",
       heroTitle2: "10 verified matches",
@@ -140,7 +136,6 @@ const t = {
       stage6Desc: "Every applicant receives timely, respectful updates. Aria handles status emails automatically — no candidate left in the dark.",
       stage6Detail: "Customisable messaging. No candidate accounts required.",
     },
-    // ── Pricing ────────────────────────────────────────────────────────────
     pricing: {
       heroTitle1: "Simple,",
       heroTitle2: "transparent pricing",
@@ -178,7 +173,6 @@ const t = {
       buyMedium: "Buy Medium",
       buyLarge: "Buy Large",
     },
-    // ── About ──────────────────────────────────────────────────────────────
     about: {
       heroTitle1: "We built Aria so recruiters can",
       heroTitle2: "actually recruit",
@@ -206,7 +200,6 @@ const t = {
       getInTouch: "Get in touch",
       tryDemo: "Try the demo",
     },
-    // ── Contact ────────────────────────────────────────────────────────────
     contact: {
       heroTitle1: "Let's",
       heroTitle2: "talk",
@@ -230,12 +223,11 @@ const t = {
       demoSub: "30-minute live walkthrough. No sales pressure.",
       demoValue: "30-min live walkthrough",
       enterpriseTitle: "Enterprise inquiry",
-      enterpriseSub: "Custom contracts, volume pricing, SSO, and dedicated CSM. Mention \"Enterprise\" in the form above.",
+      enterpriseSub: "Custom contracts, volume pricing, SSO, and dedicated CSM. Mention “Enterprise” in the form above.",
       enterpriseNote: "Use the contact form ↑",
       mapTitle: "Teams in 40+ countries",
       copied: "Copied!",
     },
-    // ── Login ──────────────────────────────────────────────────────────────
     login: {
       welcomeBack: "Welcome back",
       sub: "Sign in to your recruiter dashboard",
@@ -248,7 +240,6 @@ const t = {
       noAccount: "No account yet?",
       startTrial: "Start free trial",
     },
-    // ── Signup ─────────────────────────────────────────────────────────────
     signup: {
       title: "Start your free trial",
       sub: "14 days free · No credit card · Cancel anytime",
@@ -271,7 +262,6 @@ const t = {
       haveAccount: "Already have an account?",
       signIn: "Sign in",
     },
-    // ── Legal ──────────────────────────────────────────────────────────────
     legal: {
       privacyTitle: "Privacy Policy",
       privacyUpdated: "Last updated: 1 January 2025",
@@ -280,7 +270,6 @@ const t = {
       cookiesTitle: "Cookie Policy",
       cookiesUpdated: "Last updated: 1 January 2025",
     },
-    // ── AriaHub node labels ────────────────────────────────────────────────
     aria: {
       node1: ["Live Transcription"],
       node2: ["Adaptive", "Follow-Ups"],
