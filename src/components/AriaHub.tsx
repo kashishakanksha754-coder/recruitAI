@@ -2,6 +2,7 @@
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mic2, MessageCircle, ShieldCheck, Globe, Video, Sparkles } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const BASE = 600;
 const CX = BASE / 2;
@@ -14,22 +15,26 @@ function polar(deg: number, r = RING_R) {
   return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
 }
 
-const NODES = [
-  { angle: -90,  lines: ["Live Transcription"],         Icon: Mic2,          coral: false },
-  { angle: -18,  lines: ["Adaptive", "Follow-Ups"],     Icon: MessageCircle, coral: true  },
-  { angle:  54,  lines: ["Bias-Aware", "Scoring"],      Icon: ShieldCheck,   coral: false },
-  { angle: 126,  lines: ["Multilingual", "Support"],    Icon: Globe,         coral: false },
-  { angle: 198,  lines: ["Voice + Video", "Interviews"],Icon: Video,         coral: true  },
+// LTR angles and their RTL mirrors (reflected across vertical axis: 180 - angle)
+const NODE_DEFS = [
+  { angle: -90,  rtlAngle: -90,  Icon: Mic2,          coral: false },
+  { angle: -18,  rtlAngle: 198,  Icon: MessageCircle, coral: true  },
+  { angle:  54,  rtlAngle: 126,  Icon: ShieldCheck,   coral: false },
+  { angle: 126,  rtlAngle:  54,  Icon: Globe,         coral: false },
+  { angle: 198,  rtlAngle: -18,  Icon: Video,         coral: true  },
 ];
 
 const MID_DOTS = [-54, 18, 90, 162, 234];
 
 export default function AriaHub({ compact = false }: { compact?: boolean }) {
+  const { T, isRtl } = useLanguage();
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const size = compact ? 360 : 500;
   const scale = size / BASE;
+
+  const nodeLabels = [T.aria.node1, T.aria.node2, T.aria.node3, T.aria.node4, T.aria.node5];
 
   return (
     <div ref={ref} className="relative mx-auto" style={{ width: size, height: size }}>
@@ -55,7 +60,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             </filter>
           </defs>
 
-          {/* Outer pulsing glow */}
           <motion.circle
             cx={CX} cy={CY} r={140}
             fill="url(#ah-glow)" filter="url(#ah-halo)"
@@ -63,8 +67,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             animate={reduced ? {} : { scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
-
-          {/* Dashed orbit ring */}
           <motion.circle
             cx={CX} cy={CY} r={RING_R}
             fill="none" stroke="#C4B5F8" strokeWidth="1.5" strokeDasharray="6 8"
@@ -72,8 +74,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             animate={inView ? { opacity: 0.7 } : {}}
             transition={{ duration: 1, delay: 0.2 }}
           />
-
-          {/* Mid-point dots on ring */}
           {MID_DOTS.map((a, i) => {
             const { x, y } = polar(a);
             return (
@@ -87,8 +87,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
               />
             );
           })}
-
-          {/* Central orb sphere */}
           <motion.circle
             cx={CX} cy={CY} r={105}
             fill="url(#ah-orb)"
@@ -99,7 +97,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         </svg>
 
-        {/* ── Center "Aria" label ── */}
+        {/* Center "Aria" label */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <motion.div
             className="flex flex-col items-center"
@@ -108,45 +106,31 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <Sparkles size={26} strokeWidth={1.5} className="mb-2" style={{ color: "rgba(255,255,255,0.85)" }} />
-            <span
-              className="text-[34px] font-extrabold leading-none tracking-tight"
-              style={{ color: "#1E1057" }}
-            >
+            <span className="text-[34px] font-extrabold leading-none tracking-tight" style={{ color: "#1E1057" }}>
               Aria
             </span>
-            <span
-              className="text-[12px] font-semibold tracking-wider mt-1.5"
-              style={{ color: "rgba(255,255,255,0.75)" }}
-            >
-              AI Interviewer
+            <span className="text-[12px] font-semibold tracking-wider mt-1.5" style={{ color: "rgba(255,255,255,0.75)" }}>
+              {T.aria.aiInterviewer}
             </span>
           </motion.div>
         </div>
 
-        {/* ── Node groups: card + label, card center ON ring ── */}
-        {NODES.map(({ angle, lines, Icon, coral }, i) => {
-          const { x, y } = polar(angle);
+        {/* Node groups — angle switches on RTL to mirror horizontally */}
+        {NODE_DEFS.map(({ angle, rtlAngle, Icon, coral }, i) => {
+          const { x, y } = polar(isRtl ? rtlAngle : angle);
+          const lines = nodeLabels[i];
           return (
             <motion.div
               key={i}
               className="absolute flex flex-col items-center"
-              style={{
-                left: x,
-                top: y - CARD / 2,
-                transform: "translateX(-50%)",
-                gap: 10,
-              }}
+              style={{ left: x, top: y - CARD / 2, transform: "translateX(-50%)", gap: 10 }}
               initial={{ opacity: 0, scale: 0.6 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: reduced ? 0 : 0.45 + i * 0.1, ease: "easeOut" }}
             >
-              {/* White icon card */}
               <div
                 className="flex items-center justify-center rounded-[18px] bg-white shrink-0"
-                style={{
-                  width: CARD, height: CARD,
-                  boxShadow: "0 6px 28px rgba(139,92,246,0.15), 0 1px 4px rgba(139,92,246,0.06)",
-                }}
+                style={{ width: CARD, height: CARD, boxShadow: "0 6px 28px rgba(139,92,246,0.15), 0 1px 4px rgba(139,92,246,0.06)" }}
               >
                 <div
                   className="w-11 h-11 rounded-2xl flex items-center justify-center"
@@ -159,7 +143,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
                   <Icon size={22} className="text-white" strokeWidth={1.8} />
                 </div>
               </div>
-              {/* Label */}
               <div className="text-center">
                 {lines.map((l, j) => (
                   <p key={j} className="text-[12px] font-bold text-purple-900 leading-[1.45] whitespace-nowrap">{l}</p>
