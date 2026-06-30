@@ -2,9 +2,10 @@
 import { useState } from "react";
 import { Mail, Calendar, Building2, Copy, Check, ArrowRight, ExternalLink } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ─── Copy-to-clipboard value box ─────────────────────────────────────────────
-function CopyBox({ value, href }: { value: string; href?: string }) {
+function CopyBox({ value, href, copiedLabel = "Copied!" }: { value: string; href?: string; copiedLabel?: string }) {
   const [copied, setCopied] = useState(false);
 
   function handleCopy() {
@@ -40,7 +41,7 @@ function CopyBox({ value, href }: { value: string; href?: string }) {
           )}
           {copied && (
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-purple-900 text-white text-[10px] font-semibold px-2 py-1 rounded-md whitespace-nowrap">
-              Copied!
+              {copiedLabel}
             </span>
           )}
         </button>
@@ -148,6 +149,8 @@ function WorldDotMap() {
 
 // ─── Contact page ─────────────────────────────────────────────────────────────
 export default function ContactPage() {
+  const { T } = useLanguage();
+  const C = T.contact;
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
 
@@ -159,24 +162,22 @@ export default function ContactPage() {
   return (
     <main className="pt-24 pb-20 bg-white">
 
-      {/* Header */}
       <section className="py-20 bg-surface">
         <div className="max-w-xl mx-auto px-4 sm:px-6 text-center">
           <FadeUp>
             <h1 className="text-5xl font-extrabold text-purple-900 mb-4 tracking-tight">
-              Let&apos;s <span className="gradient-text">talk</span>
+              {C.heroTitle1}{C.heroTitle2 ? <> <span className="gradient-text">{C.heroTitle2}</span></> : null}
             </h1>
-            <p className="text-muted text-xl">We respond to every message within one business day.</p>
+            <p className="text-muted text-xl">{C.heroSub}</p>
           </FadeUp>
         </div>
       </section>
 
-      {/* ── Contact form ───────────────────────────────────────────────────── */}
       <section className="py-20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <FadeUp className="text-center mb-10">
-            <h2 className="text-2xl font-extrabold text-purple-900">Send us a message</h2>
-            <p className="text-muted text-sm mt-2">For anything detailed, complex, or Enterprise-related.</p>
+            <h2 className="text-2xl font-extrabold text-purple-900">{C.formTitle}</h2>
+            <p className="text-muted text-sm mt-2">{C.formSub}</p>
           </FadeUp>
           <FadeUp delay={0.1}>
             {submitted ? (
@@ -184,58 +185,39 @@ export default function ContactPage() {
                 <div className="w-16 h-16 rounded-full gradient-bg mx-auto mb-5 flex items-center justify-center">
                   <Check size={24} className="text-white" />
                 </div>
-                <h2 className="text-2xl font-extrabold text-purple-900 mb-3">Message sent!</h2>
-                <p className="text-muted">We&apos;ll get back to you within one business day.</p>
+                <h2 className="text-2xl font-extrabold text-purple-900 mb-3">{C.successTitle}</h2>
+                <p className="text-muted">{C.successSub}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="card-lg p-8 space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-purple-900 mb-1.5">Name</label>
-                    <input
-                      type="text" required
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    <label className="block text-xs font-semibold text-purple-900 mb-1.5">{C.nameLabel}</label>
+                    <input type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white"
-                      placeholder="Your name"
-                    />
+                      placeholder={C.namePlaceholder} />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-purple-900 mb-1.5">Work email</label>
-                    <input
-                      type="email" required
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    <label className="block text-xs font-semibold text-purple-900 mb-1.5">{C.emailLabel}</label>
+                    <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white"
-                      placeholder="you@company.com"
-                    />
+                      placeholder={C.emailPlaceholder} />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-purple-900 mb-1.5">Company</label>
-                  <input
-                    type="text"
-                    value={form.company}
-                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  <label className="block text-xs font-semibold text-purple-900 mb-1.5">{C.companyLabel}</label>
+                  <input type="text" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white"
-                    placeholder="Your company (optional)"
-                  />
+                    placeholder={C.companyPlaceholder} />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-purple-900 mb-1.5">Message</label>
-                  <textarea
-                    required rows={5}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  <label className="block text-xs font-semibold text-purple-900 mb-1.5">{C.messageLabel}</label>
+                  <textarea required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-purple-100 text-purple-900 text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-coral-500/30 focus:border-coral-400 bg-white resize-none"
-                    placeholder="Tell us about your hiring needs…"
-                  />
+                    placeholder={C.messagePlaceholder} />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full py-3.5 rounded-xl text-sm font-semibold text-white gradient-bg shadow-btn hover:opacity-90 transition-all"
-                >
-                  Send message <ArrowRight size={14} className="inline ml-1.5" />
+                <button type="submit" className="w-full py-3.5 rounded-xl text-sm font-semibold text-white gradient-bg shadow-btn hover:opacity-90 transition-all">
+                  {C.sendButton} <ArrowRight size={14} className="inline ms-1.5 rtl:scale-x-[-1]" />
                 </button>
               </form>
             )}
@@ -243,54 +225,40 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Contact methods ─────────────────────────────────────────────────── */}
       <section className="py-16 bg-[#FAFBFF] border-y border-purple-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100">
-
-              {/* Col 1 — Email */}
-              <div className="flex flex-col px-8 py-8 lg:py-0 first:pl-0 last:pr-0">
+              <div className="flex flex-col px-8 py-8 lg:py-0 first:ps-0 last:pe-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
                   <Mail size={18} className="text-purple-900" />
                 </div>
-                <p className="text-purple-900 font-bold text-sm mb-1">Email us</p>
-                <p className="text-muted text-xs leading-relaxed">Responses within 24 hours, every working day.</p>
-                <CopyBox value="hello@recruitai.app" />
+                <p className="text-purple-900 font-bold text-sm mb-1">{C.emailTitle}</p>
+                <p className="text-muted text-xs leading-relaxed">{C.emailSub}</p>
+                <CopyBox value="hello@recruitai.app" copiedLabel={C.copied} />
               </div>
-
-              {/* Col 2 — Book a demo */}
               <div className="flex flex-col px-8 py-8 lg:py-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
                   <Calendar size={18} className="text-purple-900" />
                 </div>
-                <p className="text-purple-900 font-bold text-sm mb-1">Book a demo</p>
-                <p className="text-muted text-xs leading-relaxed">30-minute live walkthrough. No sales pressure.</p>
-                <CopyBox value="30-min live walkthrough" href="https://calendly.com/recruitai" />
+                <p className="text-purple-900 font-bold text-sm mb-1">{C.demoTitle}</p>
+                <p className="text-muted text-xs leading-relaxed">{C.demoSub}</p>
+                <CopyBox value={C.demoValue} href="https://calendly.com/recruitai" copiedLabel={C.copied} />
               </div>
-
-              {/* Col 3 — Enterprise */}
               <div className="flex flex-col px-8 py-8 lg:py-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
                   <Building2 size={18} className="text-purple-900" />
                 </div>
-                <p className="text-purple-900 font-bold text-sm mb-1">Enterprise inquiry</p>
-                <p className="text-muted text-xs leading-relaxed">
-                  Custom contracts, volume pricing, SSO, and dedicated CSM. Mention &ldquo;Enterprise&rdquo; in the form above.
-                </p>
+                <p className="text-purple-900 font-bold text-sm mb-1">{C.enterpriseTitle}</p>
+                <p className="text-muted text-xs leading-relaxed">{C.enterpriseSub}</p>
                 <div className="mt-4 flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-xs font-medium text-muted">
-                  Use the contact form ↑
+                  {C.enterpriseNote}
                 </div>
               </div>
-
-              {/* Col 4 — World map */}
               <div className="flex flex-col items-center justify-center px-8 py-8 lg:py-0">
-                <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-3 text-center">
-                  Teams in 40+ countries
-                </p>
+                <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-3 text-center">{C.mapTitle}</p>
                 <WorldDotMap />
               </div>
-
             </div>
           </FadeUp>
         </div>
