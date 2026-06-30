@@ -72,7 +72,7 @@ function DiamondStack() {
 }
 
 function JobDistributionVisual() {
-  const { T } = useLanguage();
+  const { T, isRtl } = useLanguage();
   const PLATFORMS = [
     { label: "LinkedIn",  color: "#0A66C2", text: "white" },
     { label: "Naukri",    color: "#4A90D9", text: "white" },
@@ -89,10 +89,10 @@ function JobDistributionVisual() {
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
         {[30, 42, 55, 68].map((pct, i) => (
-          <line key={i} x1="22%" y1="50%" x2="60%" y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
+          <line key={i} x1={isRtl ? "78%" : "22%"} y1="50%" x2={isRtl ? "40%" : "60%"} y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
         ))}
       </svg>
-      <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
+      <div className="absolute flex flex-col items-center gap-1" style={{ [isRtl ? 'right' : 'left']: "10%", top: "50%", transform: "translateY(-50%)" }}>
         <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
           <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
             <FileText size={15} className="text-purple-700" />
@@ -100,7 +100,7 @@ function JobDistributionVisual() {
         </div>
         <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">{T.home.jobPost}</span>
       </div>
-      <div className="absolute flex flex-col gap-2" style={{ right: "8%", top: "50%", transform: "translateY(-50%)" }}>
+      <div className="absolute flex flex-col gap-2" style={{ [isRtl ? 'left' : 'right']: "8%", top: "50%", transform: "translateY(-50%)" }}>
         {PLATFORMS.map(({ label, color, text }) => (
           <span key={label} className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-sm" style={{ background: color, color: text }}>
             {label}
