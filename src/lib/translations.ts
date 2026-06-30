@@ -2,6 +2,7 @@ export type Lang = "en" | "ar";
 
 const t = {
   en: {
+    // ── Nav ────────────────────────────────────────────────────────────────
     nav: {
       howItWorks: "How It Works",
       pricing: "Pricing",
@@ -12,6 +13,7 @@ const t = {
       english: "English",
       arabic: "العربية",
     },
+    // ── Footer ─────────────────────────────────────────────────────────────
     footer: {
       tagline: "AI screening and interviewing for recruiters. You stay in control. Aria handles the volume.",
       product: "Product",
@@ -33,6 +35,7 @@ const t = {
       cookiesShort: "Cookies",
       copyright: "© 2025 Recruit AI. All rights reserved.",
     },
+    // ── Home ───────────────────────────────────────────────────────────────
     home: {
       badge: "AI-native recruiting platform",
       heroTitle1: "Hire 10× faster with",
@@ -108,7 +111,11 @@ const t = {
       feature3Desc: "Candidates ranked by fit — not keyword matching — using role-specific rubrics.",
       feature4Title: "Recruiter Handoff",
       feature4Desc: "Top 10 verified matches land in your inbox with full interview summaries.",
+      showcase1Rows: ["Applied · 1,204", "Screened · 480", "Interviewed · 96", "Shortlisted · 10"],
+      showcase2Rows: ["Q: Walk me through your last role", "A: I led a team of 12 engineers…", "⭐ Strong leadership signal", "Score: 91 / 100"],
+      showcase3Rows: ["Time-to-screen: 2.1 days", "Interview pass rate: 8.2%", "Diverse shortlists: 74%", "Avg match score: 88.4"],
     },
+    // ── How It Works ───────────────────────────────────────────────────────
     hiw: {
       heroTitle1: "From 1,000 applicants to",
       heroTitle2: "10 verified matches",
@@ -136,6 +143,7 @@ const t = {
       stage6Desc: "Every applicant receives timely, respectful updates. Aria handles status emails automatically — no candidate left in the dark.",
       stage6Detail: "Customisable messaging. No candidate accounts required.",
     },
+    // ── Pricing ────────────────────────────────────────────────────────────
     pricing: {
       heroTitle1: "Simple,",
       heroTitle2: "transparent pricing",
@@ -172,7 +180,29 @@ const t = {
       buySmall: "Buy Small",
       buyMedium: "Buy Medium",
       buyLarge: "Buy Large",
+      billedMonthly: "billed monthly",
+      startPlan: "Start",
+      buyMinutes: "Buy →",
+      starterFeatures: ["500 resume screens/mo", "50 AI voice interviews/mo", "3 active job roles", "Basic analytics dashboard", "Email + chat support"],
+      growthFeatures: ["2,000 resume screens/mo", "200 AI voice interviews/mo", "Unlimited active roles", "Multi-board job distribution", "Advanced analytics", "Priority support"],
+      enterpriseFeatures: ["Unlimited everything", "Custom AI rubrics", "SSO + audit logs", "Dedicated CSM", "SLA guarantee", "Custom integrations"],
+      faq1q: "Is there a free trial?",
+      faq1a: "Yes — 14 days, full Growth plan features, no credit card required.",
+      faq2q: "What happens when I hit my screen limit?",
+      faq2a: "We'll notify you at 80%. You can upgrade instantly or wait for the next billing cycle.",
+      faq3q: "Can candidates tell they're talking to an AI?",
+      faq3a: "Aria introduces herself as an AI interviewer by default. Transparent disclosure is baked in.",
+      faq4q: "Do candidates need to create accounts?",
+      faq4a: "Never. Candidates interact purely via phone call or a one-time video link.",
+      faq5q: "Is our data used to train your models?",
+      faq5a: "No. Your data is never used for model training. Full data isolation per account.",
+      topupSmall: "Small",
+      topupMedium: "Medium",
+      topupLarge: "Large",
+      topupSave25: "Save 25%/min",
+      topupSave42: "Save 42%/min",
     },
+    // ── About ──────────────────────────────────────────────────────────────
     about: {
       heroTitle1: "We built Aria so recruiters can",
       heroTitle2: "actually recruit",
@@ -200,6 +230,7 @@ const t = {
       getInTouch: "Get in touch",
       tryDemo: "Try the demo",
     },
+    // ── Contact ────────────────────────────────────────────────────────────
     contact: {
       heroTitle1: "Let's",
       heroTitle2: "talk",
@@ -228,6 +259,7 @@ const t = {
       mapTitle: "Teams in 40+ countries",
       copied: "Copied!",
     },
+    // ── Login ──────────────────────────────────────────────────────────────
     login: {
       welcomeBack: "Welcome back",
       sub: "Sign in to your recruiter dashboard",
@@ -240,6 +272,7 @@ const t = {
       noAccount: "No account yet?",
       startTrial: "Start free trial",
     },
+    // ── Signup ─────────────────────────────────────────────────────────────
     signup: {
       title: "Start your free trial",
       sub: "14 days free · No credit card · Cancel anytime",
@@ -262,6 +295,7 @@ const t = {
       haveAccount: "Already have an account?",
       signIn: "Sign in",
     },
+    // ── Legal ──────────────────────────────────────────────────────────────
     legal: {
       privacyTitle: "Privacy Policy",
       privacyUpdated: "Last updated: 1 January 2025",
@@ -270,6 +304,7 @@ const t = {
       cookiesTitle: "Cookie Policy",
       cookiesUpdated: "Last updated: 1 January 2025",
     },
+    // ── AriaHub node labels ────────────────────────────────────────────────
     aria: {
       node1: ["Live Transcription"],
       node2: ["Adaptive", "Follow-Ups"],
@@ -387,6 +422,9 @@ const t = {
       feature3Desc: "يُرتَّب المرشحون وفق الملاءمة — لا بمطابقة الكلمات المفتاحية.",
       feature4Title: "تسليم للمسؤول",
       feature4Desc: "أفضل 10 مرشحين موثّقين يصلون إلى بريدك مع ملخصات كاملة.",
+      showcase1Rows: ["التقديمات · 1٬204", "تم فرزها · 480", "أُجريت معها مقابلة · 96", "القائمة المختصرة · 10"],
+      showcase2Rows: ["س: أخبرني عن دورك الأخير", "ج: قدت فريقاً من 12 مهندساً…", "⭐ إشارة قيادية قوية", "النتيجة: 91 / 100"],
+      showcase3Rows: ["وقت الفرز: 2.1 يوم", "معدل اجتياز المقابلة: 8.2%", "قوائم متنوعة: 74%", "متوسط نقاط التطابق: 88.4"],
     },
     hiw: {
       heroTitle1: "من 1٬000 متقدم إلى",
@@ -451,6 +489,27 @@ const t = {
       buySmall: "شراء الصغير",
       buyMedium: "شراء المتوسط",
       buyLarge: "شراء الكبير",
+      billedMonthly: "يُفوتَر شهرياً",
+      startPlan: "ابدأ",
+      buyMinutes: "اشترِ ←",
+      starterFeatures: ["٥٠٠ فرز سيرة ذاتية/شهر", "٥٠ مقابلة صوتية/شهر", "٣ أدوار نشطة", "لوحة تحليلات أساسية", "دعم بريد ودردشة"],
+      growthFeatures: ["٢٬٠٠٠ فرز سيرة ذاتية/شهر", "٢٠٠ مقابلة صوتية/شهر", "أدوار نشطة غير محدودة", "توزيع على عدة منصات", "تحليلات متقدمة", "دعم ذو أولوية"],
+      enterpriseFeatures: ["كل شيء غير محدود", "معايير تقييم مخصّصة", "SSO + سجلات تدقيق", "مدير نجاح مخصّص", "ضمان SLA", "تكاملات مخصّصة"],
+      faq1q: "هل يوجد إصدار تجريبي مجاني؟",
+      faq1a: "نعم — 14 يوماً بميزات خطة النمو الكاملة، بدون بطاقة ائتمانية.",
+      faq2q: "ماذا يحدث عند تجاوز حد الفرز؟",
+      faq2a: "سنخطرك عند 80%. يمكنك الترقية فوراً أو الانتظار للدورة التالية.",
+      faq3q: "هل يعلم المرشحون أنهم يتحدثون مع ذكاء اصطناعي؟",
+      faq3a: "آريا تعرّف نفسها محاورة ذكاء اصطناعي افتراضياً. الإفصاح الشفاف مدمج.",
+      faq4q: "هل يحتاج المرشحون لإنشاء حسابات؟",
+      faq4a: "أبداً. يتفاعلون فقط عبر مكالمة هاتفية أو رابط مرئي لمرة واحدة.",
+      faq5q: "هل تُستخدم بياناتنا في تدريب نماذجكم؟",
+      faq5a: "لا. بياناتك لا تُستخدم في تدريب النماذج. عزل كامل للبيانات لكل حساب.",
+      topupSmall: "صغير",
+      topupMedium: "متوسط",
+      topupLarge: "كبير",
+      topupSave25: "وفّر 25%/د",
+      topupSave42: "وفّر 42%/د",
     },
     about: {
       heroTitle1: "بنينا آريا لكي يستطيع المسؤولون عن التوظيف",

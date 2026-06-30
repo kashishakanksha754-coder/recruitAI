@@ -25,7 +25,7 @@ export default function CookiesPage() {
             <h2>2. Cookies We Use</h2>
             <p><strong>Essential cookies</strong> are required for the platform to function. They include session authentication tokens and your language preference (<code>recruit-lang</code>). You cannot opt out of these.</p>
             <p><strong>Analytics cookies</strong> help us understand how visitors interact with the site. We use this data in aggregate form only.</p>
-            <p><strong>Preference cookies</strong> remember settings you have chosen, such as your language selection.</p>
+            <p><strong>Preference cookies</strong> remember settings you&apos;ve chosen, such as your language selection.</p>
 
             <h2>3. Language Preference</h2>
             <p>We store your language preference (English or Arabic) in <code>localStorage</code> under the key <code>recruit-lang</code>. This is local to your browser and never transmitted to our servers.</p>
@@ -34,7 +34,7 @@ export default function CookiesPage() {
             <p>We may use third-party services (such as analytics providers) that place their own cookies. These are subject to the privacy policies of those providers.</p>
 
             <h2>5. Managing Cookies</h2>
-            <p>You can control and delete cookies through your browser settings. Disabling essential cookies will prevent you from using the platform. To clear your language preference, clear your browser's local storage.</p>
+            <p>You can control and delete cookies through your browser settings. Disabling essential cookies will prevent you from using the platform. To clear your language preference, clear your browser&apos;s local storage.</p>
 
             <h2>6. Contact</h2>
             <p>For questions about our use of cookies, contact us at hello@recruitai.app.</p>
