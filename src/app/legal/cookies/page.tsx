@@ -19,25 +19,25 @@ export default function CookiesPage() {
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 prose prose-purple max-w-none">
           <FadeUp>
-            <h2>1. What Are Cookies</h2>
-            <p>Cookies are small text files placed on your device when you visit a website. They help the site remember your preferences and improve your experience.</p>
+            <h2>{L.cookiesS1Title}</h2>
+            <p>{L.cookiesS1Body}</p>
 
-            <h2>2. Cookies We Use</h2>
-            <p><strong>Essential cookies</strong> are required for the platform to function. They include session authentication tokens and your language preference (<code>recruit-lang</code>). You cannot opt out of these.</p>
-            <p><strong>Analytics cookies</strong> help us understand how visitors interact with the site. We use this data in aggregate form only.</p>
-            <p><strong>Preference cookies</strong> remember settings you&apos;ve chosen, such as your language selection.</p>
+            <h2>{L.cookiesS2Title}</h2>
+            <p><strong>{L.cookiesS2EssentialLabel}</strong> {L.cookiesS2Essential}</p>
+            <p><strong>{L.cookiesS2AnalyticsLabel}</strong> {L.cookiesS2Analytics}</p>
+            <p><strong>{L.cookiesS2PrefLabel}</strong> {L.cookiesS2Pref}</p>
 
-            <h2>3. Language Preference</h2>
-            <p>We store your language preference (English or Arabic) in <code>localStorage</code> under the key <code>recruit-lang</code>. This is local to your browser and never transmitted to our servers.</p>
+            <h2>{L.cookiesS3Title}</h2>
+            <p>{L.cookiesS3Body}</p>
 
-            <h2>4. Third-Party Cookies</h2>
-            <p>We may use third-party services (such as analytics providers) that place their own cookies. These are subject to the privacy policies of those providers.</p>
+            <h2>{L.cookiesS4Title}</h2>
+            <p>{L.cookiesS4Body}</p>
 
-            <h2>5. Managing Cookies</h2>
-            <p>You can control and delete cookies through your browser settings. Disabling essential cookies will prevent you from using the platform. To clear your language preference, clear your browser&apos;s local storage.</p>
+            <h2>{L.cookiesS5Title}</h2>
+            <p>{L.cookiesS5Body}</p>
 
-            <h2>6. Contact</h2>
-            <p>For questions about our use of cookies, contact us at hello@recruitai.app.</p>
+            <h2>{L.cookiesS6Title}</h2>
+            <p>{L.cookiesS6Body}</p>
           </FadeUp>
         </div>
       </section>
