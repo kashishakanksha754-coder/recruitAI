@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
+import { useLanguage } from "@/context/LanguageContext";
 
 const PLANS = [
   {
@@ -62,24 +63,23 @@ const FAQS = [
 
 const INR_RATE = 83;
 
-// Proportional widths: Small=250, Medium=1000, Large=5000 → total 6250
-// Visual weights compressed for readability: 12% / 25% / 63%
+// Visual weights: compressed so Small is wide enough for content (20/27/53)
 const TOPUP_SEGMENTS = [
   {
     size: "Small", mins: 250, price: 150, badge: null,
-    weight: 12,
+    weight: 20,
     from: "#F0625A", to: "#D44E80",
     glowColor: "rgba(240,98,90,0.55)",
   },
   {
     size: "Medium", mins: 1_000, price: 450, badge: "Save 25%/min",
-    weight: 25,
+    weight: 27,
     from: "#C44E90", to: "#9B5CC4",
     glowColor: "rgba(155,92,196,0.55)",
   },
   {
     size: "Large", mins: 5_000, price: 1_750, badge: "Save 42%/min",
-    weight: 63,
+    weight: 53,
     from: "#7B5CC4", to: "#2D1B69",
     glowColor: "rgba(45,27,105,0.55)",
   },
@@ -87,56 +87,116 @@ const TOPUP_SEGMENTS = [
 const INR_RATE_TOPUP = 83;
 
 function TopUpMeter() {
+  const { T } = useLanguage();
+  const P = T.pricing;
   const [active, setActive] = useState<number | null>(null);
   const meterRef = useRef<HTMLDivElement>(null);
+  const meterMobileRef = useRef<HTMLDivElement>(null);
   const inView = useInView(meterRef, { once: true, margin: "-80px" });
+  const inViewMobile = useInView(meterMobileRef, { once: true, margin: "-80px" });
 
   return (
     <div>
-      {/* ── Meter bar ── */}
-      <div ref={meterRef} className="mb-1">
-        {/* Desktop: horizontal */}
-        <div className="hidden sm:flex h-10 rounded-2xl overflow-hidden gap-[3px] bg-purple-50 p-[3px]">
-          {TOPUP_SEGMENTS.map(({ size, weight, from, to, glowColor }, i) => (
-            <motion.div
+      {/* ── Desktop: single flex row — each column owns its bar segment + info card ── */}
+      <div ref={meterRef} className="hidden sm:block">
+        {/* All columns in one flex row — bar segments on top, info below, same flexBasis */}
+        <div className="flex gap-3">
+          {TOPUP_SEGMENTS.map(({ size, weight, mins, price, badge, from, to, glowColor }, i) => (
+            <div
               key={size}
-              className="relative rounded-xl overflow-hidden cursor-pointer"
-              style={{
-                flexBasis: `${weight}%`,
-                background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
-                boxShadow: active === i ? `0 0 20px 2px ${glowColor}` : "none",
-              }}
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              onHoverStart={() => setActive(i)}
-              onHoverEnd={() => setActive(null)}
-              onTap={() => setActive(active === i ? null : i)}
+              className="flex flex-col flex-1"
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
             >
-              {/* Shine overlay */}
-              <div
-                className="absolute inset-0 transition-opacity duration-200"
+              {/* Meter segment */}
+              <motion.div
+                className="relative h-10 rounded-xl overflow-hidden cursor-pointer mb-2"
                 style={{
-                  background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)",
-                  opacity: active === i ? 1 : 0.6,
+                  background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
+                  boxShadow: active === i ? `0 0 20px 2px ${glowColor}` : "none",
                 }}
-              />
-              {/* Active pulse */}
-              {active === i && (
-                <motion.div
-                  className="absolute inset-0 rounded-xl"
-                  initial={{ opacity: 0.5 }}
-                  animate={{ opacity: 0 }}
-                  transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop" }}
-                  style={{ background: `linear-gradient(90deg, ${from}44 0%, ${to}44 100%)` }}
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                onHoverStart={() => setActive(i)}
+                onHoverEnd={() => setActive(null)}
+                onTap={() => setActive(active === i ? null : i)}
+              >
+                <div
+                  className="absolute inset-0 transition-opacity duration-200"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)",
+                    opacity: active === i ? 1 : 0.6,
+                  }}
                 />
-              )}
-            </motion.div>
+                {active === i && (
+                  <motion.div
+                    className="absolute inset-0 rounded-xl"
+                    initial={{ opacity: 0.5 }}
+                    animate={{ opacity: 0 }}
+                    transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop" }}
+                    style={{ background: `linear-gradient(90deg, ${from}44 0%, ${to}44 100%)` }}
+                  />
+                )}
+              </motion.div>
+
+              {/* Label */}
+              <div className="flex justify-center mb-2">
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200"
+                  style={{ color: active === i ? "#2D1B69" : "#9B9BAD" }}
+                >
+                  {size}
+                </span>
+              </div>
+
+              {/* Info card */}
+              <div
+                className="flex-1 px-6 py-6 rounded-2xl transition-all duration-200 cursor-default"
+                style={{
+                  background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.5)",
+                  boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
+                }}
+              >
+                {badge ? (
+                  <span
+                    className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-3"
+                    style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
+                  >
+                    {badge}
+                  </span>
+                ) : (
+                  <div className="mb-[21px]" />
+                )}
+                <p
+                  className="text-3xl font-extrabold mb-1"
+                  style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
+                  ${price}
+                </p>
+                <p className="text-sm font-semibold text-purple-900 mb-1">{mins.toLocaleString()} min</p>
+                <p className="text-[11px] text-muted/70 mb-5">
+                  ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(0)}/min
+                </p>
+                <a
+                  href="/demo"
+                  className="inline-block text-sm font-semibold px-4 py-2 rounded-xl border transition-all duration-200"
+                  style={{
+                    borderColor: active === i ? from : "#E2DDF4",
+                    color: active === i ? from : "#6B6B7D",
+                  }}
+                >
+                  {size === "Small" ? P.buySmall : size === "Medium" ? P.buyMedium : P.buyLarge}
+                </a>
+              </div>
+            </div>
           ))}
         </div>
+      </div>
 
-        {/* Mobile: vertical stack */}
-        <div className="sm:hidden flex flex-col gap-[3px] rounded-2xl overflow-hidden bg-purple-50 p-[3px]">
+      {/* ── Mobile: vertical stack ── */}
+      <div className="sm:hidden">
+        <div ref={meterMobileRef} className="flex flex-col gap-[3px] rounded-2xl overflow-hidden bg-purple-50 p-[3px] mb-6">
           {TOPUP_SEGMENTS.map(({ size, weight, from, to, glowColor }, i) => (
             <motion.div
               key={size}
@@ -148,7 +208,7 @@ function TopUpMeter() {
                 boxShadow: active === i ? `0 0 16px 2px ${glowColor}` : "none",
               }}
               initial={{ scaleY: 0, originY: 0 }}
-              animate={inView ? { scaleY: 1 } : {}}
+              animate={inViewMobile ? { scaleY: 1 } : {}}
               transition={{ duration: 1.2, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               onHoverStart={() => setActive(i)}
               onHoverEnd={() => setActive(null)}
@@ -164,124 +224,58 @@ function TopUpMeter() {
             </motion.div>
           ))}
         </div>
-      </div>
 
-      {/* ── Segment labels + pack info zones: equal thirds on desktop ── */}
-      {/* Desktop */}
-      <div className="hidden sm:flex mb-2 mt-2">
-        {TOPUP_SEGMENTS.map(({ size }, i) => (
-          <div key={size} className="flex-1 flex justify-center pt-1">
-            <span
-              className="text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200"
-              style={{ color: active === i ? "#2D1B69" : "#9B9BAD" }}
-            >
-              {size}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Desktop pack info zones: equal thirds so content never squishes */}
-      <div className="hidden sm:flex gap-3">
-        {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
-          <div
-            key={size}
-            className="flex-1 group"
-            onMouseEnter={() => setActive(i)}
-            onMouseLeave={() => setActive(null)}
-          >
+        {/* Mobile info list */}
+        <div className="space-y-4">
+          {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
             <div
-              className="px-5 py-5 rounded-2xl transition-all duration-200 cursor-default"
+              key={size}
+              className="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 cursor-pointer"
               style={{
-                background: active === i ? "rgba(245,244,248,0.9)" : "transparent",
+                background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.4)",
                 boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
               }}
+              onClick={() => setActive(active === i ? null : i)}
             >
-              {badge && (
-                <span
-                  className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white mb-3"
-                  style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
-                >
-                  {badge}
-                </span>
-              )}
-              {!badge && <div className="mb-[21px]" />}
-              <p className="text-2xl font-extrabold mb-0.5" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                ${price}
-              </p>
-              <p className="text-sm font-semibold text-purple-900 mb-0.5">{mins.toLocaleString()} min</p>
-              <p className="text-[11px] text-muted/70 mb-4">
-                ${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(2)}/min
-              </p>
-              <a
-                href="/demo"
-                className="inline-block text-[11px] font-semibold px-3.5 py-1.5 rounded-lg border transition-all duration-200"
-                style={{
-                  borderColor: active === i ? from : "#E2DDF4",
-                  color: active === i ? from : "#6B6B7D",
-                }}
-              >
-                Buy {size}
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Mobile: vertical list */}
-      <div className="sm:hidden space-y-4 mt-6">
-        {TOPUP_SEGMENTS.map(({ size, mins, price, badge, from, to, glowColor }, i) => (
-          <div
-            key={size}
-            className="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 cursor-pointer"
-            style={{
-              background: active === i ? "rgba(245,244,248,0.9)" : "rgba(245,244,248,0.4)",
-              boxShadow: active === i ? `inset 0 0 0 1.5px ${glowColor}` : "none",
-            }}
-            onClick={() => setActive(active === i ? null : i)}
-          >
-            {/* Color swatch */}
-            <div
-              className="w-3 shrink-0 self-stretch rounded-full"
-              style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
-            />
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-0.5">
-                <p className="text-sm font-bold text-purple-900">{size}</p>
-                {badge && (
-                  <span
-                    className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
-                    style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
-                  >
-                    {badge}
-                  </span>
-                )}
+              <div
+                className="w-3 shrink-0 self-stretch rounded-full"
+                style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <p className="text-sm font-bold text-purple-900">{size}</p>
+                  {badge && (
+                    <span
+                      className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
+                      style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)` }}
+                    >
+                      {badge}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted">{mins.toLocaleString()} min · ${(price / mins).toFixed(2)}/min</p>
               </div>
-              <p className="text-xs text-muted">{mins.toLocaleString()} min · ${(price / mins).toFixed(2)}/min</p>
+              <div className="text-right shrink-0">
+                <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  ${price}
+                </p>
+                <a href="/demo" className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors">
+                  Buy →
+                </a>
+              </div>
             </div>
-            <div className="text-right shrink-0">
-              <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                ${price}
-              </p>
-              <a
-                href="/demo"
-                className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors"
-              >
-                Buy →
-              </a>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <p className="text-center text-xs text-muted/60 mt-8">
-        1 credit = 1 minute of AI voice or video. Credits are shared across your whole team and never expire while subscribed.
-      </p>
+      <p className="text-center text-xs text-muted/60 mt-8">{P.creditNote}</p>
     </div>
   );
 }
 
 function EstimatorPanel({ annual }: { annual: boolean }) {
+  const { T } = useLanguage();
+  const P = T.pricing;
   const [screens,    setScreens]    = useState(300);
   const [interviews, setInterviews] = useState(40);
 
@@ -303,7 +297,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
       <div className="space-y-8">
         <div>
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-semibold text-purple-900">AI phone pre-screens / month</span>
+            <span className="text-sm font-semibold text-purple-900">{P.screensLabel}</span>
             <span className="text-lg font-extrabold gradient-text">{screens}</span>
           </div>
           <input
@@ -318,7 +312,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         </div>
         <div>
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-semibold text-purple-900">AI video interviews / month</span>
+            <span className="text-sm font-semibold text-purple-900">{P.interviewsLabel}</span>
             <span className="text-lg font-extrabold gradient-text">{interviews}</span>
           </div>
           <input
@@ -335,7 +329,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
 
       {/* Recommended plan */}
       <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
-        <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">Recommended plan</p>
+        <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">{P.recommendedPlan}</p>
         <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{plan.name}</p>
         {basePrice !== null ? (
           <>
@@ -353,27 +347,27 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         {/* Cost breakdown */}
         <div className="space-y-2 text-xs text-muted mb-5 flex-1">
           <div className="flex justify-between">
-            <span>Included screens</span>
+            <span>{P.includedScreens}</span>
             <span className="font-semibold text-purple-900">
               {plan.screenLimit === Infinity ? "Unlimited" : plan.screenLimit.toLocaleString() + "/mo"}
             </span>
           </div>
           <div className="flex justify-between">
-            <span>Included interviews</span>
+            <span>{P.includedInterviews}</span>
             <span className="font-semibold text-purple-900">
               {plan.interviewLimit === Infinity ? "Unlimited" : plan.interviewLimit.toLocaleString() + "/mo"}
             </span>
           </div>
           {extraScreens > 0 && (
             <div className="flex justify-between text-coral-500">
-              <span>{extraScreens.toLocaleString()} extra screens</span>
-              <span className="font-semibold">Need top-up ↓</span>
+              <span>{extraScreens.toLocaleString()} {P.extraScreens}</span>
+              <span className="font-semibold">{P.needTopUp}</span>
             </div>
           )}
           {extraInterviews > 0 && (
             <div className="flex justify-between text-coral-500">
-              <span>{extraInterviews.toLocaleString()} extra interviews</span>
-              <span className="font-semibold">Need top-up ↓</span>
+              <span>{extraInterviews.toLocaleString()} {P.extraInterviews}</span>
+              <span className="font-semibold">{P.needTopUp}</span>
             </div>
           )}
         </div>
@@ -391,6 +385,8 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
 }
 
 export default function PricingPage() {
+  const { T } = useLanguage();
+  const P = T.pricing;
   const [annual,   setAnnual]   = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -402,21 +398,21 @@ export default function PricingPage() {
         <div className="max-w-2xl mx-auto px-4 text-center">
           <FadeUp>
             <h1 className="text-5xl font-extrabold text-purple-900 mb-4 tracking-tight">
-              Simple, <span className="gradient-text">transparent pricing</span>
+              {P.heroTitle1} <span className="gradient-text">{P.heroTitle2}</span>
             </h1>
-            <p className="text-muted text-xl mb-8">No per-seat fees. No surprise charges. Cancel anytime.</p>
+            <p className="text-muted text-xl mb-8">{P.heroSub}</p>
             <div className="inline-flex items-center gap-1 bg-white rounded-xl p-1 shadow-card">
               <button
                 onClick={() => setAnnual(false)}
                 className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${!annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}
               >
-                Monthly
+                {P.monthly}
               </button>
               <button
                 onClick={() => setAnnual(true)}
                 className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}
               >
-                Annual
+                {P.annual}
                 <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${annual ? "bg-white/20 text-white" : "bg-coral-100 text-coral-500"}`}>-17%</span>
               </button>
             </div>
@@ -432,8 +428,8 @@ export default function PricingPage() {
               <FadeUp key={name} delay={i * 0.08}>
                 <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
                   {primary && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
-                      Most popular
+                    <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                      {P.mostPopular}
                     </span>
                   )}
                   <p className="text-purple-900 font-bold text-xl mb-1">{name}</p>
@@ -442,11 +438,11 @@ export default function PricingPage() {
                     {monthly !== null ? (
                       <>
                         <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
-                        <span className="text-muted text-sm ml-1">/month</span>
-                        {annual && <p className="text-xs text-muted/70 mt-1">billed annually</p>}
+                        <span className="text-muted text-sm ms-1">{P.perMonth}</span>
+                        {annual && <p className="text-xs text-muted/70 mt-1">{P.billedAnnually}</p>}
                       </>
                     ) : (
-                      <span className="text-4xl font-extrabold gradient-text">Custom</span>
+                      <span className="text-4xl font-extrabold gradient-text">{P.customPricing}</span>
                     )}
                   </div>
                   <ul className="space-y-3 flex-1 mb-8">
@@ -465,7 +461,7 @@ export default function PricingPage() {
                         : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"
                     }`}
                   >
-                    {cta} {primary && <ArrowRight size={14} className="inline ml-1" />}
+                    {cta === "Talk to sales" ? P.talkToSales : P.startFreeTrial} {primary && <ArrowRight size={14} className="inline ms-1 rtl:scale-x-[-1]" />}
                   </a>
                 </div>
               </FadeUp>
@@ -478,8 +474,8 @@ export default function PricingPage() {
       <section className="py-20 bg-surface">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-purple-900 mb-3">Estimate your month</h2>
-            <p className="text-muted">Drag to match your hiring volume and see exactly what you&apos;d pay.</p>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-3">{P.estimatorTitle}</h2>
+            <p className="text-muted">{P.estimatorSub}</p>
           </FadeUp>
           <FadeUp delay={0.1}>
             <EstimatorPanel annual={annual} />
@@ -489,13 +485,13 @@ export default function PricingPage() {
 
       {/* Top-ups */}
       <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
             <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4">
-              Voice &amp; video top-ups
+              {P.topUpBadge}
             </span>
-            <h2 className="text-3xl font-extrabold text-purple-900 mb-3">Need more minutes?</h2>
-            <p className="text-muted max-w-md mx-auto">Buy extra voice &amp; video credits any time. Bigger bundles cost less per minute.</p>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-3">{P.topUpTitle}</h2>
+            <p className="text-muted max-w-md mx-auto">{P.topUpSub}</p>
           </FadeUp>
           <FadeUp delay={0.1}>
             <TopUpMeter />
@@ -507,7 +503,7 @@ export default function PricingPage() {
       <section className="py-20 bg-surface">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <FadeUp className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-purple-900">Frequently asked questions</h2>
+            <h2 className="text-3xl font-extrabold text-purple-900">{P.faqTitle}</h2>
           </FadeUp>
           <div className="space-y-3">
             {FAQS.map(({ q, a }, i) => (
@@ -544,11 +540,11 @@ export default function PricingPage() {
         </svg>
         <div className="max-w-xl mx-auto px-4 text-center relative">
           <FadeUp>
-            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Still have questions?</h2>
-            <p className="text-muted mb-8">Talk to a human on our team — no sales pressure.</p>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">{P.ctaTitle}</h2>
+            <p className="text-muted mb-8">{P.ctaSub}</p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <GradientButton href="/signup">Start free trial</GradientButton>
-              <GradientButton href="/contact" outline>Talk to sales</GradientButton>
+              <GradientButton href="/signup">{P.startFreeTrial}</GradientButton>
+              <GradientButton href="/contact" outline>{P.talkToSales}</GradientButton>
             </div>
           </FadeUp>
         </div>

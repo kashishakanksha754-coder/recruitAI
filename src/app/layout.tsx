@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
   title: "Recruit AI — AI Hiring Platform for Recruiters",
@@ -15,11 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased bg-background text-foreground">
-        <Navbar />
-        {children}
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
