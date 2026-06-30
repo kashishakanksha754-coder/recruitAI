@@ -123,9 +123,9 @@ const TESTIMONIALS_AR = [
 ];
 
 const PLANS = [
-  { name: "Starter",    monthly: 299, annually: 249, desc: "starterDesc", features: ["500 resume screens/mo", "50 AI voice interviews/mo", "3 active job roles", "Email + chat support"], cta: "startFreeTrial", primary: false },
-  { name: "Growth",     monthly: 799, annually: 665, desc: "growthDesc",   features: ["2,000 resume screens/mo", "200 AI voice interviews/mo", "Unlimited active roles", "Multi-board job distribution", "Priority support"], cta: "startFreeTrial", primary: true },
-  { name: "Enterprise", monthly: null, annually: null, desc: "enterpriseDesc", features: ["Unlimited everything", "Custom AI rubrics", "SSO + audit logs", "Dedicated CSM", "SLA guarantee"], cta: "talkToSales", primary: false },
+  { name: "Starter",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
+  { name: "Growth",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
+  { name: "Enterprise", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
 ];
 
 export default function HomePage() {
@@ -285,9 +285,9 @@ export default function HomePage() {
           </FadeUp>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: T.home.showcase1Title, sub: T.home.showcase1Sub, accent: "bg-purple-50", rows: ["Applied · 1,204", "Screened · 480", "Interviewed · 96", "Shortlisted · 10"] },
-              { title: T.home.showcase2Title, sub: T.home.showcase2Sub, accent: "bg-coral-50",  rows: ["Q: Walk me through your last role", "A: I led a team of 12 engineers…", "⭐ Strong leadership signal", "Score: 91 / 100"] },
-              { title: T.home.showcase3Title, sub: T.home.showcase3Sub, accent: "bg-surface",   rows: ["Time-to-screen: 2.1 days", "Interview pass rate: 8.2%", "Diverse shortlists: 74%", "Avg match score: 88.4"] },
+              { title: T.home.showcase1Title, sub: T.home.showcase1Sub, accent: "bg-purple-50", rows: T.home.showcase1Rows },
+              { title: T.home.showcase2Title, sub: T.home.showcase2Sub, accent: "bg-coral-50",  rows: T.home.showcase2Rows },
+              { title: T.home.showcase3Title, sub: T.home.showcase3Sub, accent: "bg-surface",   rows: T.home.showcase3Rows },
             ].map(({ title, sub, accent, rows }, i) => (
               <FadeUp key={title} delay={i * 0.1}>
                 <div className="card-lg p-6 h-full flex flex-col">
@@ -391,7 +391,10 @@ export default function HomePage() {
             </div>
           </FadeUp>
           <div className="grid md:grid-cols-3 gap-6">
-            {PLANS.map(({ name, monthly, annually, desc, features, cta, primary }, i) => (
+            {PLANS.map(({ name, monthly, annually, desc, featuresKey, cta, primary }, i) => {
+              const Pt = T.pricing as Record<string, string | string[]>;
+              const features = Pt[featuresKey] as string[];
+              return (
               <FadeUp key={name} delay={i * 0.08}>
                 <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
                   {primary && (
@@ -400,7 +403,7 @@ export default function HomePage() {
                     </span>
                   )}
                   <p className="text-purple-900 font-bold text-lg mb-1">{name}</p>
-                  <p className="text-muted text-sm mb-5">{(T.pricing as Record<string,string>)[desc]}</p>
+                  <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
                   <div className="mb-6">
                     {monthly !== null ? (
                       <>
@@ -428,7 +431,8 @@ export default function HomePage() {
                   </a>
                 </div>
               </FadeUp>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

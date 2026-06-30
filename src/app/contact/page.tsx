@@ -41,7 +41,7 @@ function CopyBox({ value, href, copiedLabel = "Copied!" }: { value: string; href
           )}
           {copied && (
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-purple-900 text-white text-[10px] font-semibold px-2 py-1 rounded-md whitespace-nowrap">
-              Copied!
+              {copiedLabel}
             </span>
           )}
         </button>
