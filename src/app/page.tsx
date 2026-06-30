@@ -72,7 +72,7 @@ function DiamondStack() {
 }
 
 function JobDistributionVisual() {
-  const { T, isRtl } = useLanguage();
+  const { T } = useLanguage();
   const PLATFORMS = [
     { label: "LinkedIn",  color: "#0A66C2", text: "white" },
     { label: "Naukri",    color: "#4A90D9", text: "white" },
@@ -80,7 +80,7 @@ function JobDistributionVisual() {
     { label: "Indeed",    color: "#2164F3", text: "white" },
   ];
   return (
-    <div className="relative h-52 w-full rounded-xl overflow-hidden">
+    <div className="relative h-52 w-full rounded-xl overflow-hidden" dir="ltr">
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -89,10 +89,10 @@ function JobDistributionVisual() {
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
         {[30, 42, 55, 68].map((pct, i) => (
-          <line key={i} x1={isRtl ? "78%" : "22%"} y1="50%" x2={isRtl ? "40%" : "60%"} y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
+          <line key={i} x1="22%" y1="50%" x2="60%" y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
         ))}
       </svg>
-      <div className="absolute flex flex-col items-center gap-1" style={{ [isRtl ? 'right' : 'left']: "10%", top: "50%", transform: "translateY(-50%)" }}>
+      <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
         <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
           <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
             <FileText size={15} className="text-purple-700" />
@@ -100,7 +100,7 @@ function JobDistributionVisual() {
         </div>
         <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">{T.home.jobPost}</span>
       </div>
-      <div className="absolute flex flex-col gap-2" style={{ [isRtl ? 'left' : 'right']: "8%", top: "50%", transform: "translateY(-50%)" }}>
+      <div className="absolute flex flex-col gap-2" style={{ right: "8%", top: "50%", transform: "translateY(-50%)" }}>
         {PLATFORMS.map(({ label, color, text }) => (
           <span key={label} className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-sm" style={{ background: color, color: text }}>
             {label}
@@ -361,7 +361,7 @@ export default function HomePage() {
             </motion.div>
             <div className="flex items-center justify-center gap-4 mt-8">
               <button onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)} className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all">
-                <ChevronLeft size={16} />
+                <ChevronLeft size={16} className="rtl:scale-x-[-1]" />
               </button>
               <div className="flex gap-2">
                 {TESTIMONIALS.map((_, i) => (
@@ -369,7 +369,7 @@ export default function HomePage() {
                 ))}
               </div>
               <button onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)} className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all">
-                <ChevronRight size={16} />
+                <ChevronRight size={16} className="rtl:scale-x-[-1]" />
               </button>
             </div>
           </FadeUp>
@@ -408,8 +408,10 @@ export default function HomePage() {
                   <div className="mb-6">
                     {monthly !== null ? (
                       <>
-                        <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
-                        <span className="text-muted text-sm ms-1">{T.pricing.perMonth}</span>
+                        <div dir="ltr" className="flex items-baseline gap-1">
+                          <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                          <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+                        </div>
                         {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
                       </>
                     ) : (
