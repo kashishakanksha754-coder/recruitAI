@@ -7,9 +7,9 @@ import GradientButton from "@/components/GradientButton";
 import { useLanguage } from "@/context/LanguageContext";
 
 const PLAN_DEFS = [
-  { name: "Starter", monthly: 299, annually: 249, descKey: "starterDesc", featuresKey: "starterFeatures", screenLimit: 500,     interviewLimit: 50,       ctaKey: "startFreeTrial", primary: false },
-  { name: "Growth",  monthly: 799, annually: 665, descKey: "growthDesc",   featuresKey: "growthFeatures",  screenLimit: 2000,    interviewLimit: 200,      ctaKey: "startFreeTrial", primary: true  },
-  { name: "Enterprise", monthly: null, annually: null, descKey: "enterpriseDesc", featuresKey: "enterpriseFeatures", screenLimit: Infinity, interviewLimit: Infinity, ctaKey: "talkToSales", primary: false },
+  { nameKey: "starterName",    monthly: 299, annually: 249, descKey: "starterDesc",    featuresKey: "starterFeatures",    screenLimit: 500,      interviewLimit: 50,       ctaKey: "startFreeTrial", primary: false },
+  { nameKey: "growthName",     monthly: 799, annually: 665, descKey: "growthDesc",     featuresKey: "growthFeatures",     screenLimit: 2000,     interviewLimit: 200,      ctaKey: "startFreeTrial", primary: true  },
+  { nameKey: "enterpriseName", monthly: null, annually: null, descKey: "enterpriseDesc", featuresKey: "enterpriseFeatures", screenLimit: Infinity, interviewLimit: Infinity, ctaKey: "talkToSales", primary: false },
 ];
 
 const FAQ_PAIRS = [
@@ -87,8 +87,8 @@ function TopUpMeter() {
                   <p className="text-3xl font-extrabold mb-1" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                     ${price}
                   </p>
-                  <p className="text-sm font-semibold text-purple-900 mb-1">{mins.toLocaleString()} min</p>
-                  <p className="text-[11px] text-muted/70 mb-5">${(price / mins).toFixed(2)}/min · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(0)}/min</p>
+                  <p className="text-sm font-semibold text-purple-900 mb-1">{mins.toLocaleString()} {T.pricing.minUnit}</p>
+                  <p className="text-[11px] text-muted/70 mb-5">${(price / mins).toFixed(2)}/{T.pricing.minUnit} · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(0)}/{T.pricing.minUnit}</p>
                   <a href="/demo" className="inline-block text-sm font-semibold px-4 py-2 rounded-xl border transition-all duration-200" style={{ borderColor: active === i ? from : "#E2DDF4", color: active === i ? from : "#6B6B7D" }}>
                     {buyLabel}
                   </a>
@@ -141,7 +141,7 @@ function TopUpMeter() {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-muted">{mins.toLocaleString()} min · ${(price / mins).toFixed(2)}/min</p>
+                  <p className="text-xs text-muted">{mins.toLocaleString()} {T.pricing.minUnit} · ${(price / mins).toFixed(2)}/{T.pricing.minUnit}</p>
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
@@ -204,14 +204,14 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
       {/* Recommended plan */}
       <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
         <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">{T.pricing.recommendedPlan}</p>
-        <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{planDef.name}</p>
+        <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{(T.pricing as Record<string, string | string[]>)[planDef.nameKey] as string}</p>
         {basePrice !== null ? (
           <>
             <p className="text-3xl font-extrabold gradient-text mb-0.5">
-              ${basePrice}<span className="text-base text-muted font-normal">/mo</span>
+              ${basePrice}<span className="text-base text-muted font-normal">{T.pricing.perMo}</span>
             </p>
             <p className="text-xs text-muted/70 mb-4">
-              ≈ ₹{(basePrice * INR_RATE).toLocaleString("en-IN")}/mo {annual ? `· ${T.pricing.billedAnnually}` : `· ${T.pricing.billedMonthly}`}
+              ≈ ₹{(basePrice * INR_RATE).toLocaleString("en-IN")}{T.pricing.perMo} {annual ? `· ${T.pricing.billedAnnually}` : `· ${T.pricing.billedMonthly}`}
             </p>
           </>
         ) : (
@@ -222,13 +222,13 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
           <div className="flex justify-between">
             <span>{T.pricing.includedScreens}</span>
             <span className="font-semibold text-purple-900">
-              {planDef.screenLimit === Infinity ? T.pricing.unlimited : planDef.screenLimit.toLocaleString() + "/mo"}
+              {planDef.screenLimit === Infinity ? T.pricing.unlimited : planDef.screenLimit.toLocaleString() + T.pricing.perMo}
             </span>
           </div>
           <div className="flex justify-between">
             <span>{T.pricing.includedInterviews}</span>
             <span className="font-semibold text-purple-900">
-              {planDef.interviewLimit === Infinity ? T.pricing.unlimited : planDef.interviewLimit.toLocaleString() + "/mo"}
+              {planDef.interviewLimit === Infinity ? T.pricing.unlimited : planDef.interviewLimit.toLocaleString() + T.pricing.perMo}
             </span>
           </div>
           {extraScreens > 0 && (
@@ -249,7 +249,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
           href={planDef.ctaKey === "talkToSales" ? "/contact" : "/signup"}
           className="block text-center py-3 rounded-xl text-sm font-semibold gradient-bg text-white shadow-btn hover:opacity-90 transition-all"
         >
-          {planDef.ctaKey === "talkToSales" ? T.pricing.talkToSales : `${T.pricing.startPlan} ${planDef.name}`}
+          {planDef.ctaKey === "talkToSales" ? T.pricing.talkToSales : `${T.pricing.startPlan} ${(T.pricing as Record<string, string | string[]>)[planDef.nameKey] as string}`}
           <ArrowRight size={14} className="inline ms-1.5 rtl:scale-x-[-1]" />
         </a>
       </div>
@@ -291,17 +291,18 @@ export default function PricingPage() {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
-            {PLAN_DEFS.map(({ name, monthly, annually, descKey, featuresKey, ctaKey, primary }, i) => {
+            {PLAN_DEFS.map(({ nameKey, monthly, annually, descKey, featuresKey, ctaKey, primary }, i) => {
               const features = P[featuresKey] as string[];
+              const planName = P[nameKey] as string;
               return (
-                <FadeUp key={name} delay={i * 0.08}>
+                <FadeUp key={nameKey} delay={i * 0.08}>
                   <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
                     {primary && (
                       <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
                         {T.pricing.mostPopular}
                       </span>
                     )}
-                    <p className="text-purple-900 font-bold text-xl mb-1">{name}</p>
+                    <p className="text-purple-900 font-bold text-xl mb-1">{planName}</p>
                     <p className="text-muted text-sm mb-6">{P[descKey] as string}</p>
                     <div className="mb-7">
                       {monthly !== null ? (
@@ -309,6 +310,7 @@ export default function PricingPage() {
                           <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
                           <span className="text-muted text-sm ms-1">{T.pricing.perMonth}</span>
                           {annual && <p className="text-xs text-muted/70 mt-1">{T.pricing.billedAnnually}</p>}
+
                         </>
                       ) : (
                         <span className="text-4xl font-extrabold gradient-text">{T.pricing.customPricing}</span>

@@ -8,7 +8,7 @@ import FloatingShapes from "@/components/FloatingShapes";
 import AriaHub from "@/components/AriaHub";
 import { useLanguage } from "@/context/LanguageContext";
 
-// ── Capabilities illustrations ─────────────────────────────────────────────────────
+// ── Capabilities illustrations ─────────────────────────────────────────────
 
 function AuditFeed() {
   const { T } = useLanguage();
@@ -117,15 +117,15 @@ const TESTIMONIALS_EN = [
   { quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.", name: "P.N.", role: "Chief People Officer · Enterprise SaaS" },
 ];
 const TESTIMONIALS_AR = [
-  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقّاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
   { quote: "جودة المقابلة الصوتية فاجأتني. قال المرشحون إنها بدت بشرية. النصوص كانت مفصّلة وقابلة للتنفيذ — أفضل من ملاحظات معظم المحاورين البشريين.", name: "م.ر.", role: "نائب رئيس الموارد البشرية · شركة تقنية في مرحلة النمو" },
   { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
 ];
 
 const PLANS = [
-  { name: "Starter",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
-  { name: "Growth",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
-  { name: "Enterprise", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
+  { nameKey: "starterName",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
+  { nameKey: "growthName",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
+  { nameKey: "enterpriseName", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
 ];
 
 export default function HomePage() {
@@ -145,7 +145,7 @@ export default function HomePage() {
   return (
     <main className="overflow-x-hidden">
 
-      {/* ── 1. HERO ─────────────────────────────────────────────────────────────────────── */}
+      {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 xl:grid-cols-[62%_38%] gap-16 items-center">
@@ -194,7 +194,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. TRUST STRIP ─────────────────────────────────────────────────────────────────── */}
+      {/* ── 2. TRUST STRIP ─────────────────────────────────────────────────── */}
       <section className="py-12 border-y border-purple-100 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">{T.home.trustTitle}</p>
@@ -209,7 +209,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. ARIA HUB ───────────────────────────────────────────────────────────────────── */}
+      {/* ── 3. ARIA HUB ─────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -248,7 +248,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. FEATURE HIGHLIGHT ───────────────────────────────────────────────────────────────── */}
+      {/* ── 4. FEATURE HIGHLIGHT ────────────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[35%_65%] gap-16 items-start">
@@ -276,7 +276,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────────────────────────── */}
+      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -307,7 +307,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CAPABILITIES ────────────────────────────────────────────────────────────────────── */}
+      {/* ── 6. CAPABILITIES ─────────────────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
@@ -339,7 +339,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. TESTIMONIAL ───────────────────────────────────────────────────────────────────────── */}
+      {/* ── 7. TESTIMONIAL ──────────────────────────────────────────────────── */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
@@ -376,7 +376,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. PRICING ────────────────────────────────────────────────────────────────────────── */}
+      {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
@@ -391,18 +391,19 @@ export default function HomePage() {
             </div>
           </FadeUp>
           <div className="grid md:grid-cols-3 gap-6">
-            {PLANS.map(({ name, monthly, annually, desc, featuresKey, cta, primary }, i) => {
+            {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary }, i) => {
               const Pt = T.pricing as Record<string, string | string[]>;
               const features = Pt[featuresKey] as string[];
+              const planName = Pt[nameKey] as string;
               return (
-              <FadeUp key={name} delay={i * 0.08}>
+              <FadeUp key={nameKey} delay={i * 0.08}>
                 <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
                   {primary && (
                     <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
                       {T.home.mostPopular}
                     </span>
                   )}
-                  <p className="text-purple-900 font-bold text-lg mb-1">{name}</p>
+                  <p className="text-purple-900 font-bold text-lg mb-1">{planName}</p>
                   <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
                   <div className="mb-6">
                     {monthly !== null ? (
@@ -437,7 +438,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 9. FINAL CTA ─────────────────────────────────────────────────────────────────────────── */}
+      {/* ── 9. FINAL CTA ────────────────────────────────────────────────────── */}
       <section className="py-28 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
