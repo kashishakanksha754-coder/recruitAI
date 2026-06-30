@@ -18,18 +18,21 @@ const LanguageContext = createContext<LangCtx>({
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("recruit-lang") as Lang | null;
     if (stored === "ar" || stored === "en") setLangState(stored);
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     const dir = lang === "ar" ? "rtl" : "ltr";
     document.documentElement.dir = dir;
     document.documentElement.lang = lang;
     localStorage.setItem("recruit-lang", lang);
-  }, [lang]);
+  }, [lang, hydrated]);
 
   function setLang(l: Lang) {
     setLangState(l);
