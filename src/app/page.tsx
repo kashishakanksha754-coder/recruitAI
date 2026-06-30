@@ -1,36 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, Clock, Globe, Shield, Star, ChevronLeft } from "lucide-react";
+import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, ChevronLeft } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import FloatingShapes from "@/components/FloatingShapes";
 import AriaHub from "@/components/AriaHub";
+import { useLanguage } from "@/context/LanguageContext";
 
-const TRUST_MESSAGES = [
-  "Voice + video interviewing",
-  "Bias-aware scoring",
-  "Consistent scoring rubric",
-  "GDPR compliant",
-  "Multi-board job distribution",
-  "Candidate notifications",
-];
-
-const FEATURES = [
-  { icon: FileText,  title: "Resume Parsing",   desc: "AI extracts skills, tenure, and signals in under 3 seconds per CV." },
-  { icon: Phone,     title: "Voice Interviews",  desc: "Aria calls candidates, adapts questions in real-time, transcribes everything." },
-  { icon: BarChart2, title: "Smart Scoring",     desc: "Candidates ranked by fit — not keyword matching — using role-specific rubrics." },
-  { icon: Users,     title: "Recruiter Handoff", desc: "Top 10 verified matches land in your inbox with full interview summaries." },
-];
-
-// ── Capabilities illustrations ─────────────────────────────────────────────
+// ── Capabilities illustrations ─────────────────────────────────────────────────────
 
 function AuditFeed() {
+  const { T } = useLanguage();
   const ENTRIES = [
-    { time: "10:42 AM", label: "Decision logged"      },
-    { time: "10:41 AM", label: "Bias check passed"    },
-    { time: "10:40 AM", label: "Score calculated"     },
-    { time: "10:39 AM", label: "Interview completed"  },
+    { time: "10:42 AM", label: T.home.auditEntry1 },
+    { time: "10:41 AM", label: T.home.auditEntry2 },
+    { time: "10:40 AM", label: T.home.auditEntry3 },
+    { time: "10:39 AM", label: T.home.auditEntry4 },
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
@@ -58,9 +44,9 @@ function AuditFeed() {
 }
 
 function DiamondStack() {
+  const { T } = useLanguage();
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="diamond-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -69,27 +55,16 @@ function DiamondStack() {
         </defs>
         <rect width="100%" height="100%" fill="url(#diamond-grid)" />
       </svg>
-      {/* Glow beam */}
       <div className="absolute top-4 bottom-12 left-1/2 -translate-x-1/2 w-px pointer-events-none"
            style={{ background: "linear-gradient(180deg, rgba(240,98,90,0.55) 0%, rgba(45,27,105,0.45) 100%)" }} />
-      {/* Diamond 1 — coral */}
       <div className="absolute left-1/2"
-           style={{ top: 16, width: 48, height: 48, borderRadius: 5,
-                    transform: "translateX(-50%) rotate(45deg)",
-                    background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
-      {/* Diamond 2 — mid purple */}
+           style={{ top: 16, width: 48, height: 48, borderRadius: 5, transform: "translateX(-50%) rotate(45deg)", background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }} />
       <div className="absolute left-1/2"
-           style={{ top: 72, width: 40, height: 40, borderRadius: 5,
-                    transform: "translateX(-50%) rotate(45deg)",
-                    background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
-      {/* Diamond 3 — deep purple */}
+           style={{ top: 72, width: 40, height: 40, borderRadius: 5, transform: "translateX(-50%) rotate(45deg)", background: "linear-gradient(135deg, #7B5CC4 0%, #5240A8 100%)" }} />
       <div className="absolute left-1/2"
-           style={{ top: 122, width: 32, height: 32, borderRadius: 5,
-                    transform: "translateX(-50%) rotate(45deg)",
-                    background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
-      {/* Pill */}
+           style={{ top: 122, width: 32, height: 32, borderRadius: 5, transform: "translateX(-50%) rotate(45deg)", background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
-        <span className="text-[11px] font-semibold text-purple-900">1,000 → 10, fast</span>
+        <span className="text-[11px] font-semibold text-purple-900">{T.home.diamondPill}</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
       </div>
     </div>
@@ -97,6 +72,7 @@ function DiamondStack() {
 }
 
 function JobDistributionVisual() {
+  const { T } = useLanguage();
   const PLATFORMS = [
     { label: "LinkedIn",  color: "#0A66C2", text: "white" },
     { label: "Naukri",    color: "#4A90D9", text: "white" },
@@ -105,7 +81,6 @@ function JobDistributionVisual() {
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
-      {/* Grid background */}
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -113,33 +88,21 @@ function JobDistributionVisual() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
-        {/* Fan lines from source icon to each platform badge */}
         {[30, 42, 55, 68].map((pct, i) => (
-          <line
-            key={i}
-            x1="22%" y1="50%"
-            x2="60%" y2={`${pct}%`}
-            stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3"
-          />
+          <line key={i} x1="22%" y1="50%" x2="60%" y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
         ))}
       </svg>
-      {/* Source: job post icon */}
       <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
         <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
           <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
             <FileText size={15} className="text-purple-700" />
           </span>
         </div>
-        <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">Job post</span>
+        <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">{T.home.jobPost}</span>
       </div>
-      {/* Platform badges */}
       <div className="absolute flex flex-col gap-2" style={{ right: "8%", top: "50%", transform: "translateY(-50%)" }}>
         {PLATFORMS.map(({ label, color, text }) => (
-          <span
-            key={label}
-            className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-sm"
-            style={{ background: color, color: text }}
-          >
+          <span key={label} className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-sm" style={{ background: color, color: text }}>
             {label}
           </span>
         ))}
@@ -148,84 +111,67 @@ function JobDistributionVisual() {
   );
 }
 
-const TESTIMONIALS = [
-  {
-    quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.",
-    name: "S.C.", role: "Head of Talent · Series B startup",
-  },
-  {
-    quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.",
-    name: "M.R.", role: "VP People · Growth-stage tech company",
-  },
-  {
-    quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.",
-    name: "P.N.", role: "Chief People Officer · Enterprise SaaS",
-  },
+const TESTIMONIALS_EN = [
+  { quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.", name: "S.C.", role: "Head of Talent · Series B startup" },
+  { quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.", name: "M.R.", role: "VP People · Growth-stage tech company" },
+  { quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.", name: "P.N.", role: "Chief People Officer · Enterprise SaaS" },
+];
+const TESTIMONIALS_AR = [
+  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقّاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "جودة المقابلة الصوتية فاجأتني. قال المرشحون إنها بدت بشرية. النصوص كانت مفصّلة وقابلة للتنفيذ — أفضل من ملاحظات معظم المحاورين البشريين.", name: "م.ر.", role: "نائب رئيس الموارد البشرية · شركة تقنية في مرحلة النمو" },
+  { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
 ];
 
-
 const PLANS = [
-  {
-    name: "Starter",
-    monthly: 299, annually: 249,
-    desc: "For small teams hiring 1–3 roles/month",
-    features: ["500 resume screens/mo", "50 AI voice interviews/mo", "3 active job roles", "Email + chat support"],
-    cta: "Start free trial", primary: false,
-  },
-  {
-    name: "Growth",
-    monthly: 799, annually: 665,
-    desc: "For scaling teams with high volume",
-    features: ["2,000 resume screens/mo", "200 AI voice interviews/mo", "Unlimited active roles", "Multi-board job distribution", "Priority support"],
-    cta: "Start free trial", primary: true,
-  },
-  {
-    name: "Enterprise",
-    monthly: null, annually: null,
-    desc: "For large orgs and custom workflows",
-    features: ["Unlimited everything", "Custom AI rubrics", "SSO + audit logs", "Dedicated CSM", "SLA guarantee"],
-    cta: "Talk to sales", primary: false,
-  },
+  { name: "Starter",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
+  { name: "Growth",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
+  { name: "Enterprise", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
 ];
 
 export default function HomePage() {
+  const { T, isRtl } = useLanguage();
   const [annual, setAnnual] = useState(true);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
+  const TESTIMONIALS = isRtl ? TESTIMONIALS_AR : TESTIMONIALS_EN;
   const t = TESTIMONIALS[testimonialIdx];
+
+  const FEATURES = [
+    { icon: FileText,  title: T.home.feature1Title, desc: T.home.feature1Desc },
+    { icon: Phone,     title: T.home.feature2Title, desc: T.home.feature2Desc },
+    { icon: BarChart2, title: T.home.feature3Title, desc: T.home.feature3Desc },
+    { icon: Users,     title: T.home.feature4Title, desc: T.home.feature4Desc },
+  ];
 
   return (
     <main className="overflow-x-hidden">
 
-      {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── 1. HERO ─────────────────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 xl:grid-cols-[62%_38%] gap-16 items-center">
             <div>
               <FadeUp delay={0}>
                 <span className="inline-flex items-center gap-2 bg-coral-50 text-coral-500 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6">
-                  <Zap size={12} /> AI-native recruiting platform
+                  <Zap size={12} /> {T.home.badge}
                 </span>
               </FadeUp>
               <FadeUp delay={0.08}>
                 <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
                   <span className="xl:whitespace-nowrap">
-                    Hire 10× faster with{" "}
-                    <span className="gradient-text">Aria</span>,
+                    {T.home.heroTitle1}{" "}
+                    <span className="gradient-text">{T.home.heroTitleAria}</span>
+                    {T.home.heroTitle2}
                   </span>
-                  <br />
-                  your AI recruiter
                 </h1>
               </FadeUp>
               <FadeUp delay={0.16}>
-                <p className="text-lg text-muted leading-relaxed mb-8 max-w-lg">
-                  Aria screens resumes, calls candidates, and runs full voice interviews — so your team reviews only the top 1%.
-                </p>
+                <p className="text-lg text-muted leading-relaxed mb-8 max-w-lg">{T.home.heroSub}</p>
               </FadeUp>
               <FadeUp delay={0.22}>
                 <div className="flex flex-wrap gap-4 mb-8">
-                  {["No candidate accounts needed", "Setup in 15 minutes", "Cancel anytime"].map((item) => (
+                  {[T.home.noCandidateAccounts, T.home.setupTime, T.home.cancelAnytime].map((item) => (
                     <span key={item} className="inline-flex items-center gap-1.5 text-sm text-purple-900 font-medium">
-                      <Check size={14} className="text-coral-500" /> {item}
+                      <Check size={14} className="text-coral-500 shrink-0" /> {item}
                     </span>
                   ))}
                 </div>
@@ -233,10 +179,10 @@ export default function HomePage() {
               <FadeUp delay={0.28}>
                 <div className="flex flex-wrap gap-3">
                   <GradientButton href="/demo" className="px-7 py-3.5 text-base">
-                    Try the demo <ArrowRight size={16} className="ml-2" />
+                    {T.home.tryDemo} <ArrowRight size={16} className="ms-2 rtl:scale-x-[-1]" />
                   </GradientButton>
                   <GradientButton href="/how-it-works" outline className="px-7 py-3.5 text-base">
-                    See how it works
+                    {T.home.seeHowItWorks}
                   </GradientButton>
                 </div>
               </FadeUp>
@@ -248,12 +194,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. TRUST STRIP ──────────────────────────────────────────────────── */}
+      {/* ── 2. TRUST STRIP ─────────────────────────────────────────────────────────────────── */}
       <section className="py-12 border-y border-purple-100 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">Teams like yours are switching to AI-first hiring</p>
+          <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">{T.home.trustTitle}</p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {TRUST_MESSAGES.map((msg) => (
+            {[T.home.trust1, T.home.trust2, T.home.trust3, T.home.trust4, T.home.trust5, T.home.trust6].map((msg) => (
               <span key={msg} className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-700/60">
                 <span className="w-1.5 h-1.5 rounded-full bg-coral-400 shrink-0" />
                 {msg}
@@ -263,49 +209,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. ARIA HUB ─────────────────────────────────────────────────────── */}
+      {/* ── 3. ARIA HUB ───────────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet Aria — your AI interviewer</h2>
-            <p className="text-muted text-lg max-w-xl mx-auto">She adapts every conversation in real-time, in any language, on any device.</p>
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.ariaTitle}</h2>
+            <p className="text-muted text-lg max-w-xl mx-auto">{T.home.ariaSub}</p>
           </FadeUp>
+          {/* Mirror: hub on start side in LTR (left), steps on end side. In RTL dir flips the flex row automatically. */}
           <div className="grid lg:grid-cols-[58%_42%] gap-12 items-center">
             <FadeUp delay={0.1} className="flex justify-center">
               <AriaHub />
             </FadeUp>
             <FadeUp delay={0.2}>
               <div className="relative">
-                {/* Timeline vertical line */}
                 <div
-                  className="absolute left-[17px] top-[44px]"
-                  style={{
-                    width: 2,
-                    bottom: 44,
-                    background: "linear-gradient(180deg, #F0625A 0%, #7B5CC4 50%, #2D1B69 100%)",
-                    borderRadius: 2,
-                    opacity: 0.2,
-                  } as React.CSSProperties}
+                  className="absolute start-[17px] top-[44px]"
+                  style={{ width: 2, bottom: 44, background: "linear-gradient(180deg, #F0625A 0%, #7B5CC4 50%, #2D1B69 100%)", borderRadius: 2, opacity: 0.2 } as React.CSSProperties}
                 />
                 {[
-                  { step: "1", label: "Candidate applies",  sub: "Resume auto-parsed in 3s" },
-                  { step: "2", label: "Aria calls them",    sub: "Adaptive voice interview" },
-                  { step: "3", label: "Score + transcript", sub: "Delivered to your inbox" },
+                  { step: "1", label: T.home.step1Label, sub: T.home.step1Sub },
+                  { step: "2", label: T.home.step2Label, sub: T.home.step2Sub },
+                  { step: "3", label: T.home.step3Label, sub: T.home.step3Sub },
                 ].map(({ step, label, sub }, i) => (
-                  <div
-                    key={step}
-                    className={`flex items-center gap-4 ${i < 2 ? "mb-5" : ""}`}
-                  >
-                    <span
-                      className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0 relative z-10"
-                      style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}
-                    >
+                  <div key={step} className={`flex items-center gap-4 ${i < 2 ? "mb-5" : ""}`}>
+                    <span className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0 relative z-10" style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}>
                       {step}
                     </span>
-                    <div
-                      className="flex-1 rounded-2xl p-5 bg-white"
-                      style={{ boxShadow: "0 4px 20px rgba(45,27,105,0.07), 0 1px 3px rgba(45,27,105,0.04)" } as React.CSSProperties}
-                    >
+                    <div className="flex-1 rounded-2xl p-5 bg-white" style={{ boxShadow: "0 4px 20px rgba(45,27,105,0.07), 0 1px 3px rgba(45,27,105,0.04)" } as React.CSSProperties}>
                       <p className="text-purple-900 font-semibold text-sm">{label}</p>
                       <p className="text-muted text-xs mt-0.5">{sub}</p>
                     </div>
@@ -317,19 +248,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. FEATURE HIGHLIGHT — 35/65 split ──────────────────────────────── */}
+      {/* ── 4. FEATURE HIGHLIGHT ───────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[35%_65%] gap-16 items-start">
             <FadeUp>
-              <h2 className="text-4xl font-extrabold text-purple-900 leading-tight mb-6">
-                Every step of the funnel, automated
-              </h2>
-              <p className="text-muted text-base leading-relaxed mb-8">
-                From 1,000 applicants to a shortlist of 10 verified, interview-ready candidates — in 48 hours.
-              </p>
+              <h2 className="text-4xl font-extrabold text-purple-900 leading-tight mb-6">{T.home.funnelTitle}</h2>
+              <p className="text-muted text-base leading-relaxed mb-8">{T.home.funnelSub}</p>
               <GradientButton href="/how-it-works">
-                See the full pipeline <ChevronRight size={16} className="ml-1" />
+                {T.home.seeFullPipeline} <ChevronRight size={16} className="ms-1 rtl:scale-x-[-1]" />
               </GradientButton>
             </FadeUp>
             <div className="grid sm:grid-cols-2 gap-px bg-purple-100 rounded-2xl overflow-hidden">
@@ -349,42 +276,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────── */}
+      {/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Built for how recruiters actually work</h2>
-            <p className="text-muted text-lg max-w-xl mx-auto">No clunky setup. No training candidates. Just results.</p>
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.showcaseTitle}</h2>
+            <p className="text-muted text-lg max-w-xl mx-auto">{T.home.showcaseSub}</p>
           </FadeUp>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              {
-                title: "Candidate pipeline",
-                sub: "Drag-and-drop board, auto-updated by Aria",
-                accent: "bg-purple-50",
-                rows: ["Applied · 1,204", "Screened · 480", "Interviewed · 96", "Shortlisted · 10"],
-              },
-              {
-                title: "Interview transcript",
-                sub: "Full transcript + key quotes highlighted",
-                accent: "bg-coral-50",
-                rows: ["Q: Walk me through your last role", "A: I led a team of 12 engineers…", "⭐ Strong leadership signal", "Score: 91 / 100"],
-              },
-              {
-                title: "Recruiter dashboard",
-                sub: "Live metrics, no manual reporting",
-                accent: "bg-surface",
-                rows: ["Time-to-screen: 2.1 days", "Interview pass rate: 8.2%", "Diverse shortlists: 74%", "Avg match score: 88.4"],
-              },
+              { title: T.home.showcase1Title, sub: T.home.showcase1Sub, accent: "bg-purple-50", rows: T.home.showcase1Rows },
+              { title: T.home.showcase2Title, sub: T.home.showcase2Sub, accent: "bg-coral-50",  rows: T.home.showcase2Rows },
+              { title: T.home.showcase3Title, sub: T.home.showcase3Sub, accent: "bg-surface",   rows: T.home.showcase3Rows },
             ].map(({ title, sub, accent, rows }, i) => (
               <FadeUp key={title} delay={i * 0.1}>
                 <div className="card-lg p-6 h-full flex flex-col">
                   <div className={`${accent} rounded-xl p-4 mb-5`}>
                     <div className="space-y-2">
                       {rows.map((r) => (
-                        <div key={r} className="bg-white rounded-lg px-3 py-2 text-xs font-medium text-purple-900 shadow-card">
-                          {r}
-                        </div>
+                        <div key={r} className="bg-white rounded-lg px-3 py-2 text-xs font-medium text-purple-900 shadow-card">{r}</div>
                       ))}
                     </div>
                   </div>
@@ -397,56 +307,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CAPABILITIES — 3-column divided ──────────────────────────────── */}
+      {/* ── 6. CAPABILITIES ────────────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Advanced capabilities, out of the box</h2>
-            <p className="text-muted text-lg max-w-xl mx-auto">Everything you need to run enterprise-grade hiring at scale.</p>
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.capsTitle}</h2>
+            <p className="text-muted text-lg max-w-xl mx-auto">{T.home.capsSub}</p>
           </FadeUp>
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
-
-              {/* Col 1 — Built-in fairness */}
-              <div className="flex flex-col pr-0 md:pr-10 pb-10 md:pb-0">
-                <h3 className="text-xl font-extrabold text-purple-900 mb-2">Built-in fairness</h3>
-                <p className="text-muted text-sm leading-relaxed mb-8">Every decision is scored against the same rubric and logged with a full audit trail.</p>
-                <div className="flex-1">
-                  <AuditFeed />
-                </div>
+              <div className="flex flex-col pe-0 md:pe-10 pb-10 md:pb-0">
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">{T.home.cap1Title}</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">{T.home.cap1Sub}</p>
+                <div className="flex-1"><AuditFeed /></div>
               </div>
-
-              {/* Col 2 — Speed at scale */}
-              <div className="flex flex-col border-t md:border-t-0 md:border-l border-coral-300 pt-10 md:pt-0 md:px-10 pb-10 md:pb-0">
-                <h3 className="text-xl font-extrabold text-purple-900 mb-2">Days, not weeks</h3>
-                <p className="text-muted text-sm leading-relaxed mb-8">From 1,000 applicants to 10 verified matches — without the weeks of back-and-forth.</p>
+              <div className="flex flex-col border-t md:border-t-0 md:border-s border-coral-300 pt-10 md:pt-0 md:px-10 pb-10 md:pb-0">
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">{T.home.cap2Title}</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">{T.home.cap2Sub}</p>
                 <div className="flex-1">
                   <DiamondStack />
-                  <p className="mt-3 text-[11px] text-muted/60 text-center max-w-[200px] mx-auto">
-                    98% of hiring managers rate Aria-screened candidates higher
-                  </p>
+                  <p className="mt-3 text-[11px] text-muted/60 text-center max-w-[200px] mx-auto">{T.home.statsNote}</p>
                 </div>
               </div>
-
-              {/* Col 3 — Job distribution */}
-              <div className="flex flex-col border-t md:border-t-0 md:border-l border-purple-200 pt-10 md:pt-0 md:pl-10">
-                <h3 className="text-xl font-extrabold text-purple-900 mb-2">Post once, everywhere</h3>
-                <p className="text-muted text-sm leading-relaxed mb-8">Publish a job and it goes out to LinkedIn, Naukri, Glassdoor, and more — instantly, no extra work.</p>
-                <div className="flex-1">
-                  <JobDistributionVisual />
-                </div>
+              <div className="flex flex-col border-t md:border-t-0 md:border-s border-purple-200 pt-10 md:pt-0 md:ps-10">
+                <h3 className="text-xl font-extrabold text-purple-900 mb-2">{T.home.cap3Title}</h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">{T.home.cap3Sub}</p>
+                <div className="flex-1"><JobDistributionVisual /></div>
               </div>
-
             </div>
           </FadeUp>
         </div>
       </section>
 
-      {/* ── 7. TESTIMONIAL — oversized pull-quote ───────────────────────────── */}
+      {/* ── 7. TESTIMONIAL ───────────────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
-            <p className="text-[11px] text-muted/50 italic mb-6">Illustrative — based on early pilot conversations</p>
+            <p className="text-[11px] text-muted/50 italic mb-6">{T.home.testimonialDisclaimer}</p>
             <span className="text-7xl gradient-text font-black leading-none select-none">&ldquo;</span>
             <motion.p
               key={testimonialIdx}
@@ -457,39 +354,21 @@ export default function HomePage() {
             >
               {t.quote}
             </motion.p>
-            <motion.div
-              key={`meta-${testimonialIdx}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex flex-col items-center gap-2"
-            >
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white font-bold text-lg">
-                {t.name[0]}
-              </div>
+            <motion.div key={`meta-${testimonialIdx}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.1 }} className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white font-bold text-lg">{t.name[0]}</div>
               <p className="text-purple-900 font-semibold text-sm">{t.name}</p>
               <p className="text-muted text-xs">{t.role}</p>
             </motion.div>
             <div className="flex items-center justify-center gap-4 mt-8">
-              <button
-                onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
-                className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
-              >
+              <button onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)} className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all">
                 <ChevronLeft size={16} />
               </button>
               <div className="flex gap-2">
                 {TESTIMONIALS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setTestimonialIdx(i)}
-                    className={`h-2 rounded-full transition-all ${i === testimonialIdx ? "gradient-bg w-5" : "bg-purple-200 w-2"}`}
-                  />
+                  <button key={i} onClick={() => setTestimonialIdx(i)} className={`h-2 rounded-full transition-all ${i === testimonialIdx ? "gradient-bg w-5" : "bg-purple-200 w-2"}`} />
                 ))}
               </div>
-              <button
-                onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)}
-                className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all"
-              >
+              <button onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)} className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all">
                 <ChevronRight size={16} />
               </button>
             </div>
@@ -497,48 +376,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
+      {/* ── 8. PRICING ────────────────────────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
-            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Simple, transparent pricing</h2>
-            <p className="text-muted text-lg mb-8 max-w-lg mx-auto">No per-seat fees. No surprise charges. Cancel anytime.</p>
+            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.pricingTitle}</h2>
+            <p className="text-muted text-lg mb-8 max-w-lg mx-auto">{T.home.pricingSub}</p>
             <div className="inline-flex items-center gap-1 bg-surface rounded-xl p-1">
-              <button
-                onClick={() => setAnnual(false)}
-                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setAnnual(true)}
-                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}
-              >
-                Annual
+              <button onClick={() => setAnnual(false)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>{T.home.monthly}</button>
+              <button onClick={() => setAnnual(true)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>
+                {T.home.annual}
                 <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-17%</span>
               </button>
             </div>
           </FadeUp>
           <div className="grid md:grid-cols-3 gap-6">
-            {PLANS.map(({ name, monthly, annually, desc, features, cta, primary }, i) => (
+            {PLANS.map(({ name, monthly, annually, desc, featuresKey, cta, primary }, i) => {
+              const Pt = T.pricing as Record<string, string | string[]>;
+              const features = Pt[featuresKey] as string[];
+              return (
               <FadeUp key={name} delay={i * 0.08}>
                 <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
                   {primary && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
-                      Most popular
+                    <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                      {T.home.mostPopular}
                     </span>
                   )}
                   <p className="text-purple-900 font-bold text-lg mb-1">{name}</p>
-                  <p className="text-muted text-sm mb-5">{desc}</p>
+                  <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
                   <div className="mb-6">
                     {monthly !== null ? (
                       <>
                         <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
-                        <span className="text-muted text-sm ml-1">/month</span>
-                        {annual && <p className="text-xs text-muted/70 mt-1">billed annually</p>}
+                        <span className="text-muted text-sm ms-1">{T.pricing.perMonth}</span>
+                        {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
                       </>
                     ) : (
-                      <span className="text-3xl font-extrabold gradient-text">Custom</span>
+                      <span className="text-3xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
                     )}
                   </div>
                   <ul className="space-y-3 flex-1 mb-8">
@@ -550,23 +424,20 @@ export default function HomePage() {
                     ))}
                   </ul>
                   <a
-                    href={cta === "Talk to sales" ? "/contact" : "/signup"}
-                    className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${
-                      primary
-                        ? "gradient-bg text-white shadow-btn hover:opacity-90"
-                        : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"
-                    }`}
+                    href={cta === "talkToSales" ? "/contact" : "/signup"}
+                    className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
                   >
-                    {cta}
+                    {cta === "talkToSales" ? T.home.talkToSales : T.home.startFreeTrial}
                   </a>
                 </div>
               </FadeUp>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── 9. FINAL CTA ────────────────────────────────────────────────────── */}
+      {/* ── 9. FINAL CTA ─────────────────────────────────────────────────────────────────────────── */}
       <section className="py-28 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
@@ -579,20 +450,18 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <FadeUp>
             <h2 className="text-5xl font-extrabold text-purple-900 mb-5">
-              Ready to hire <span className="gradient-text">10× faster?</span>
+              {T.home.ctaTitle} <span className="gradient-text">{T.home.ctaTitle2}</span>
             </h2>
-            <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
-              Join hundreds of recruiting teams who&apos;ve handed the volume work to Aria — and got their time back.
-            </p>
+            <p className="text-muted text-lg mb-10 max-w-xl mx-auto">{T.home.ctaSub}</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <GradientButton href="/demo" className="px-8 py-4 text-base">
-                Try the demo — free, no signup <ArrowRight size={16} className="ml-2" />
+                {T.home.ctaCta} <ArrowRight size={16} className="ms-2 rtl:scale-x-[-1]" />
               </GradientButton>
               <GradientButton href="/contact" outline className="px-8 py-4 text-base">
-                Talk to sales
+                {T.home.ctaSecondary}
               </GradientButton>
             </div>
-            <p className="text-xs text-muted/60 mt-6">No account needed · Cancel anytime · GDPR compliant</p>
+            <p className="text-xs text-muted/60 mt-6">{T.home.ctaFootnote}</p>
           </FadeUp>
         </div>
       </section>
