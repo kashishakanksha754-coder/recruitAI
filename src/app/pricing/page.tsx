@@ -207,7 +207,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{(T.pricing as Record<string, string | string[]>)[planDef.nameKey] as string}</p>
         {basePrice !== null ? (
           <>
-            <p className="text-3xl font-extrabold gradient-text mb-0.5">
+            <p dir="ltr" className="text-3xl font-extrabold gradient-text mb-0.5 text-start">
               ${basePrice}<span className="text-base text-muted font-normal">{T.pricing.perMo}</span>
             </p>
             <p className="text-xs text-muted/70 mb-4">
@@ -307,10 +307,11 @@ export default function PricingPage() {
                     <div className="mb-7">
                       {monthly !== null ? (
                         <>
-                          <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
-                          <span className="text-muted text-sm ms-1">{T.pricing.perMonth}</span>
+                          <div dir="ltr" className="flex items-baseline gap-1">
+                            <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                            <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+                          </div>
                           {annual && <p className="text-xs text-muted/70 mt-1">{T.pricing.billedAnnually}</p>}
-
                         </>
                       ) : (
                         <span className="text-4xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
