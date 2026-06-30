@@ -18,7 +18,7 @@ const BADGE_META = [
 
 export default function FloatingShapes() {
   const reduced = useReducedMotion() ?? false;
-  const { T } = useLanguage();
+  const { T, isRtl } = useLanguage();
   const H = T.home as Record<string, string | string[]>;
 
   return (
@@ -35,12 +35,15 @@ export default function FloatingShapes() {
       </svg>
 
       {/* Pill badges — floating freely with no graphic behind them */}
-      {BADGE_META.map(({ icon: Icon, key, color, bg, top, left, right }, i) => (
+      {BADGE_META.map(({ icon: Icon, key, color, bg, top, left, right }, i) => {
+        // Swap left/right for RTL so badges mirror to the opposite side
+        const pos = isRtl ? { left: right, right: left } : { left, right };
+        return (
         <motion.div
           key={key}
           className="absolute flex items-center gap-2 bg-white rounded-2xl px-3.5 py-2.5 whitespace-nowrap z-10"
           style={{
-            top, left, right,
+            top, ...pos,
             boxShadow: "0 4px 20px rgba(0,0,0,0.10), 0 1px 6px rgba(0,0,0,0.06)",
           }}
           {...(reduced ? {} : float([0, i % 2 === 0 ? -8 : 8, 0], 5 + i * 0.8))}
@@ -50,7 +53,8 @@ export default function FloatingShapes() {
           </span>
           <span className="text-xs font-semibold text-purple-900">{H[key] as string}</span>
         </motion.div>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -4,87 +4,48 @@ import { motion, useInView } from "framer-motion";
 import { FileText, Phone, BarChart2, Mail, CheckCircle, ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
-
-const STAGES = [
-  {
-    icon: FileText,
-    step: "01",
-    title: "Post a role",
-    desc: "Define the role in plain English. Aria generates a structured rubric — skills, signals, dealbreakers — in seconds. No ATS wizard required.",
-    detail: "Post once and distribute instantly to LinkedIn, Naukri, Glassdoor, Indeed, and more — no extra steps.",
-  },
-  {
-    icon: FileText,
-    step: "02",
-    title: "Applications flow in",
-    desc: "Every resume is parsed in under 3 seconds. AI extracts skills, tenure gaps, title progression, and soft signals that keyword matching misses.",
-    detail: "Handles PDF, Word, LinkedIn profiles, and plain-text submissions.",
-  },
-  {
-    icon: Phone,
-    step: "03",
-    title: "Aria calls candidates",
-    desc: "Aria places a real phone call or video interview. She adapts questions based on each candidate's background, probes weak spots, and follows up naturally.",
-    detail: "Scheduled automatically or on-demand. Candidates consistently rate the experience highly.",
-  },
-  {
-    icon: BarChart2,
-    step: "04",
-    title: "Scores & transcripts",
-    desc: "Every interview is transcribed, scored against your rubric, and summarized. Key quotes are highlighted. Red flags are flagged explicitly.",
-    detail: "EEOC-safe audit trail for every decision. Full export to PDF for your review.",
-  },
-  {
-    icon: CheckCircle,
-    step: "05",
-    title: "Shortlist delivered",
-    desc: "Your recruiter receives the top 10 candidates with full context — not raw resumes. One click to schedule a human interview.",
-    detail: "Average: 48 hours from job post to verified shortlist.",
-  },
-  {
-    icon: Mail,
-    step: "06",
-    title: "Candidates stay informed",
-    desc: "Every applicant receives timely, respectful updates. Aria handles status emails automatically — no candidate left in the dark.",
-    detail: "Customisable messaging. No candidate accounts required.",
-  },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HowItWorksPage() {
+  const { T } = useLanguage();
+  const H = T.hiw;
+
+  const STAGES = [
+    { icon: FileText,    step: "01", title: H.stage1Title, desc: H.stage1Desc, detail: H.stage1Detail },
+    { icon: FileText,    step: "02", title: H.stage2Title, desc: H.stage2Desc, detail: H.stage2Detail },
+    { icon: Phone,       step: "03", title: H.stage3Title, desc: H.stage3Desc, detail: H.stage3Detail },
+    { icon: BarChart2,   step: "04", title: H.stage4Title, desc: H.stage4Desc, detail: H.stage4Detail },
+    { icon: CheckCircle, step: "05", title: H.stage5Title, desc: H.stage5Desc, detail: H.stage5Detail },
+    { icon: Mail,        step: "06", title: H.stage6Title, desc: H.stage6Desc, detail: H.stage6Detail },
+  ];
+
   return (
     <main className="pt-24 pb-20 bg-white">
-      {/* Header */}
       <section className="py-20 bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
             <h1 className="text-5xl font-extrabold text-purple-900 mb-5 tracking-tight">
-              From 1,000 applicants to{" "}
-              <span className="gradient-text">10 verified matches</span>
+              {H.heroTitle1}{" "}
+              <span className="gradient-text">{H.heroTitle2}</span>
             </h1>
-            <p className="text-muted text-xl leading-relaxed">
-              Here&apos;s exactly what happens when you post a role with Recruit AI.
-            </p>
+            <p className="text-muted text-xl leading-relaxed">{H.heroSub}</p>
           </FadeUp>
         </div>
       </section>
 
-      {/* Pipeline stages */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
-            {/* Vertical timeline line */}
-            <div className="absolute left-[28px] top-0 bottom-0 w-px bg-purple-100 hidden sm:block" />
-
+            <div className="absolute start-[28px] top-0 bottom-0 w-px bg-purple-100 hidden sm:block" />
             <div className="space-y-12">
               {STAGES.map(({ icon: Icon, step, title, desc, detail }, i) => (
-                <StageRow key={step} icon={Icon} step={step} title={title} desc={desc} detail={detail} index={i} />
+                <StageRow key={step} icon={Icon} step={step} title={title} desc={desc} detail={detail} index={i} stepLabel={H.step} />
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
@@ -96,10 +57,10 @@ export default function HowItWorksPage() {
         </svg>
         <div className="max-w-2xl mx-auto px-4 text-center relative">
           <FadeUp>
-            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Ready to see it live?</h2>
-            <p className="text-muted mb-8">Get your first shortlist in 48 hours. No credit card required.</p>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">{H.ctaTitle}</h2>
+            <p className="text-muted mb-8">{H.ctaSub}</p>
             <GradientButton href="/demo" className="px-8 py-4 text-base">
-              Try the demo <ArrowRight size={16} className="ml-2" />
+              {H.tryDemo} <ArrowRight size={16} className="ms-2 rtl:scale-x-[-1]" />
             </GradientButton>
           </FadeUp>
         </div>
@@ -109,30 +70,29 @@ export default function HowItWorksPage() {
 }
 
 function StageRow({
-  icon: Icon, step, title, desc, detail, index,
+  icon: Icon, step, title, desc, detail, index, stepLabel,
 }: {
-  icon: React.ElementType; step: string; title: string; desc: string; detail: string; index: number;
+  icon: React.ElementType; step: string; title: string; desc: string; detail: string; index: number; stepLabel: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { isRtl } = useLanguage();
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -24 }}
+      initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       className="flex gap-8 items-start"
     >
-      {/* Icon in circle */}
       <div className="relative shrink-0">
         <div className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-btn">
           <Icon size={22} className="text-white" />
         </div>
       </div>
-      {/* Content */}
       <div className="flex-1 pt-1">
-        <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">Step {step}</span>
+        <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">{stepLabel} {step}</span>
         <h3 className="text-xl font-bold text-purple-900 mb-2">{title}</h3>
         <p className="text-muted leading-relaxed mb-3">{desc}</p>
         <p className="text-sm text-purple-700 bg-purple-50 rounded-xl px-4 py-2.5 inline-block">{detail}</p>
