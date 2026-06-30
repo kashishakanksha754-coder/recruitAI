@@ -1,59 +1,53 @@
+"use client";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import { Users, Shield, Zap, Globe } from "lucide-react";
-
-const VALUES = [
-  { icon: Users,  title: "Recruiters first",  desc: "Every feature is designed for the recruiter experience. Candidates only interact via Aria — never log in." },
-  { icon: Shield, title: "Transparent AI",    desc: "Aria always discloses she's an AI. Every score is explainable. Every decision is auditable." },
-  { icon: Zap,    title: "Speed with depth",  desc: "Fast doesn't mean shallow. Our rubrics surface nuance that keyword matching misses entirely." },
-  { icon: Globe,  title: "Global by default", desc: "GDPR compliance and EEOC-safe audit trails built in from day one." },
-];
-
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutPage() {
+  const { T } = useLanguage();
+  const A = T.about;
+
+  const VALUES = [
+    { icon: Users,  title: A.val1Title, desc: A.val1Desc },
+    { icon: Shield, title: A.val2Title, desc: A.val2Desc },
+    { icon: Zap,    title: A.val3Title, desc: A.val3Desc },
+    { icon: Globe,  title: A.val4Title, desc: A.val4Desc },
+  ];
+
   return (
     <main className="pt-24 pb-20">
 
-      {/* Header */}
       <section className="py-24 bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
             <h1 className="text-5xl font-extrabold text-purple-900 mb-6 tracking-tight">
-              We built Aria so recruiters can{" "}
-              <span className="gradient-text">actually recruit</span>
+              {A.heroTitle1}{" "}
+              <span className="gradient-text">{A.heroTitle2}</span>
             </h1>
-            <p className="text-muted text-xl leading-relaxed">
-              Recruit AI started because we watched talented recruiters spend 80% of their week on screening calls they never wanted to do. Aria fixes that.
-            </p>
+            <p className="text-muted text-xl leading-relaxed">{A.heroSub}</p>
           </FadeUp>
         </div>
       </section>
 
-      {/* Mission */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-stretch">
             <FadeUp>
-              <h2 className="text-4xl font-extrabold text-purple-900 mb-6">The problem we&apos;re solving</h2>
+              <h2 className="text-4xl font-extrabold text-purple-900 mb-6">{A.problemTitle}</h2>
               <div className="space-y-4 text-muted leading-relaxed">
-                <p>
-                  The average recruiter reviews 250 resumes per role. They conduct 30+ screening calls to produce 5 candidates worth presenting. That&apos;s weeks of work before a single qualified person reaches the hiring manager.
-                </p>
-                <p>
-                  Aria handles the entire volume layer — resume parsing, phone screens, structured interviews — so your team&apos;s judgment goes where it matters most: relationship building and final assessment.
-                </p>
-                <p>
-                  We don&apos;t replace recruiters. We give them back the parts of the job they actually love.
-                </p>
+                <p>{A.p1}</p>
+                <p>{A.p2}</p>
+                <p>{A.p3}</p>
               </div>
             </FadeUp>
             <FadeUp delay={0.15} className="h-full">
               <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
                 {[
-                  { stat: "1,200",  label: "Avg applicants per role processed" },
-                  { stat: "48h",    label: "Average time to verified shortlist" },
-                  { stat: "94%",    label: "Hiring manager satisfaction rate" },
-                  { stat: "100%",   label: "Of decisions logged with a full audit trail" },
+                  { stat: "1,200", label: A.stat1Label },
+                  { stat: "48h",   label: A.stat2Label },
+                  { stat: "94%",   label: A.stat3Label },
+                  { stat: "100%",  label: A.stat4Label },
                 ].map(({ stat, label }) => (
                   <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-3xl font-extrabold gradient-text mb-1">{stat}</p>
@@ -61,19 +55,16 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-muted/40 text-center mt-3 italic">
-                Figures are projected targets for Phase 1, not yet measured results.
-              </p>
+              <p className="text-[10px] text-muted/40 text-center mt-3 italic">{A.statsDisclaimer}</p>
             </FadeUp>
           </div>
         </div>
       </section>
 
-      {/* Values */}
       <section className="py-24 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-purple-900">What we stand for</h2>
+            <h2 className="text-4xl font-extrabold text-purple-900">{A.valuesTitle}</h2>
           </FadeUp>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
@@ -89,7 +80,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           <defs>
@@ -101,11 +91,11 @@ export default function AboutPage() {
         </svg>
         <div className="max-w-xl mx-auto px-4 text-center relative">
           <FadeUp>
-            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">Come build with us</h2>
-            <p className="text-muted mb-8">We&apos;re hiring across engineering, research, and customer success.</p>
+            <h2 className="text-3xl font-extrabold text-purple-900 mb-4">{A.ctaTitle}</h2>
+            <p className="text-muted mb-8">{A.ctaSub}</p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <GradientButton href="/contact">Get in touch</GradientButton>
-              <GradientButton href="/demo" outline>Try the demo</GradientButton>
+              <GradientButton href="/contact">{A.getInTouch}</GradientButton>
+              <GradientButton href="/demo" outline>{A.tryDemo}</GradientButton>
             </div>
           </FadeUp>
         </div>
