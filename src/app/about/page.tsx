@@ -44,10 +44,10 @@ export default function AboutPage() {
             <FadeUp delay={0.15} className="h-full">
               <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
                 {[
-                  { stat: "1,200", label: A.stat1Label },
-                  { stat: "48h",   label: A.stat2Label },
-                  { stat: "94%",   label: A.stat3Label },
-                  { stat: "100%",  label: A.stat4Label },
+                  { stat: A.stat1Value, label: A.stat1Label },
+                  { stat: A.stat2Value, label: A.stat2Label },
+                  { stat: A.stat3Value, label: A.stat3Label },
+                  { stat: A.stat4Value, label: A.stat4Label },
                 ].map(({ stat, label }) => (
                   <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center">
                     <p className="text-3xl font-extrabold gradient-text mb-1">{stat}</p>

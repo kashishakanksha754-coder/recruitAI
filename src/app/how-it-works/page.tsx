@@ -76,11 +76,12 @@ function StageRow({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { isRtl, n } = useLanguage();
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -24 }}
+      initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       className="flex gap-8 items-start"
@@ -91,7 +92,7 @@ function StageRow({
         </div>
       </div>
       <div className="flex-1 pt-1">
-        <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">{stepLabel} {step}</span>
+        <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">{stepLabel} {n(step)}</span>
         <h3 className="text-xl font-bold text-purple-900 mb-2">{title}</h3>
         <p className="text-muted leading-relaxed mb-3">{desc}</p>
         <p className="text-sm text-purple-700 bg-purple-50 rounded-xl px-4 py-2.5 inline-block">{detail}</p>

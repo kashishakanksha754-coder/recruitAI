@@ -80,7 +80,7 @@ function JobDistributionVisual() {
     { label: "Indeed",    color: "#2164F3", text: "white" },
   ];
   return (
-    <div className="relative h-52 w-full rounded-xl overflow-hidden">
+    <div className="relative h-52 w-full rounded-xl overflow-hidden" dir="ltr">
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -123,13 +123,13 @@ const TESTIMONIALS_AR = [
 ];
 
 const PLANS = [
-  { name: "Starter",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
-  { name: "Growth",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
-  { name: "Enterprise", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
+  { nameKey: "starterName",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
+  { nameKey: "growthName",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
+  { nameKey: "enterpriseName", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
 ];
 
 export default function HomePage() {
-  const { T, isRtl } = useLanguage();
+  const { T, isRtl, n } = useLanguage();
   const [annual, setAnnual] = useState(true);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const TESTIMONIALS = isRtl ? TESTIMONIALS_AR : TESTIMONIALS_EN;
@@ -228,9 +228,9 @@ export default function HomePage() {
                   style={{ width: 2, bottom: 44, background: "linear-gradient(180deg, #F0625A 0%, #7B5CC4 50%, #2D1B69 100%)", borderRadius: 2, opacity: 0.2 } as React.CSSProperties}
                 />
                 {[
-                  { step: "1", label: T.home.step1Label, sub: T.home.step1Sub },
-                  { step: "2", label: T.home.step2Label, sub: T.home.step2Sub },
-                  { step: "3", label: T.home.step3Label, sub: T.home.step3Sub },
+                  { step: n("1"), label: T.home.step1Label, sub: T.home.step1Sub },
+                  { step: n("2"), label: T.home.step2Label, sub: T.home.step2Sub },
+                  { step: n("3"), label: T.home.step3Label, sub: T.home.step3Sub },
                 ].map(({ step, label, sub }, i) => (
                   <div key={step} className={`flex items-center gap-4 ${i < 2 ? "mb-5" : ""}`}>
                     <span className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0 relative z-10" style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}>
@@ -361,7 +361,7 @@ export default function HomePage() {
             </motion.div>
             <div className="flex items-center justify-center gap-4 mt-8">
               <button onClick={() => setTestimonialIdx((testimonialIdx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)} className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all">
-                <ChevronLeft size={16} />
+                <ChevronLeft size={16} className="rtl:scale-x-[-1]" />
               </button>
               <div className="flex gap-2">
                 {TESTIMONIALS.map((_, i) => (
@@ -369,7 +369,7 @@ export default function HomePage() {
                 ))}
               </div>
               <button onClick={() => setTestimonialIdx((testimonialIdx + 1) % TESTIMONIALS.length)} className="w-9 h-9 rounded-full border border-purple-200 flex items-center justify-center text-muted hover:border-purple-400 hover:text-purple-900 transition-all">
-                <ChevronRight size={16} />
+                <ChevronRight size={16} className="rtl:scale-x-[-1]" />
               </button>
             </div>
           </FadeUp>
@@ -386,29 +386,32 @@ export default function HomePage() {
               <button onClick={() => setAnnual(false)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>{T.home.monthly}</button>
               <button onClick={() => setAnnual(true)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>
                 {T.home.annual}
-                <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-17%</span>
+                <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-{n("17")}%</span>
               </button>
             </div>
           </FadeUp>
           <div className="grid md:grid-cols-3 gap-6">
-            {PLANS.map(({ name, monthly, annually, desc, featuresKey, cta, primary }, i) => {
+            {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary }, i) => {
               const Pt = T.pricing as Record<string, string | string[]>;
               const features = Pt[featuresKey] as string[];
+              const planName = Pt[nameKey] as string;
               return (
-              <FadeUp key={name} delay={i * 0.08}>
+              <FadeUp key={nameKey} delay={i * 0.08}>
                 <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
                   {primary && (
                     <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
                       {T.home.mostPopular}
                     </span>
                   )}
-                  <p className="text-purple-900 font-bold text-lg mb-1">{name}</p>
+                  <p className="text-purple-900 font-bold text-lg mb-1">{planName}</p>
                   <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
                   <div className="mb-6">
                     {monthly !== null ? (
                       <>
-                        <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
-                        <span className="text-muted text-sm ms-1">{T.pricing.perMonth}</span>
+                        <div dir="ltr" className="flex items-baseline gap-1">
+                          <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                          <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+                        </div>
                         {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
                       </>
                     ) : (
