@@ -409,7 +409,7 @@ export default function HomePage() {
                     {monthly !== null ? (
                       <>
                         <div dir="ltr" className="flex items-baseline gap-1">
-                          <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                          <span className="text-4xl font-extrabold gradient-text">${n(annual ? annually! : monthly!)}</span>
                           <span className="text-muted text-sm">{T.pricing.perMonth}</span>
                         </div>
                         {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
