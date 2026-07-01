@@ -33,7 +33,7 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold gradient-text">Recruit AI</span>
+          <span className="text-xl font-bold gradient-text">{T.nav.brandName}</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
@@ -55,7 +55,7 @@ export default function Navbar() {
               onClick={() => setLangOpen(!langOpen)}
               onBlur={() => setTimeout(() => setLangOpen(false), 150)}
               className="flex items-center gap-1.5 text-sm font-medium text-muted hover:text-purple-900 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all"
-              aria-label="Select language"
+              aria-label={T.nav.english + " / " + T.nav.arabic}
             >
               <Globe size={15} />
               <span className="uppercase text-xs font-bold tracking-wide">{lang}</span>
@@ -122,7 +122,7 @@ export default function Navbar() {
                     : "border-purple-100 text-muted hover:border-purple-300"
                 }`}
               >
-                {l === "en" ? "EN" : "AR"}
+                {l === "en" ? T.nav.langEn : T.nav.langAr}
               </button>
             ))}
           </div>

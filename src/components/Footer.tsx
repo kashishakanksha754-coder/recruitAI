@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           <div className="col-span-1 md:col-span-2">
-            <span className="text-xl font-bold gradient-text">Recruit AI</span>
+            <span className="text-xl font-bold gradient-text">{T.nav.brandName}</span>
             <p className="text-muted text-sm mt-3 max-w-xs leading-relaxed">{F.tagline}</p>
           </div>
 
@@ -82,7 +82,7 @@ export default function Footer() {
                       lang === l ? "text-purple-900" : "text-muted/60 hover:text-muted"
                     }`}
                   >
-                    {l === "en" ? "EN" : "AR"}
+                    {l === "en" ? T.nav.langEn : T.nav.langAr}
                   </button>
                 </span>
               ))}
