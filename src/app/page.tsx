@@ -117,9 +117,9 @@ const TESTIMONIALS_EN = [
   { quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.", name: "P.N.", role: "Chief People Officer · Enterprise SaaS" },
 ];
 const TESTIMONIALS_AR = [
-  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقّاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
   { quote: "جودة المقابلة الصوتية فاجأتني. قال المرشحون إنها بدت بشرية. النصوص كانت مفصّلة وقابلة للتنفيذ — أفضل من ملاحظات معظم المحاورين البشريين.", name: "م.ر.", role: "نائب رئيس الموارد البشرية · شركة تقنية في مرحلة النمو" },
-  { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
+  { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوّعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
 ];
 
 const PLANS = [
@@ -129,7 +129,7 @@ const PLANS = [
 ];
 
 export default function HomePage() {
-  const { T, isRtl } = useLanguage();
+  const { T, isRtl, n } = useLanguage();
   const [annual, setAnnual] = useState(true);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const TESTIMONIALS = isRtl ? TESTIMONIALS_AR : TESTIMONIALS_EN;
@@ -216,7 +216,6 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.ariaTitle}</h2>
             <p className="text-muted text-lg max-w-xl mx-auto">{T.home.ariaSub}</p>
           </FadeUp>
-          {/* Mirror: hub on start side in LTR (left), steps on end side. In RTL dir flips the flex row automatically. */}
           <div className="grid lg:grid-cols-[58%_42%] gap-12 items-center">
             <FadeUp delay={0.1} className="flex justify-center">
               <AriaHub />
@@ -228,9 +227,9 @@ export default function HomePage() {
                   style={{ width: 2, bottom: 44, background: "linear-gradient(180deg, #F0625A 0%, #7B5CC4 50%, #2D1B69 100%)", borderRadius: 2, opacity: 0.2 } as React.CSSProperties}
                 />
                 {[
-                  { step: "1", label: T.home.step1Label, sub: T.home.step1Sub },
-                  { step: "2", label: T.home.step2Label, sub: T.home.step2Sub },
-                  { step: "3", label: T.home.step3Label, sub: T.home.step3Sub },
+                  { step: n("1"), label: T.home.step1Label, sub: T.home.step1Sub },
+                  { step: n("2"), label: T.home.step2Label, sub: T.home.step2Sub },
+                  { step: n("3"), label: T.home.step3Label, sub: T.home.step3Sub },
                 ].map(({ step, label, sub }, i) => (
                   <div key={step} className={`flex items-center gap-4 ${i < 2 ? "mb-5" : ""}`}>
                     <span className="w-9 h-9 rounded-xl gradient-bg text-white text-sm font-bold flex items-center justify-center shrink-0 relative z-10" style={{ boxShadow: "0 2px 12px rgba(240,98,90,0.40)" }}>
@@ -386,7 +385,7 @@ export default function HomePage() {
               <button onClick={() => setAnnual(false)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>{T.home.monthly}</button>
               <button onClick={() => setAnnual(true)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>
                 {T.home.annual}
-                <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-17%</span>
+                <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-{n("17")}%</span>
               </button>
             </div>
           </FadeUp>
