@@ -76,7 +76,7 @@ function StageRow({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const { isRtl } = useLanguage();
+  const { isRtl, n } = useLanguage();
 
   return (
     <motion.div
@@ -92,7 +92,7 @@ function StageRow({
         </div>
       </div>
       <div className="flex-1 pt-1">
-        <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">{stepLabel} {step}</span>
+        <span className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-1 block">{stepLabel} {n(step)}</span>
         <h3 className="text-xl font-bold text-purple-900 mb-2">{title}</h3>
         <p className="text-muted leading-relaxed mb-3">{desc}</p>
         <p className="text-sm text-purple-700 bg-purple-50 rounded-xl px-4 py-2.5 inline-block">{detail}</p>
