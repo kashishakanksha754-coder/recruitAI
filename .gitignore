@@ -1,0 +1,48 @@
+# See https://nextjs.org/docs for more about ignoring files.
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Next.js build output
+/.next/
+/out/
+/build
+next-env.d.ts
+
+# Testing
+/coverage
+
+# Environment (local overrides — never commit secrets)
+# Committed (safe defaults): .env, .env.development, .env.production
+# Gitignored (local secrets): .env*.local
+.env*.local
+
+# Deployment
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.pem
