@@ -26,7 +26,7 @@ function CopyBox({ value, href, copiedLabel = "Copied!", openLinkLabel = "Open l
           className="shrink-0 text-muted hover:text-purple-900 transition-colors"
           title={openLinkLabel}
         >
-          <ExternalLink size={15} />
+          <ExternalLink size={15} className="rtl:-scale-x-100"/>
         </a>
       ) : (
         <button
@@ -37,7 +37,7 @@ function CopyBox({ value, href, copiedLabel = "Copied!", openLinkLabel = "Open l
           {copied ? (
             <Check size={15} className="text-coral-500" />
           ) : (
-            <Copy size={15} />
+            <Copy size={15} className="rtl:-scale-x-100" />
           )}
           {copied && (
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-purple-900 text-white text-[10px] font-semibold px-2 py-1 rounded-md whitespace-nowrap">
@@ -231,7 +231,7 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100">
               <div className="flex flex-col px-8 py-8 lg:py-0 first:ps-0 last:pe-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
-                  <Mail size={18} className="text-purple-900" />
+                  <Mail size={18} className="text-purple-900 rtl:-scale-x-100" />
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.emailTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.emailSub}</p>
@@ -239,7 +239,7 @@ export default function ContactPage() {
               </div>
               <div className="flex flex-col px-8 py-8 lg:py-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
-                  <Calendar size={18} className="text-purple-900" />
+                  <Calendar size={18} className="text-purple-900 rtl:-scale-x-100" />
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.demoTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.demoSub}</p>
@@ -247,7 +247,7 @@ export default function ContactPage() {
               </div>
               <div className="flex flex-col px-8 py-8 lg:py-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
-                  <Building2 size={18} className="text-purple-900" />
+                  <Building2 size={18} className="text-purple-900 rtl:-scale-x-100" />
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.enterpriseTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.enterpriseSub}</p>

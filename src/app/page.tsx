@@ -32,7 +32,7 @@ function AuditFeed() {
         {ENTRIES.map(({ time, label }) => (
           <div key={label} className="flex items-center gap-3 bg-white rounded-xl px-3.5 py-2.5 shadow-card">
             <span className="w-5 h-5 rounded-full bg-coral-50 flex items-center justify-center shrink-0">
-              <Check size={10} className="text-coral-500" />
+              <Check size={10} className="text-coral-500 rtl:-scale-x-100" />
             </span>
             <span className="text-[10px] font-mono text-muted/60 shrink-0">{time}</span>
             <span className="text-[11px] font-semibold text-purple-900">{label}</span>
@@ -72,16 +72,16 @@ function DiamondStack() {
 }
 
 function JobDistributionVisual() {
-  const { T } = useLanguage();
+  const { T , lang } = useLanguage();
   const PLATFORMS = [
-    { label: "LinkedIn",  color: "#0A66C2", text: "white" },
-    { label: "Naukri",    color: "#4A90D9", text: "white" },
-    { label: "Glassdoor", color: "#0CAA41", text: "white" },
-    { label: "Indeed",    color: "#2164F3", text: "white" },
+    { label: lang === "ar" ? "لينكدإن" : "LinkedIn",  color: "#0A66C2", text: "white" },
+    { label: lang === "ar" ? "ناوكري" : "Naukri",    color: "#4A90D9", text: "white" },
+    { label: lang === "ar" ? "جلاسدور" : "Glassdoor", color: "#0CAA41", text: "white" },
+    { label: lang === "ar" ? "إنديد" : "Indeed",      color: "#2164F3", text: "white" },
   ];
   return (
-    <div className="relative h-52 w-full rounded-xl overflow-hidden" dir="ltr">
-      <svg className="absolute inset-0 w-full h-full" aria-hidden>
+    <div className="relative h-52 w-full rounded-xl overflow-hidden rtl:-scale-x-100" dir="ltr">
+      <svg className="absolute inset-0 w-full h-full " aria-hidden>
         <defs>
           <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
             <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E8E4F8" strokeWidth="0.6" />
@@ -95,7 +95,7 @@ function JobDistributionVisual() {
       <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
         <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
           <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
-            <FileText size={15} className="text-purple-700" />
+            <FileText size={15} className="text-purple-700 " />
           </span>
         </div>
         <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">{T.home.jobPost}</span>
@@ -117,7 +117,7 @@ const TESTIMONIALS_EN = [
   { quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.", name: "P.N.", role: "Chief People Officer · Enterprise SaaS" },
 ];
 const TESTIMONIALS_AR = [
-  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقّاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من ٣ أسابيع إلى ٤٨ ساعة. تولّت آريا ٨٠٠ متقدم وأظهرت مرشحين رائعين حقّاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
   { quote: "جودة المقابلة الصوتية فاجأتني. قال المرشحون إنها بدت بشرية. النصوص كانت مفصّلة وقابلة للتنفيذ — أفضل من ملاحظات معظم المحاورين البشريين.", name: "م.ر.", role: "نائب رئيس الموارد البشرية · شركة تقنية في مرحلة النمو" },
   { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوّعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
 ];
@@ -171,7 +171,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap gap-4 mb-8">
                   {[T.home.noCandidateAccounts, T.home.setupTime, T.home.cancelAnytime].map((item) => (
                     <span key={item} className="inline-flex items-center gap-1.5 text-sm text-purple-900 font-medium">
-                      <Check size={14} className="text-coral-500 shrink-0" /> {item}
+                      <Check size={14} className="text-coral-500 shrink-0 rtl:-scale-x-100" /> {item}
                     </span>
                   ))}
                 </div>
@@ -263,7 +263,7 @@ export default function HomePage() {
                 <FadeUp key={title} delay={i * 0.08}>
                   <div className="bg-white p-8 h-full">
                     <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center mb-5">
-                      <Icon size={20} className="text-coral-500" />
+                      <Icon size={20} className="text-coral-500 rtl:-scale-x-100" />
                     </div>
                     <h3 className="text-purple-900 font-bold text-base mb-2">{title}</h3>
                     <p className="text-muted text-sm leading-relaxed">{desc}</p>
@@ -407,8 +407,8 @@ export default function HomePage() {
                   <div className="mb-6">
                     {monthly !== null ? (
                       <>
-                        <div dir="ltr" className="flex items-baseline gap-1">
-                          <span className="text-4xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
+                       <div dir={isRtl ? "rtl" : "ltr"} className="flex items-baseline gap-1">
+                          <span className="text-4xl font-extrabold gradient-text">${n(annual ? annually : monthly)}</span>
                           <span className="text-muted text-sm">{T.pricing.perMonth}</span>
                         </div>
                         {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
@@ -420,7 +420,7 @@ export default function HomePage() {
                   <ul className="space-y-3 flex-1 mb-8">
                     {features.map((f) => (
                       <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
-                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0" />
+                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0 rtl:-scale-x-100" />
                         {f}
                       </li>
                     ))}

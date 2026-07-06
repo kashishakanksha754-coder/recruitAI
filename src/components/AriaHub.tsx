@@ -107,7 +107,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           >
             <Sparkles size={26} strokeWidth={1.5} className="mb-2" style={{ color: "rgba(255,255,255,0.85)" }} />
             <span className="text-[34px] font-extrabold leading-none tracking-tight" style={{ color: "#1E1057" }}>
-              Aria
+              {isRtl ? "آريا" : "Aria"}
             </span>
             <span className="text-[12px] font-semibold tracking-wider mt-1.5" style={{ color: "rgba(255,255,255,0.75)" }}>
               {T.aria.aiInterviewer}
@@ -123,7 +123,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             <motion.div
               key={i}
               className="absolute flex flex-col items-center"
-              style={{ left: x, top: y - CARD / 2, transform: "translateX(-50%)", gap: 10 }}
+              style={{ left: x-35, top: y - CARD / 2, transform: "translateX(-50%)", gap: 10 }}
               initial={{ opacity: 0, scale: 0.6 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: reduced ? 0 : 0.45 + i * 0.1, ease: "easeOut" }}
@@ -140,7 +140,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
                       : "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)",
                   }}
                 >
-                  <Icon size={22} className="text-white" strokeWidth={1.8} />
+                  <Icon size={22} className="text-white rtl:-scale-x-100" strokeWidth={1.8} />
                 </div>
               </div>
               <div className="text-center">

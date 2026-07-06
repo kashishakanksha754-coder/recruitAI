@@ -88,7 +88,7 @@ function StageRow({
     >
       <div className="relative shrink-0">
         <div className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-btn">
-          <Icon size={22} className="text-white" />
+          <Icon size={22} className="text-white rtl:-scale-x-100" />
         </div>
       </div>
       <div className="flex-1 pt-1">

@@ -30,7 +30,7 @@ const INR_RATE = 83;
 const INR_RATE_TOPUP = 83;
 
 function TopUpMeter() {
-  const { T } = useLanguage();
+  const { T ,n} = useLanguage();
   const P = T.pricing as Record<string, string | string[]>;
   const [active, setActive] = useState<number | null>(null);
   const meterRef = useRef<HTMLDivElement>(null);
@@ -85,10 +85,10 @@ function TopUpMeter() {
                     <div className="mb-[21px]" />
                   )}
                   <p className="text-3xl font-extrabold mb-1" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                    ${price}
+                    <span dir="ltr">${n(price)}</span>
                   </p>
-                  <p className="text-sm font-semibold text-purple-900 mb-1">{mins.toLocaleString()} {T.pricing.minUnit}</p>
-                  <p className="text-[11px] text-muted/70 mb-5">${(price / mins).toFixed(2)}/{T.pricing.minUnit} · ≈ ₹{((price / mins) * INR_RATE_TOPUP).toFixed(0)}/{T.pricing.minUnit}</p>
+                  <p className="text-sm font-semibold text-purple-900 mb-1">{n(mins.toLocaleString())} {T.pricing.minUnit}</p>
+                  <p className="text-[11px] text-muted/70 mb-5"><span dir="ltr">${n((price / mins).toFixed(2))}</span>/{T.pricing.minUnit} · ≈ <span dir="ltr">₹{n(((price / mins) * INR_RATE_TOPUP).toFixed(0))}</span>/{T.pricing.minUnit}</p>
                   <a href="/demo" className="inline-block text-sm font-semibold px-4 py-2 rounded-xl border transition-all duration-200" style={{ borderColor: active === i ? from : "#E2DDF4", color: active === i ? from : "#6B6B7D" }}>
                     {buyLabel}
                   </a>
@@ -141,11 +141,11 @@ function TopUpMeter() {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-muted">{mins.toLocaleString()} {T.pricing.minUnit} · ${(price / mins).toFixed(2)}/{T.pricing.minUnit}</p>
+                  <p className="text-xs text-muted">{n(mins.toLocaleString())} {T.pricing.minUnit} · <span dir="ltr">${n((price / mins).toFixed(2))}</span>/{T.pricing.minUnit}</p>
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-xl font-extrabold" style={{ background: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                    ${price}
+                    <span dir="ltr">${n(price)}</span>
                   </p>
                   <a href="/demo" className="text-[11px] font-semibold text-muted/70 hover:text-purple-900 transition-colors">
                     {buyLabel}
@@ -163,7 +163,7 @@ function TopUpMeter() {
 }
 
 function EstimatorPanel({ annual }: { annual: boolean }) {
-  const { T } = useLanguage();
+  const { T ,n} = useLanguage();
   const [screens,    setScreens]    = useState(300);
   const [interviews, setInterviews] = useState(40);
 
@@ -186,7 +186,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         <div>
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm font-semibold text-purple-900">{T.pricing.screensLabel}</span>
-            <span className="text-lg font-extrabold gradient-text">{screens}</span>
+            <span className="text-lg font-extrabold gradient-text">{n(screens)}</span>
           </div>
           <input type="range" min={0} max={5000} step={50} value={screens} onChange={(e) => setScreens(Number(e.target.value))} className="w-full accent-coral-500 h-1.5 rounded-full cursor-pointer" />
           <div className="flex justify-between text-[10px] text-muted/60 mt-1"><span>0</span><span>5,000</span></div>
@@ -194,7 +194,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         <div>
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm font-semibold text-purple-900">{T.pricing.interviewsLabel}</span>
-            <span className="text-lg font-extrabold gradient-text">{interviews}</span>
+            <span className="text-lg font-extrabold gradient-text">{n(interviews)}</span>
           </div>
           <input type="range" min={0} max={500} step={10} value={interviews} onChange={(e) => setInterviews(Number(e.target.value))} className="w-full accent-coral-500 h-1.5 rounded-full cursor-pointer" />
           <div className="flex justify-between text-[10px] text-muted/60 mt-1"><span>0</span><span>500</span></div>
@@ -205,11 +205,11 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
       <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
         <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">{T.pricing.recommendedPlan}</p>
         <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{(T.pricing as Record<string, string | string[]>)[planDef.nameKey] as string}</p>
-        {basePrice !== null ? (
-          <>
+           {basePrice !== null ? (
+  <>
             <p dir="ltr" className="text-3xl font-extrabold gradient-text mb-0.5 text-start">
-              ${basePrice}<span className="text-base text-muted font-normal">{T.pricing.perMo}</span>
-            </p>
+               ${n(basePrice)}<span className="text-base text-muted font-normal">{T.pricing.perMo}</span>
+           </p>
             <p className="text-xs text-muted/70 mb-4">
               ≈ ₹{(basePrice * INR_RATE).toLocaleString("en-IN")}{T.pricing.perMo} {annual ? `· ${T.pricing.billedAnnually}` : `· ${T.pricing.billedMonthly}`}
             </p>
@@ -258,7 +258,7 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
 }
 
 export default function PricingPage() {
-  const { T } = useLanguage();
+  const { T ,n,lang} = useLanguage();
   const P = T.pricing as Record<string, string | string[]>;
   const [annual,   setAnnual]   = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -280,7 +280,9 @@ export default function PricingPage() {
               </button>
               <button onClick={() => setAnnual(true)} className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "gradient-bg text-white shadow-btn" : "text-muted"}`}>
                 {T.pricing.annual}
-                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${annual ? "bg-white/20 text-white" : "bg-coral-100 text-coral-500"}`}>-17%</span>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${annual ? "bg-white/20 text-white" : "bg-coral-100 text-coral-500"}`}>
+  -               {lang === "ar" ? "١٧" : "17"}%
+                </span>
               </button>
             </div>
           </FadeUp>
@@ -307,10 +309,10 @@ export default function PricingPage() {
                     <div className="mb-7">
                       {monthly !== null ? (
                         <>
-                          <div dir="ltr" className="flex items-baseline gap-1">
-                            <span className="text-5xl font-extrabold gradient-text">${annual ? annually : monthly}</span>
-                            <span className="text-muted text-sm">{T.pricing.perMonth}</span>
-                          </div>
+                          <div className="flex items-baseline gap-1">
+                                  <span dir="ltr" className="text-5xl font-extrabold gradient-text">${n(annual ? annually : monthly)}</span>
+                                  <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+                                </div>
                           {annual && <p className="text-xs text-muted/70 mt-1">{T.pricing.billedAnnually}</p>}
                         </>
                       ) : (
@@ -320,7 +322,7 @@ export default function PricingPage() {
                     <ul className="space-y-3 flex-1 mb-8">
                       {features.map((f) => (
                         <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
-                          <Check size={15} className="text-coral-500 mt-0.5 shrink-0" />
+                          <Check size={15} className="text-coral-500 mt-0.5 shrink-0 rtl:-scale-x-100" />
                           {f}
                         </li>
                       ))}

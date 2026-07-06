@@ -40,6 +40,7 @@ export default function AboutPage() {
                 <p>{A.p2}</p>
                 <p>{A.p3}</p>
               </div>
+              //
             </FadeUp>
             <FadeUp delay={0.15} className="h-full">
               <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
@@ -70,7 +71,7 @@ export default function AboutPage() {
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
               <FadeUp key={title} delay={i * 0.08}>
                 <div className="p-7 h-full">
-                  <Icon size={22} className="text-coral-500 mb-5" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
+                  <Icon size={22} className="text-coral-500 mb-5 rtl:-scale-x-100" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
                   <h3 className="text-purple-900 font-bold mb-2">{title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{desc}</p>
                 </div>
