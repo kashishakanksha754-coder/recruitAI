@@ -40,7 +40,6 @@ export default function AboutPage() {
                 <p>{A.p2}</p>
                 <p>{A.p3}</p>
               </div>
-              //
             </FadeUp>
             <FadeUp delay={0.15} className="h-full">
               <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
