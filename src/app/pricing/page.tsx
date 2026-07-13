@@ -8,8 +8,8 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const PLAN_DEFS = [
   { nameKey: "freeName", monthly: 0, annually: 0, descKey: "freeDesc", featuresKey: "freeFeatures", screenLimit: 50, interviewLimit: 5, ctaKey: "startFreeTrial", primary: false },
-  { nameKey: "starterName",    monthly: 299, annually: 249, descKey: "starterDesc",    featuresKey: "starterFeatures",    screenLimit: 500,      interviewLimit: 50,       ctaKey: "getStarter", primary: false },
-  { nameKey: "growthName",     monthly: 799, annually: 665, descKey: "growthDesc",     featuresKey: "growthFeatures",     screenLimit: 2000,     interviewLimit: 200,      ctaKey: "getGrowth", primary: true  },
+  { nameKey: "starterName",    monthly: 299, annually: 249, descKey: "starterDesc",    featuresKey: "starterFeatures",    screenLimit: 500,      interviewLimit: 50,       ctaKey: "getStarter", primary: true },
+  { nameKey: "growthName",     monthly: 799, annually: 665, descKey: "growthDesc",     featuresKey: "growthFeatures",     screenLimit: 2000,     interviewLimit: 200,      ctaKey: "getGrowth", primary: false  },
   { nameKey: "enterpriseName", monthly: null, annually: null, descKey: "enterpriseDesc", featuresKey: "enterpriseFeatures", screenLimit: Infinity, interviewLimit: Infinity, ctaKey: "talkToSales", primary: false },
 ];
 

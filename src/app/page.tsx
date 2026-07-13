@@ -124,8 +124,8 @@ const TESTIMONIALS_AR = [
 
 const PLANS = [
   { nameKey: "freeName", monthly: 0, annually: 0, desc: "freeDesc", featuresKey: "freeFeatures", cta: "startFreeTrial", primary: false },
-  { nameKey: "starterName", monthly: 299, annually: 249, desc: "starterDesc", featuresKey: "starterFeatures", cta: "getStarter", primary: false },
-  { nameKey: "growthName", monthly: 799, annually: 665, desc: "growthDesc", featuresKey: "growthFeatures", cta: "getGrowth", primary: true },
+  { nameKey: "starterName", monthly: 299, annually: 249, desc: "starterDesc", featuresKey: "starterFeatures", cta: "getStarter", primary: true },
+  { nameKey: "growthName", monthly: 799, annually: 665, desc: "growthDesc", featuresKey: "growthFeatures", cta: "getGrowth", primary: false },
   { nameKey: "enterpriseName", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales", primary: false },
 ];
 
