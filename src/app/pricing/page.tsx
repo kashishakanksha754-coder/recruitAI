@@ -1,14 +1,15 @@
 "use client";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import { useLanguage } from "@/context/LanguageContext";
 
 const PLAN_DEFS = [
-  { nameKey: "starterName",    monthly: 299, annually: 249, descKey: "starterDesc",    featuresKey: "starterFeatures",    screenLimit: 500,      interviewLimit: 50,       ctaKey: "startFreeTrial", primary: false },
-  { nameKey: "growthName",     monthly: 799, annually: 665, descKey: "growthDesc",     featuresKey: "growthFeatures",     screenLimit: 2000,     interviewLimit: 200,      ctaKey: "startFreeTrial", primary: true  },
+  { nameKey: "freeName", monthly: 0, annually: 0, descKey: "freeDesc", featuresKey: "freeFeatures", screenLimit: 50, interviewLimit: 5, ctaKey: "startFreeTrial", primary: false },
+  { nameKey: "starterName",    monthly: 299, annually: 249, descKey: "starterDesc",    featuresKey: "starterFeatures",    screenLimit: 500,      interviewLimit: 50,       ctaKey: "getStarter", primary: false },
+  { nameKey: "growthName",     monthly: 799, annually: 665, descKey: "growthDesc",     featuresKey: "growthFeatures",     screenLimit: 2000,     interviewLimit: 200,      ctaKey: "getGrowth", primary: true  },
   { nameKey: "enterpriseName", monthly: null, annually: null, descKey: "enterpriseDesc", featuresKey: "enterpriseFeatures", screenLimit: Infinity, interviewLimit: Infinity, ctaKey: "talkToSales", primary: false },
 ];
 
@@ -262,6 +263,18 @@ export default function PricingPage() {
   const P = T.pricing as Record<string, string | string[]>;
   const [annual,   setAnnual]   = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  
+  const pricingRef = useRef<HTMLDivElement>(null);
+
+  const scrollPricing = (direction: "left" | "right") => {
+    if (pricingRef.current && pricingRef.current.firstElementChild) {
+      const scrollAmount = (pricingRef.current.firstElementChild as HTMLElement).offsetWidth + 24;
+      pricingRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <main className="pt-24 pb-20 bg-white">
@@ -291,53 +304,81 @@ export default function PricingPage() {
 
       {/* Plans */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-6">
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative group">
+          <button
+            onClick={() => scrollPricing('left')}
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-purple-100 flex items-center justify-center text-purple-900 hover:bg-purple-50 transition-all md:opacity-0 md:group-hover:opacity-100"
+          >
+            <ChevronLeft size={24} className="rtl:scale-x-[-1]" />
+          </button>
+          
+          <div 
+            ref={pricingRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 pt-8 px-2 md:px-6 -mx-2 md:-mx-6 hide-scrollbar scroll-smooth"
+          >
             {PLAN_DEFS.map(({ nameKey, monthly, annually, descKey, featuresKey, ctaKey, primary }, i) => {
               const features = P[featuresKey] as string[];
               const planName = P[nameKey] as string;
               return (
-                <FadeUp key={nameKey} delay={i * 0.08}>
-                  <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
-                    {primary && (
-                      <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
-                        {T.pricing.mostPopular}
-                      </span>
-                    )}
-                    <p className="text-purple-900 font-bold text-xl mb-1">{planName}</p>
-                    <p className="text-muted text-sm mb-6">{P[descKey] as string}</p>
-                    <div className="mb-7">
-                      {monthly !== null ? (
-                        <>
-                          <div className="flex items-baseline gap-1">
-                                  <span dir="ltr" className="text-5xl font-extrabold gradient-text">${n(annual ? annually : monthly)}</span>
-                                  <span className="text-muted text-sm">{T.pricing.perMonth}</span>
-                                </div>
-                          {annual && <p className="text-xs text-muted/70 mt-1">{T.pricing.billedAnnually}</p>}
-                        </>
-                      ) : (
-                        <span className="text-4xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
+                <div key={nameKey} className="w-[85vw] md:w-[calc((100%-3rem)/3)] shrink-0 snap-center">
+                  <FadeUp delay={i * 0.08} className="h-full">
+                    <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
+                      {primary && (
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                          {T.pricing.mostPopular}
+                        </span>
                       )}
+                      <p className="text-purple-900 font-bold text-xl mb-1">{planName}</p>
+                      <p className="text-muted text-sm mb-6">{P[descKey] as string}</p>
+                      <div className="mb-7">
+                        {monthly !== null ? (
+                          <>
+                            <div className="flex items-baseline gap-1">
+                                    <span dir="ltr" className="text-5xl font-extrabold gradient-text">${n(annual ? annually : monthly)}</span>
+                                    <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+                                  </div>
+                            {annual && <p className="text-xs text-muted/70 mt-1">{T.pricing.billedAnnually}</p>}
+                          </>
+                        ) : (
+                          <span className="text-4xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
+                        )}
+                      </div>
+                      <ul className="space-y-3 flex-1 mb-8">
+                        {features.map((f) => (
+                          <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
+                            <Check size={15} className="text-coral-500 mt-0.5 shrink-0 rtl:-scale-x-100" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                      <a
+                        href={ctaKey === "talkToSales" ? "/contact" : "/signup"}
+                        className={`block text-center py-3.5 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
+                      >
+                        {P[ctaKey] as string} {primary && <ArrowRight size={14} className="inline ms-1 rtl:scale-x-[-1]" />}
+                      </a>
                     </div>
-                    <ul className="space-y-3 flex-1 mb-8">
-                      {features.map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
-                          <Check size={15} className="text-coral-500 mt-0.5 shrink-0 rtl:-scale-x-100" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <a
-                      href={ctaKey === "talkToSales" ? "/contact" : "/signup"}
-                      className={`block text-center py-3.5 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
-                    >
-                      {P[ctaKey] as string} {primary && <ArrowRight size={14} className="inline ms-1 rtl:scale-x-[-1]" />}
-                    </a>
-                  </div>
-                </FadeUp>
+                  </FadeUp>
+                </div>
               );
             })}
           </div>
+          
+          <button
+            onClick={() => scrollPricing('right')}
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-purple-100 flex items-center justify-center text-purple-900 hover:bg-purple-50 transition-all md:opacity-0 md:group-hover:opacity-100"
+          >
+            <ChevronRight size={24} className="rtl:scale-x-[-1]" />
+          </button>
         </div>
       </section>
 
