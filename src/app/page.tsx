@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState ,useRef} from "react";
 import { motion } from "framer-motion";
 import { Check, ChevronRight, ArrowRight, Zap, Users, BarChart2, Phone, FileText, ChevronLeft } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
@@ -123,15 +123,28 @@ const TESTIMONIALS_AR = [
 ];
 
 const PLANS = [
-  { nameKey: "starterName",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
-  { nameKey: "growthName",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
-  { nameKey: "enterpriseName", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
+  { nameKey: "freeName", monthly: 0, annually: 0, desc: "freeDesc", featuresKey: "freeFeatures", cta: "startFreeTrial", primary: false },
+  { nameKey: "starterName", monthly: 299, annually: 249, desc: "starterDesc", featuresKey: "starterFeatures", cta: "getStarter", primary: true },
+  { nameKey: "growthName", monthly: 799, annually: 665, desc: "growthDesc", featuresKey: "growthFeatures", cta: "getGrowth", primary: false },
+  { nameKey: "enterpriseName", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales", primary: false },
 ];
 
 export default function HomePage() {
   const { T, isRtl, n } = useLanguage();
   const [annual, setAnnual] = useState(true);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
+  
+  const pricingRef = useRef<HTMLDivElement>(null);
+
+  const scrollPricing = (direction: "left" | "right") => {
+    if (pricingRef.current && pricingRef.current.firstElementChild) {
+      const scrollAmount = (pricingRef.current.firstElementChild as HTMLElement).offsetWidth + 24;
+      pricingRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
   const TESTIMONIALS = isRtl ? TESTIMONIALS_AR : TESTIMONIALS_EN;
   const t = TESTIMONIALS[testimonialIdx];
 
@@ -282,7 +295,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.showcaseTitle}</h2>
             <p className="text-muted text-lg max-w-xl mx-auto">{T.home.showcaseSub}</p>
           </FadeUp>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {[
               { title: T.home.showcase1Title, sub: T.home.showcase1Sub, accent: "bg-purple-50", rows: T.home.showcase1Rows },
               { title: T.home.showcase2Title, sub: T.home.showcase2Sub, accent: "bg-coral-50",  rows: T.home.showcase2Rows },
@@ -377,6 +390,15 @@ export default function HomePage() {
 
       {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white" id="pricing">
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.pricingTitle}</h2>
@@ -389,52 +411,75 @@ export default function HomePage() {
               </button>
             </div>
           </FadeUp>
-          <div className="grid md:grid-cols-3 gap-6">
-            {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary }, i) => {
-              const Pt = T.pricing as Record<string, string | string[]>;
-              const features = Pt[featuresKey] as string[];
-              const planName = Pt[nameKey] as string;
-              return (
-              <FadeUp key={nameKey} delay={i * 0.08}>
-                <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
-                  {primary && (
-                    <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
-                      {T.home.mostPopular}
-                    </span>
-                  )}
-                  <p className="text-purple-900 font-bold text-lg mb-1">{planName}</p>
-                  <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
-                  <div className="mb-6">
-                    {monthly !== null ? (
-                      <>
-                       <div dir={isRtl ? "rtl" : "ltr"} className="flex items-baseline gap-1">
-                          <span className="text-4xl font-extrabold gradient-text">${n(annual ? annually : monthly)}</span>
-                          <span className="text-muted text-sm">{T.pricing.perMonth}</span>
-                        </div>
-                        {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
-                      </>
-                    ) : (
-                      <span className="text-3xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
-                    )}
-                  </div>
-                  <ul className="space-y-3 flex-1 mb-8">
-                    {features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
-                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0 rtl:-scale-x-100" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={cta === "talkToSales" ? "/contact" : "/signup"}
-                    className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
-                  >
-                    {cta === "talkToSales" ? T.home.talkToSales : T.home.startFreeTrial}
-                  </a>
+          
+          <div className="relative group">
+            <button
+              onClick={() => scrollPricing('left')}
+              className="absolute -left-2 md:-left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-purple-100 flex items-center justify-center text-purple-900 hover:bg-purple-50 transition-all md:opacity-0 md:group-hover:opacity-100"
+            >
+              <ChevronLeft size={24} className="rtl:scale-x-[-1]" />
+            </button>
+            
+            <div 
+              ref={pricingRef}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 pt-8 px-2 md:px-6 -mx-2 md:-mx-6 hide-scrollbar scroll-smooth"
+            >
+              {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary }, i) => {
+                const Pt = T.pricing as Record<string, string | string[]>;
+                const features = Pt[featuresKey] as string[];
+                const planName = Pt[nameKey] as string;
+                return (
+                <div key={nameKey} className="w-[85vw] md:w-[calc((100%-3rem)/3)] shrink-0 snap-center">
+                  <FadeUp delay={i * 0.08} className="h-full">
+                    <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
+                      {primary && (
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                          {T.home.mostPopular}
+                        </span>
+                      )}
+                      <p className="text-purple-900 font-bold text-lg mb-1">{planName}</p>
+                      <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
+                      <div className="mb-6">
+                        {monthly !== null ? (
+                          <>
+                           <div dir={isRtl ? "rtl" : "ltr"} className="flex items-baseline gap-1">
+                              <span className="text-4xl font-extrabold gradient-text">${n(annual ? annually : monthly)}</span>
+                              <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+                            </div>
+                            {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
+                          </>
+                        ) : (
+                          <span className="text-3xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
+                        )}
+                      </div>
+                      <ul className="space-y-3 flex-1 mb-8">
+                        {features.map((f) => (
+                          <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
+                            <Check size={15} className="text-coral-500 mt-0.5 shrink-0 rtl:-scale-x-100" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                      <a
+                        href={cta === "talkToSales" ? "/contact" : "/signup"}
+                        className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
+                      >
+                        { cta === "talkToSales" ? T.home.talkToSales: cta === "getStarter"
+                           ? T.home.getStarter: cta === "getGrowth" ? T.home.getGrowth: T.home.startFreeTrial }
+                      </a>
+                    </div>
+                  </FadeUp>
                 </div>
-              </FadeUp>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => scrollPricing('right')}
+              className="absolute -right-2 md:-right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-purple-100 flex items-center justify-center text-purple-900 hover:bg-purple-50 transition-all md:opacity-0 md:group-hover:opacity-100"
+            >
+              <ChevronRight size={24} className="rtl:scale-x-[-1]" />
+            </button>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -9,6 +10,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -37,19 +39,29 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-muted hover:text-purple-900 text-sm font-medium transition-colors"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map((l) => {
+            const isActive = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`relative text-sm font-medium transition-colors py-1 ${
+                  isActive ? "text-purple-900" : "text-muted hover:text-purple-900"
+                }`}
+              >
+                {l.label}
+                {isActive && (
+                  <span
+                    className="absolute -bottom-1 left-0 w-full h-[2.5px] rounded-full"
+                    style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          {/* Language toggle */}
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
@@ -100,17 +112,22 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden bg-white border-b border-purple-100 px-4 py-4 space-y-1">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="block text-muted hover:text-purple-900 text-sm font-medium py-2.5"
-              onClick={() => setOpen(false)}
-            >
-              {l.label}
-            </Link>
-          ))}
-          {/* Mobile language toggle */}
+          {links.map((l) => {
+            const isActive = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`block text-sm font-medium py-2.5 transition-colors border-l-2 pl-3 ${
+                  isActive ? "border-coral-500 text-purple-900 bg-purple-50/50" : "border-transparent text-muted hover:text-purple-900"
+                }`}
+                onClick={() => setOpen(false)}
+                style={isActive ? { borderImage: "linear-gradient(180deg, #F0625A 0%, #2D1B69 100%) 1" } : {}}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
           <div className="flex gap-2 pt-2">
             {(["en", "ar"] as const).map((l) => (
               <button
