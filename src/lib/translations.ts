@@ -42,8 +42,8 @@ const t = {
     home: {
       badge: "AI-native recruiting platform",
       heroTitle1: "Hire 10× faster with",
-      heroTitleAria: "Aria",
-      heroTitle2: ", your AI recruiter",
+      heroTitleAria: "Aria,",
+      heroTitle2: " your AI recruiter",
       heroSub: "Aria screens resumes, calls candidates, and runs full voice interviews — so your team reviews only the top 1%.",
       noCandidateAccounts: "No candidate accounts needed",
       setupTime: "Setup in 15 minutes",
@@ -429,9 +429,9 @@ const t = {
     },
     home: {
       badge: "منصة التوظيف الأصيلة بالذكاء الاصطناعي",
-      heroTitle1: "وظّف أسرع ١٠ مرات مع",
-      heroTitleAria: "آريا",
-      heroTitle2: "، مسؤولة التوظيف بالذكاء الاصطناعي",
+      heroTitle1: "وظّف أسرع بـ 10 أضعاف مع",
+      heroTitleAria: " أريا،",
+      heroTitle2: " مسؤول التوظيف بالذكاء الاصطناعي الخاص بك",
       heroSub: "آريا تفرز السير الذاتية وتتصل بالمرشحين وتُجري مقابلات صوتية كاملة — حتى يتمكّن فريقك من مراجعة أفضل ١% فقط.",
       noCandidateAccounts: "لا حسابات للمرشحين",
       setupTime: "إعداد خلال ١٥ دقيقة",
