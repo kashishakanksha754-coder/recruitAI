@@ -169,13 +169,13 @@ export default function HomePage() {
                 </span>
               </FadeUp>
               <FadeUp delay={0.08}>
-                <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
-                  <span className="xl:whitespace-nowrap">
-                    {T.home.heroTitle1}{" "}
-                    <span className="gradient-text">{T.home.heroTitleAria}</span>
-                    {T.home.heroTitle2}
-                  </span>
-                </h1>
+              <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
+                 <span className="text-balance">
+                   {T.home.heroTitle1}{" "}
+                 <span className="gradient-text">{T.home.heroTitleAria}</span>
+                 <span className="block mt-2">{T.home.heroTitle2}</span>
+                </span>
+              </h1>
               </FadeUp>
               <FadeUp delay={0.16}>
                 <p className="text-lg text-muted leading-relaxed mb-8 max-w-lg">{T.home.heroSub}</p>
