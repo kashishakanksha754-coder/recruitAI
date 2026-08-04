@@ -163,9 +163,6 @@ export default function HomePage() {
                 <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
                   <span className="block">{T.home.heroTitle1}</span>
                   <span className="block">
-                    <span className="gradient-text">{T.home.heroTitleAria}</span>
-                  </span>
-                  <span className="block">
                     {T.home.heroTitle2}{" "}
                     <span className="gradient-text">{T.home.heroTitle3}</span>
                   </span>
@@ -206,7 +203,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">{T.home.trustTitle}</p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {[T.home.trust1, T.home.trust2, T.home.trust3, T.home.trust4, T.home.trust5, T.home.trust6, T.home.trust7, T.home.trust8].map((msg, i) => (
+            {[T.home.trust1, T.home.trust2, T.home.trust3, T.home.trust4, T.home.trust5, T.home.trust7].map((msg, i) => (
               <span key={msg} className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-700/60">
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${i % 2 === 0 ? "bg-coral-400" : "bg-purple-700"}`} />
                 {msg}
