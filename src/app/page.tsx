@@ -288,7 +288,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.showcaseTitle}</h2>
             <p className="text-muted text-lg max-w-xl mx-auto">{T.home.showcaseSub}</p>
           </FadeUp>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-stretch">
             {[
               { title: T.home.showcase1Title, sub: T.home.showcase1Sub, accent: "bg-purple-50", rows: T.home.showcase1Rows },
               { title: T.home.showcase2Title, sub: T.home.showcase2Sub, accent: "bg-coral-50",  rows: T.home.showcase2Rows },
@@ -296,7 +296,7 @@ export default function HomePage() {
             ].map(({ title, sub, accent, rows }, i) => (
               <FadeUp key={title} delay={i * 0.1}>
                 <div className="card-lg p-6 h-full flex flex-col">
-                  <div className={`${accent} rounded-xl p-4 mb-5`}>
+                  <div className={`${accent} rounded-xl p-4 mb-5 flex-1`}>
                     <div className="space-y-2">
                       {rows.map((r) => (
                         <div key={r} className="bg-white rounded-lg px-3 py-2 text-xs font-medium text-purple-900 shadow-card">{r}</div>
