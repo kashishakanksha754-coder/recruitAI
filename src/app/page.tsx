@@ -125,9 +125,10 @@ const TESTIMONIALS_AR = [
 ];
 
 const PLANS = [
-  { nameKey: "starterName",    monthly: 299,  annually: 249, desc: "starterDesc",    featuresKey: "starterFeatures",    cta: "startFreeTrial", primary: false },
-  { nameKey: "growthName",     monthly: 799,  annually: 665, desc: "growthDesc",     featuresKey: "growthFeatures",     cta: "startFreeTrial", primary: true  },
-  { nameKey: "enterpriseName", monthly: null, annually: null, desc: "enterpriseDesc", featuresKey: "enterpriseFeatures", cta: "talkToSales",    primary: false },
+  { nameKey: "freeName",    monthly: 0,    annually: 0,    desc: "freeDesc",    featuresKey: "freeFeatures",    cta: "startFreeTrial", primary: false, freeLabel: "freePriceLabel" },
+  { nameKey: "pilotName",   monthly: 199,  annually: 199,  desc: "pilotDesc",   featuresKey: "pilotFeatures",   cta: "startFreeTrial", primary: false },
+  { nameKey: "growthName",  monthly: 599,  annually: 599,  desc: "growthDesc",  featuresKey: "growthFeatures",  cta: "startFreeTrial", primary: true  },
+  { nameKey: "scaleName",   monthly: 1499, annually: 1499, desc: "scaleDesc",   featuresKey: "scaleFeatures",   cta: "talkToSales",    primary: false },
 ];
 
 export default function HomePage() {
@@ -395,8 +396,8 @@ export default function HomePage() {
               </button>
             </div>
           </FadeUp>
-          <div className="grid md:grid-cols-3 gap-6">
-            {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary }, i) => {
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary, freeLabel }: any, i: number) => {
               const Pt = T.pricing as Record<string, string | string[]>;
               const features = Pt[featuresKey] as string[];
               const planName = Pt[nameKey] as string;
@@ -411,7 +412,12 @@ export default function HomePage() {
                   <p className="text-purple-900 font-bold text-lg mb-1">{planName}</p>
                   <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
                   <div className="mb-6">
-                    {monthly !== null ? (
+                    {freeLabel ? (
+                      <div dir="ltr" className="flex items-baseline gap-1">
+                        <span className="text-4xl font-extrabold gradient-text">$0</span>
+                        <span className="text-muted text-sm">{Pt[freeLabel] as string}</span>
+                      </div>
+                    ) : monthly !== null ? (
                       <>
                         <div dir="ltr" className="flex items-baseline gap-1">
                           <span className="text-4xl font-extrabold gradient-text">${n(annual ? annually! : monthly!)}</span>
@@ -442,6 +448,9 @@ export default function HomePage() {
               );
             })}
           </div>
+          <p className="text-center text-sm text-muted mt-8 max-w-2xl mx-auto">
+            {(T.pricing as any).pricingNote}
+          </p>
         </div>
       </section>
 
