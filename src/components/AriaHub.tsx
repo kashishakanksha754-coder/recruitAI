@@ -97,7 +97,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         </svg>
 
-        {/* Center "Aria" label */}
+        {/* Center "Hyrix" label */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <motion.div
             className="flex flex-col items-center"
@@ -107,7 +107,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           >
             <Sparkles size={26} strokeWidth={1.5} className="mb-2" style={{ color: "rgba(255,255,255,0.85)" }} />
             <span className="text-[34px] font-extrabold leading-none tracking-tight" style={{ color: "#1E1057" }}>
-              Aria
+              Hyrix
             </span>
             <span className="text-[12px] font-semibold tracking-wider mt-1.5" style={{ color: "rgba(255,255,255,0.75)" }}>
               {T.aria.aiInterviewer}

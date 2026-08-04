@@ -202,9 +202,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold text-muted/60 uppercase tracking-widest mb-8">{T.home.trustTitle}</p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {[T.home.trust1, T.home.trust2, T.home.trust3, T.home.trust4, T.home.trust5, T.home.trust6].map((msg) => (
+            {[T.home.trust1, T.home.trust2, T.home.trust3, T.home.trust4, T.home.trust5, T.home.trust6, T.home.trust7, T.home.trust8].map((msg, i) => (
               <span key={msg} className="inline-flex items-center gap-1.5 text-sm font-medium text-purple-700/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-coral-400 shrink-0" />
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${i % 2 === 0 ? "bg-coral-400" : "bg-purple-700"}`} />
                 {msg}
               </span>
             ))}
