@@ -13,13 +13,14 @@ import { useLanguage } from "@/context/LanguageContext";
 function AuditFeed() {
   const { T } = useLanguage();
   const ENTRIES = [
-    { time: "10:42 AM", label: T.home.auditEntry1 },
-    { time: "10:41 AM", label: T.home.auditEntry2 },
-    { time: "10:40 AM", label: T.home.auditEntry3 },
-    { time: "10:39 AM", label: T.home.auditEntry4 },
+    { time: "10:43 AM", label: T.home.auditEntry1 },
+    { time: "10:42 AM", label: T.home.auditEntry2 },
+    { time: "10:41 AM", label: T.home.auditEntry3 },
+    { time: "10:40 AM", label: T.home.auditEntry4 },
+    { time: "10:39 AM", label: T.home.auditEntry5 },
   ];
   return (
-    <div className="relative h-52 w-full rounded-xl overflow-hidden">
+    <div className="relative h-64 w-full rounded-xl overflow-hidden">
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
         <defs>
           <pattern id="audit-grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -74,10 +75,11 @@ function DiamondStack() {
 function JobDistributionVisual() {
   const { T } = useLanguage();
   const PLATFORMS = [
-    { label: "LinkedIn",  color: "#0A66C2", text: "white" },
-    { label: "Naukri",    color: "#4A90D9", text: "white" },
-    { label: "Glassdoor", color: "#0CAA41", text: "white" },
-    { label: "Indeed",    color: "#2164F3", text: "white" },
+    { label: "LinkedIn",   color: "#0A66C2", text: "white" },
+    { label: "Naukri",     color: "#4A90D9", text: "white" },
+    { label: "Bayt",       color: "#E8572A", text: "white" },
+    { label: "Indeed",     color: "#2164F3", text: "white" },
+    { label: "20+ portals", color: "#EDE9FE", text: "#4C1D95" },
   ];
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden" dir="ltr">
@@ -88,7 +90,7 @@ function JobDistributionVisual() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#cap-grid)" />
-        {[30, 42, 55, 68].map((pct, i) => (
+        {[22, 33, 44, 56, 67].map((pct, i) => (
           <line key={i} x1="22%" y1="50%" x2="60%" y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
         ))}
       </svg>
@@ -112,12 +114,12 @@ function JobDistributionVisual() {
 }
 
 const TESTIMONIALS_EN = [
-  { quote: "We cut time-to-interview from 3 weeks to 48 hours. Aria handled 800 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.", name: "S.C.", role: "Head of Talent · Series B startup" },
+  { quote: "We cut time-to-interview from 3 weeks to 48 hours. Hyrix handled 800 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.", name: "S.C.", role: "Head of Talent · Series B startup" },
   { quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.", name: "M.R.", role: "VP People · Growth-stage tech company" },
   { quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.", name: "P.N.", role: "Chief People Officer · Enterprise SaaS" },
 ];
 const TESTIMONIALS_AR = [
-  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّت آريا 800 متقدم وأظهرت مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّى هايريكس 800 متقدم وأظهر مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
   { quote: "جودة المقابلة الصوتية فاجأتني. قال المرشحون إنها بدت بشرية. النصوص كانت مفصّلة وقابلة للتنفيذ — أفضل من ملاحظات معظم المحاورين البشريين.", name: "م.ر.", role: "نائب رئيس الموارد البشرية · شركة تقنية في مرحلة النمو" },
   { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
 ];
