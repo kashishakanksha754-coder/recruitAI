@@ -402,8 +402,8 @@ export default function HomePage() {
               <ChevronLeft size={18} className="rtl:scale-x-[-1]" />
             </button>
 
-            {/* Cards viewport */}
-            <div className="flex-1 overflow-hidden">
+            {/* Cards viewport — px/py padding lets shadows render without clipping */}
+            <div className="flex-1 overflow-hidden px-1 py-6">
               <div
                 className="flex gap-6 transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(${isRtl ? pricingIdx * 33.4 : -pricingIdx * 33.4}%)` }}
