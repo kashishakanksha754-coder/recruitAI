@@ -135,6 +135,7 @@ export default function HomePage() {
   const { T, isRtl, n } = useLanguage();
   const [annual, setAnnual] = useState(true);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
+  const [pricingIdx, setPricingIdx] = useState(0);
   const TESTIMONIALS = isRtl ? TESTIMONIALS_AR : TESTIMONIALS_EN;
   const t = TESTIMONIALS[testimonialIdx];
 
@@ -383,72 +384,98 @@ export default function HomePage() {
       </section>
 
       {/* ── 8. PRICING ──────────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white" id="pricing">
+      <section className="py-24 bg-[#F7F7FB]" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-12">
+          <FadeUp className="text-center mb-14">
             <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{T.home.pricingTitle}</h2>
-            <p className="text-muted text-lg mb-8 max-w-lg mx-auto">{T.home.pricingSub}</p>
-            <div className="inline-flex items-center gap-1 bg-surface rounded-xl p-1">
-              <button onClick={() => setAnnual(false)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>{T.home.monthly}</button>
-              <button onClick={() => setAnnual(true)} className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${annual ? "bg-white shadow-card text-purple-900" : "text-muted"}`}>
-                {T.home.annual}
-                <span className="text-[10px] bg-coral-100 text-coral-500 font-bold px-1.5 py-0.5 rounded-full">-{n("17")}%</span>
-              </button>
-            </div>
+            <p className="text-muted text-lg max-w-lg mx-auto">{T.home.pricingSub}</p>
           </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary, freeLabel }: any, i: number) => {
-              const Pt = T.pricing as Record<string, string | string[]>;
-              const features = Pt[featuresKey] as string[];
-              const planName = Pt[nameKey] as string;
-              return (
-              <FadeUp key={nameKey} delay={i * 0.08}>
-                <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
-                  {primary && (
-                    <span className="absolute -top-3 start-1/2 -translate-x-1/2 gradient-bg text-white text-[11px] font-bold px-3 py-1 rounded-full">
-                      {T.home.mostPopular}
-                    </span>
-                  )}
-                  <p className="text-purple-900 font-bold text-lg mb-1">{planName}</p>
-                  <p className="text-muted text-sm mb-5">{Pt[desc] as string}</p>
-                  <div className="mb-6">
-                    {freeLabel ? (
-                      <div dir="ltr" className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold gradient-text">$0</span>
-                        <span className="text-muted text-sm">{Pt[freeLabel] as string}</span>
-                      </div>
-                    ) : monthly !== null ? (
-                      <>
-                        <div dir="ltr" className="flex items-baseline gap-1">
-                          <span className="text-4xl font-extrabold gradient-text">${n(annual ? annually! : monthly!)}</span>
-                          <span className="text-muted text-sm">{T.pricing.perMonth}</span>
+
+          {/* Carousel */}
+          <div className="relative flex items-center">
+            {/* Prev arrow */}
+            <button
+              onClick={() => setPricingIdx(Math.max(0, pricingIdx - 1))}
+              disabled={pricingIdx === 0}
+              className="shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-400 hover:text-purple-900 hover:border-purple-300 transition-all disabled:opacity-30 disabled:cursor-not-allowed me-4 z-10"
+            >
+              <ChevronLeft size={18} className="rtl:scale-x-[-1]" />
+            </button>
+
+            {/* Cards viewport */}
+            <div className="flex-1 overflow-hidden">
+              <div
+                className="flex gap-6 transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(${isRtl ? pricingIdx * 33.4 : -pricingIdx * 33.4}%)` }}
+              >
+                {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary, freeLabel }: any, i: number) => {
+                  const Pt = T.pricing as Record<string, string | string[]>;
+                  const features = Pt[featuresKey] as string[];
+                  const planName = Pt[nameKey] as string;
+                  return (
+                    <div key={nameKey} className="w-[calc(33.333%-1rem)] shrink-0 relative pt-5">
+                      {primary && (
+                        <div className="absolute top-0 inset-x-0 flex justify-center">
+                          <span className="gradient-bg text-white text-[11px] font-bold px-4 py-1 rounded-full">
+                            {T.home.mostPopular}
+                          </span>
                         </div>
-                        {annual && <p className="text-xs text-muted/70 mt-1">{T.home.billedAnnually}</p>}
-                      </>
-                    ) : (
-                      <span className="text-3xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
-                    )}
-                  </div>
-                  <ul className="space-y-3 flex-1 mb-8">
-                    {features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
-                        <Check size={15} className="text-coral-500 mt-0.5 shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={cta === "talkToSales" ? "/contact" : "/signup"}
-                    className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
-                  >
-                    {cta === "talkToSales" ? T.home.talkToSales : T.home.startFreeTrial}
-                  </a>
-                </div>
-              </FadeUp>
-              );
-            })}
+                      )}
+                      <div className={`bg-white rounded-2xl p-8 h-full flex flex-col shadow-[0_2px_16px_rgba(0,0,0,0.07)] ${primary ? "ring-2 ring-[#E04E48]/20" : ""}`}>
+                        <p className="text-purple-900 font-bold text-xl mb-1">{planName}</p>
+                        <p className="text-muted text-sm mb-6">{Pt[desc] as string}</p>
+                        <div className="mb-6">
+                          {freeLabel ? (
+                            <div dir="ltr" className="flex items-baseline gap-1">
+                              <span className="text-5xl font-extrabold gradient-text">$0</span>
+                              <span className="text-muted text-sm ms-1">{Pt[freeLabel] as string}</span>
+                            </div>
+                          ) : (
+                            <>
+                              <div dir="ltr" className="flex items-baseline gap-1">
+                                <span className="text-5xl font-extrabold gradient-text">${n(annual ? annually! : monthly!)}</span>
+                                <span className="text-muted text-sm ms-1">{T.pricing.perMonth}</span>
+                              </div>
+                              <p className="text-xs text-muted/60 mt-1">{T.home.billedAnnually}</p>
+                            </>
+                          )}
+                        </div>
+                        <ul className="space-y-3 flex-1 mb-8">
+                          {features.map((f) => (
+                            <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
+                              <Check size={15} className="text-[#E04E48] mt-0.5 shrink-0" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <a
+                          href={cta === "talkToSales" ? "/contact" : "/signup"}
+                          className={`block text-center py-3 rounded-xl text-sm font-semibold transition-all ${
+                            primary
+                              ? "gradient-bg text-white shadow-btn hover:opacity-90"
+                              : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"
+                          }`}
+                        >
+                          {cta === "talkToSales" ? T.home.talkToSales : T.home.startFreeTrial}
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Next arrow */}
+            <button
+              onClick={() => setPricingIdx(Math.min(PLANS.length - 3, pricingIdx + 1))}
+              disabled={pricingIdx >= PLANS.length - 3}
+              className="shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-400 hover:text-purple-900 hover:border-purple-300 transition-all disabled:opacity-30 disabled:cursor-not-allowed ms-4 z-10"
+            >
+              <ChevronRight size={18} className="rtl:scale-x-[-1]" />
+            </button>
           </div>
-          <p className="text-center text-sm text-muted mt-8 max-w-2xl mx-auto">
+
+          <p className="text-center text-sm text-muted mt-10 max-w-2xl mx-auto">
             {(T.pricing as any).pricingNote}
           </p>
         </div>
