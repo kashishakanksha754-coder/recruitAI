@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Globe } from "lucide-react";
+import { Globe, Mail, ExternalLink, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
@@ -14,6 +14,24 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <span className="text-xl font-bold gradient-text">{T.nav.brandName}</span>
             <p className="text-muted text-sm mt-3 max-w-xs leading-relaxed">{F.tagline}</p>
+            <div className="mt-5 space-y-2.5">
+              <a href={`mailto:${(F as any).contactEmail}`} className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
+                <Mail size={13} className="shrink-0 text-muted/50" />
+                {(F as any).contactEmail}
+              </a>
+              <a href={`https://${(F as any).contactWeb}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
+                <ExternalLink size={13} className="shrink-0 text-muted/50" />
+                {(F as any).contactWeb}
+              </a>
+              <p className="flex items-start gap-2 text-xs text-muted/70 leading-relaxed">
+                <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50" />
+                {(F as any).contactUAE}
+              </p>
+              <p className="flex items-start gap-2 text-xs text-muted/70 leading-relaxed">
+                <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50" />
+                {(F as any).contactIndia}
+              </p>
+            </div>
           </div>
 
           <div>
