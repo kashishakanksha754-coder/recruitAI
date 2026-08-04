@@ -133,7 +133,7 @@ const PLANS = [
 
 export default function HomePage() {
   const { T, isRtl, n } = useLanguage();
-  const [annual, setAnnual] = useState(true);
+  const [annual] = useState(true);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [pricingIdx, setPricingIdx] = useState(0);
   const TESTIMONIALS = isRtl ? TESTIMONIALS_AR : TESTIMONIALS_EN;
@@ -405,7 +405,7 @@ export default function HomePage() {
                 className="flex gap-6 transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(${isRtl ? pricingIdx * 33.4 : -pricingIdx * 33.4}%)` }}
               >
-                {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary, freeLabel }: any, i: number) => {
+                {PLANS.map(({ nameKey, monthly, annually, desc, featuresKey, cta, primary, freeLabel }: { nameKey: string; monthly: number; annually: number; desc: string; featuresKey: string; cta: string; primary: boolean; freeLabel?: string }) => {
                   const Pt = T.pricing as Record<string, string | string[]>;
                   const features = Pt[featuresKey] as string[];
                   const planName = Pt[nameKey] as string;
@@ -473,7 +473,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-center text-sm text-muted mt-10 max-w-2xl mx-auto">
-            {(T.pricing as any).pricingNote}
+            {(T.pricing as unknown as Record<string, string>).pricingNote}
           </p>
         </div>
       </section>

@@ -6,7 +6,7 @@ import HyrixLogo from "@/components/HyrixLogo";
 
 export default function Footer() {
   const { T, lang, setLang } = useLanguage();
-  const F = T.footer;
+  const F = T.footer as unknown as Record<string, string>;
 
   return (
     <footer className="bg-white border-t border-purple-100 py-14">
@@ -19,21 +19,21 @@ export default function Footer() {
             </div>
             <p className="text-muted text-sm mt-3 max-w-xs leading-relaxed">{F.tagline}</p>
             <div className="mt-5 space-y-2.5">
-              <a href={`mailto:${(F as any).contactEmail}`} className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
+              <a href={`mailto:${F.contactEmail}`} className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
                 <Mail size={13} className="shrink-0 text-muted/50" />
-                {(F as any).contactEmail}
+                {F.contactEmail}
               </a>
-              <a href={`https://${(F as any).contactWeb}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
+              <a href={`https://${F.contactWeb}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
                 <ExternalLink size={13} className="shrink-0 text-muted/50" />
-                {(F as any).contactWeb}
+                {F.contactWeb}
               </a>
               <p className="flex items-start gap-2 text-xs text-muted/70 leading-relaxed">
                 <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50" />
-                {(F as any).contactUAE}
+                {F.contactUAE}
               </p>
               <p className="flex items-start gap-2 text-xs text-muted/70 leading-relaxed">
                 <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50" />
-                {(F as any).contactIndia}
+                {F.contactIndia}
               </p>
             </div>
           </div>
