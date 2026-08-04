@@ -114,14 +114,14 @@ function JobDistributionVisual() {
 }
 
 const TESTIMONIALS_EN = [
-  { quote: "We cut time-to-interview from 3 weeks to 48 hours. Hyrix handled 800 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.", name: "S.C.", role: "Head of Talent · Series B startup" },
-  { quote: "The voice interview quality surprised me. Candidates said it felt human. The transcripts were detailed and actionable — better notes than most human interviewers write.", name: "M.R.", role: "VP People · Growth-stage tech company" },
-  { quote: "Bias auditing alone was worth it. Every decision is logged and explainable. Legal loved it, our team loved it, and diverse shortlist rates improved meaningfully.", name: "P.N.", role: "Chief People Officer · Enterprise SaaS" },
+  { quote: "We cut time-to-hire from over a month to under a week. Hyrix screened 140 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.", name: "S.C.", role: "Head of Talent · Series B startup" },
+  { quote: "Resume screening used to eat 6–8 hours a week. Now Hyrix does it in seconds, and every score comes with a transcript we can actually trust.", name: "R.K.", role: "Talent Acquisition Lead · Mid-market company" },
+  { quote: "We post once and Hyrix distributes across 20+ portals automatically. No more duplicate candidates piling up across five different inboxes.", name: "M.P.", role: "HR Director · Enterprise team" },
 ];
 const TESTIMONIALS_AR = [
-  { quote: "خفّضنا الوقت من التقديم إلى المقابلة من 3 أسابيع إلى 48 ساعة. تولّى هايريكس 800 متقدم وأظهر مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
-  { quote: "جودة المقابلة الصوتية فاجأتني. قال المرشحون إنها بدت بشرية. النصوص كانت مفصّلة وقابلة للتنفيذ — أفضل من ملاحظات معظم المحاورين البشريين.", name: "م.ر.", role: "نائب رئيس الموارد البشرية · شركة تقنية في مرحلة النمو" },
-  { quote: "تدقيق التحيز وحده كان يستحق. كل قرار مسجّل وقابل للشرح. أحبّ القانون ذلك، وأحبّ فريقنا ذلك، وتحسّنت معدلات القوائم المتنوعة بشكل ملحوظ.", name: "ب.ن.", role: "مدير الموارد البشرية الرئيسي · SaaS مؤسسية" },
+  { quote: "خفّضنا وقت التوظيف من أكثر من شهر إلى أقل من أسبوع. فرز هايريكس ١٤٠ متقدماً وأظهر مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "كان فرز السير الذاتية يستهلك ٦-٨ ساعات أسبوعياً. الآن يُنجزه هايريكس في ثوانٍ، وكل نتيجة مرفقة بنص مقابلة يمكننا الوثوق به فعلاً.", name: "ر.ك.", role: "قائد اكتساب المواهب · شركة متوسطة الحجم" },
+  { quote: "ننشر مرة واحدة وهايريكس يوزّع تلقائياً على أكثر من ٢٠ بوابة. لا مزيد من تكرار المرشحين في خمسة صناديق بريد مختلفة.", name: "م.ب.", role: "مدير الموارد البشرية · فريق مؤسسي" },
 ];
 
 const PLANS = [
