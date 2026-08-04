@@ -122,8 +122,8 @@ const t = {
       floatingBadge3: "Call transcribed",
       floatingBadge4: "Hyrix recommended",
       floatingBadge5: "Decision in 2 days",
-      showcase1Rows: ["Applied · 1,204", "Screened · 480", "Interviewed · 96", "Shortlisted · 10"],
-      showcase2Rows: ["Q: Walk me through your last role", "A: I led a team of 12 engineers…", "⭐ Strong leadership signal", "Score: 91 / 100"],
+      showcase1Rows: ["Sourced · 140", "Screened · 60", "Interviewed · 30", "Shortlisted · 9", "Offers sent · 3"],
+      showcase2Rows: ["Q: Walk me through your last role", "A: I led a team of 12 engineers…", "⭐ Strong leadership signal", "Score: 84 / 100"],
       showcase3Rows: ["Time-to-screen: 2.1 days", "Interview pass rate: 8.2%", "Diverse shortlists: 74%", "Avg match score: 88.4"],
     },
     // ── How It Works ───────────────────────────────────────────────────────
@@ -506,8 +506,8 @@ const t = {
       floatingBadge3: "تم نسخ المكالمة",
       floatingBadge4: "توصية هايريكس",
       floatingBadge5: "قرار خلال يومين",
-      showcase1Rows: ["التقديمات · ١٬٢٠٤", "تم فرزها · ٤٨٠", "أُجريت معها مقابلة · ٩٦", "القائمة المختصرة · ١٠"],
-      showcase2Rows: ["س: أخبرني عن دورك الأخير", "ج: قدت فريقاً من ١٢ مهندساً…", "⭐ إشارة قيادية قوية", "النتيجة: ٩١ / ١٠٠"],
+      showcase1Rows: ["المصادر · ١٤٠", "تم فرزها · ٦٠", "أُجريت معها مقابلة · ٣٠", "القائمة المختصرة · ٩", "العروض المُرسلة · ٣"],
+      showcase2Rows: ["س: أخبرني عن دورك الأخير", "ج: قدت فريقاً من ١٢ مهندساً…", "⭐ إشارة قيادية قوية", "النتيجة: ٨٤ / ١٠٠"],
       showcase3Rows: ["وقت الفرز: ٢.١ يوم", "معدل اجتياز المقابلة: ٨.٢%", "قوائم متنوعة: ٧٤%", "متوسط نقاط التطابق: ٨٨.٤"],
     },
     hiw: {
