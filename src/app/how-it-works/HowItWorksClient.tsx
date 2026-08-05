@@ -113,9 +113,9 @@ function SectionAToggle() {
         </FadeUp>
 
         <FadeUp delay={0.1}>
-          <div className="card p-8">
-            {/* Pill toggle */}
-            <div className="flex justify-center mb-8">
+          <div className="card px-10 pt-8 pb-9 max-w-lg mx-auto">
+            {/* Pill toggle — centered */}
+            <div className="flex justify-center mb-10">
               <div className="inline-flex bg-purple-50 rounded-xl p-1 gap-1">
                 <button
                   onClick={() => setTab("hr")}
@@ -149,7 +149,7 @@ function SectionAToggle() {
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.18 }}
                   >
-                    <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-5">Your team stays focused on what matters</p>
+                    <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-6">Your team stays focused on what matters</p>
                     <ul className="space-y-4">
                       {HR_ITEMS.map(item => (
                         <li key={item} className="flex items-center gap-3">
@@ -169,7 +169,7 @@ function SectionAToggle() {
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.18 }}
                   >
-                    <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-5">Hyrix handles the volume, automatically</p>
+                    <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-6">Hyrix handles the volume, automatically</p>
                     <ul className="space-y-4">
                       {HYRIX_ITEMS.map(item => (
                         <li key={item} className="flex items-center gap-3">
