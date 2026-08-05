@@ -44,7 +44,6 @@ function AuditFeed() {
 }
 
 function DiamondStack() {
-  const { T } = useLanguage();
   return (
     <div className="relative h-52 w-full rounded-xl overflow-hidden">
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
