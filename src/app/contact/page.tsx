@@ -235,7 +235,7 @@ export default function ContactPage() {
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.emailTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.emailSub}</p>
-                <CopyBox value="hello@recruitai.app" copiedLabel={C.copied} copyLabel={C.copyToClipboard} />
+                <CopyBox value="info@hyrixai.com" copiedLabel={C.copied} copyLabel={C.copyToClipboard} />
               </div>
               <div className="flex flex-col px-8 py-8 lg:py-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
@@ -243,7 +243,7 @@ export default function ContactPage() {
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.demoTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.demoSub}</p>
-                <CopyBox value={C.demoValue} href="https://calendly.com/recruitai" copiedLabel={C.copied} openLinkLabel={C.openLink} />
+                <CopyBox value={C.demoValue} href="https://calendly.com/hyrixai" copiedLabel={C.copied} openLinkLabel={C.openLink} />
               </div>
               <div className="flex flex-col px-8 py-8 lg:py-0">
                 <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
