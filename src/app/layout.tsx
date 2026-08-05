@@ -5,9 +5,9 @@ import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
-  title: "Recruit AI — AI Hiring Platform for Recruiters",
+  title: "Hyrix — AI Hiring Platform for Recruiters",
   description:
-    "AI screens resumes, calls candidates, and runs interviews. You make the final call. Process 1,000 candidates to 10 verified matches in 2 days.",
+    "Hyrix screens resumes, calls candidates, and runs voice/video interviews. You approve every stage. From 140 applicants to a verified shortlist — fast.",
 };
 
 export default function RootLayout({
