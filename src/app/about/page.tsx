@@ -50,9 +50,9 @@ export default function AboutPage() {
                   { stat: A.stat3Value, label: A.stat3Label },
                   { stat: A.stat4Value, label: A.stat4Label },
                 ].map(({ stat, label }) => (
-                  <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center">
-                    <p className="text-3xl font-extrabold gradient-text mb-1">{stat}</p>
-                    <p className="text-xs text-muted leading-snug">{label}</p>
+                  <div key={stat} className="card p-6 flex flex-col items-center justify-center text-center min-h-[120px]">
+                    <p className="text-5xl font-extrabold gradient-text mb-2 leading-none">{stat}</p>
+                    <p className="text-sm font-medium text-muted leading-snug">{label}</p>
                   </div>
                 ))}
               </div>
@@ -68,11 +68,11 @@ export default function AboutPage() {
           </FadeUp>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
-              <FadeUp key={title} delay={i * 0.08}>
-                <div className="p-7 h-full">
-                  <Icon size={22} className="text-coral-500 mb-5" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
-                  <h3 className="text-purple-900 font-bold mb-2">{title}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
+              <FadeUp key={title} delay={i * 0.08} className="h-full">
+                <div className="p-5 h-full flex flex-col items-start">
+                  <Icon size={22} className="text-coral-500 mb-4 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
+                  <h3 className="text-purple-900 font-bold mb-2 text-sm leading-snug">{title}</h3>
+                  <p className="text-muted text-xs leading-relaxed">{desc}</p>
                 </div>
               </FadeUp>
             ))}
