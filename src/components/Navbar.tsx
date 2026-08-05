@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import HyrixLogo from "@/components/HyrixLogo";
+
 
 export default function Navbar() {
   const { T, lang, setLang } = useLanguage();
@@ -34,7 +34,7 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <HyrixLogo size={34} />
+          <img src="/hyrix-logo.svg" alt="Hyrix logo" height={34} style={{ width: "auto" }} />
           <span className="text-xl font-extrabold tracking-widest uppercase gradient-text">{T.nav.brandName}</span>
         </Link>
 

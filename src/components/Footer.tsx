@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Globe, Mail, ExternalLink, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import HyrixLogo from "@/components/HyrixLogo";
+
 
 export default function Footer() {
   const { T, lang, setLang } = useLanguage();
@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2.5">
-              <HyrixLogo size={36} />
+              <img src="/hyrix-logo.svg" alt="Hyrix logo" height={36} style={{ width: "auto" }} />
               <span className="text-xl font-bold gradient-text">{T.nav.brandName}</span>
             </div>
             <p className="text-muted text-sm mt-3 max-w-xs leading-relaxed">{F.tagline}</p>
