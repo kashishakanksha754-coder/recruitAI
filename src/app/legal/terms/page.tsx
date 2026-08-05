@@ -35,7 +35,7 @@ export default function TermsPage() {
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Your responsibilities</h2>
             <p className="text-muted leading-relaxed">
-              You must have lawful authority to collect and process candidate data you upload. You must not use Hyrix to make final hiring decisions without human review, consistent with applicable high-risk AI hiring regulations (e.g. the EU AI Act's rules for hiring AI). You're responsible for account security and accurate billing information.
+              You must have lawful authority to collect and process candidate data you upload. You must not use Hyrix to make final hiring decisions without human review, consistent with applicable high-risk AI hiring regulations (e.g. the EU AI Act&apos;s rules for hiring AI). You&apos;re responsible for account security and accurate billing information.
             </p>
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Plans & billing</h2>
@@ -50,7 +50,7 @@ export default function TermsPage() {
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Liability</h2>
             <p className="text-muted leading-relaxed">
-              Hyrix is provided "as is." We are not liable for hiring decisions made using our platform, as all final decisions remain with the customer's human recruiters.
+              Hyrix is provided &ldquo;as is.&rdquo; We are not liable for hiring decisions made using our platform, as all final decisions remain with the customer&apos;s human recruiters.
             </p>
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Changes</h2>

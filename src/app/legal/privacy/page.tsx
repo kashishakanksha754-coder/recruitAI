@@ -25,7 +25,7 @@ export default function PrivacyPage() {
 
           <FadeUp>
             <p className="text-muted leading-relaxed mb-10">
-              Hyrix ("we," "us," "our") provides an AI-powered recruitment platform. This policy explains how we collect, use, and protect data.
+              Hyrix (&ldquo;we,&rdquo; &ldquo;us,&rdquo; &ldquo;our&rdquo;) provides an AI-powered recruitment platform. This policy explains how we collect, use, and protect data.
             </p>
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">What we collect</h2>
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Data residency & compliance</h2>
             <p className="text-muted leading-relaxed">
-              We support configurable data residency and are built to align with GDPR (EU/UK) and India's Digital Personal Data Protection (DPDP) Act. Candidate consent is captured before AI screening or interviews begin.
+              We support configurable data residency and are built to align with GDPR (EU/UK) and India&apos;s Digital Personal Data Protection (DPDP) Act. Candidate consent is captured before AI screening or interviews begin.
             </p>
 
             <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Retention</h2>

@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, Check, ShieldCheck, FileText, Eye, Globe, Clock } from "lucide-react";
+import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, Check, ShieldCheck, FileText, Eye, Globe } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import { useLanguage } from "@/context/LanguageContext";
@@ -210,86 +210,85 @@ function SectionBBento() {
           </p>
         </FadeUp>
 
-        {/* Bento grid — featured card spans 2 cols on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-fr">
+        {/* Bento: row 1 = featured(2 cols) + audit(1 col); row 2 = 3 equal cards */}
+        <div className="grid gap-5"
+          style={{ gridTemplateColumns: "repeat(3, 1fr)", gridTemplateAreas: `"feat feat audit" "exp region fair"` }}>
 
-          {/* Featured: spans 2 cols */}
-          <FadeUp className="sm:col-span-2">
-            <div className="rounded-2xl p-8 flex flex-col h-full relative overflow-hidden"
-              style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shrink-0"
-                style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
-                <ShieldCheck size={24} className="text-white" strokeWidth={1.8} />
+          {/* Featured — 2 cols */}
+          <div style={{ gridArea: "feat" }}>
+            <FadeUp className="h-full">
+              <div className="rounded-2xl p-8 flex flex-col h-full relative overflow-hidden"
+                style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shrink-0"
+                  style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                  <ShieldCheck size={24} className="text-white" strokeWidth={1.8} />
+                </div>
+                <h3 className="text-purple-900 font-extrabold text-xl mb-3 leading-snug">A human always decides</h3>
+                <p className="text-muted text-sm leading-relaxed">A recruiter approves every stage — Hyrix never makes an autonomous hiring call.</p>
+                <span className="absolute top-5 right-5 text-[10px] font-bold text-purple-700 bg-purple-100 rounded-full px-2.5 py-1 tracking-wide">
+                  EU AI Act · Aug 2026
+                </span>
               </div>
-              <h3 className="text-purple-900 font-extrabold text-xl mb-3 leading-snug">A human always decides</h3>
-              <p className="text-muted text-sm leading-relaxed">A recruiter approves every stage — Hyrix never makes an autonomous hiring call.</p>
-              {/* Regulation tag */}
-              <span className="absolute top-5 right-5 text-[10px] font-bold text-purple-700 bg-purple-100 rounded-full px-2.5 py-1 tracking-wide">
-                EU AI Act · Aug 2026
-              </span>
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
 
-          {/* Standard: spans 1 col */}
-          <FadeUp delay={0.08}>
-            <div className="rounded-2xl p-7 flex flex-col h-full"
-              style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
-                style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                <FileText size={17} className="text-white" strokeWidth={1.8} />
+          {/* Audit trail — 1 col */}
+          <div style={{ gridArea: "audit" }}>
+            <FadeUp delay={0.08} className="h-full">
+              <div className="rounded-2xl p-7 flex flex-col h-full"
+                style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                  style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                  <FileText size={17} className="text-white" strokeWidth={1.8} />
+                </div>
+                <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">A complete audit trail</h3>
+                <p className="text-muted text-sm leading-relaxed">Full transcripts and rubric-matched scores for every candidate you review.</p>
               </div>
-              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">A complete audit trail</h3>
-              <p className="text-muted text-sm leading-relaxed">Full transcripts and rubric-matched scores for every candidate you review.</p>
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
 
-          <FadeUp delay={0.12}>
-            <div className="rounded-2xl p-7 flex flex-col h-full"
-              style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
-                style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
-                <Eye size={17} className="text-white" strokeWidth={1.8} />
+          {/* Row 2 — 3 equal cards */}
+          <div style={{ gridArea: "exp" }}>
+            <FadeUp delay={0.12} className="h-full">
+              <div className="rounded-2xl p-7 flex flex-col h-full"
+                style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                  style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                  <Eye size={17} className="text-white" strokeWidth={1.8} />
+                </div>
+                <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Explainable scoring</h3>
+                <p className="text-muted text-sm leading-relaxed">Every score traces back to your criteria and the candidate&apos;s own words.</p>
               </div>
-              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Explainable scoring</h3>
-              <p className="text-muted text-sm leading-relaxed">Every score traces back to your criteria and the candidate's own words.</p>
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
 
-          <FadeUp delay={0.16}>
-            <div className="rounded-2xl p-7 flex flex-col h-full"
-              style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
-                style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                <Globe size={17} className="text-white" strokeWidth={1.8} />
+          <div style={{ gridArea: "region" }}>
+            <FadeUp delay={0.16} className="h-full">
+              <div className="rounded-2xl p-7 flex flex-col h-full"
+                style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                  style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                  <Globe size={17} className="text-white" strokeWidth={1.8} />
+                </div>
+                <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Your data, your region</h3>
+                <p className="text-muted text-sm leading-relaxed">Consent capture and configurable data residency — GDPR and India DPDP ready.</p>
               </div>
-              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Your data, your region</h3>
-              <p className="text-muted text-sm leading-relaxed">Consent capture and configurable data residency — GDPR and India DPDP ready.</p>
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
 
-          <FadeUp delay={0.2}>
-            <div className="rounded-2xl p-7 flex flex-col h-full"
-              style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
-                style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
-                <Users size={17} className="text-white" strokeWidth={1.8} />
+          <div style={{ gridArea: "fair" }}>
+            <FadeUp delay={0.2} className="h-full">
+              <div className="rounded-2xl p-7 flex flex-col h-full"
+                style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                  style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                  <Users size={17} className="text-white" strokeWidth={1.8} />
+                </div>
+                <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Fair by design</h3>
+                <p className="text-muted text-sm leading-relaxed">Structured rubrics keep every candidate on equal footing.</p>
               </div>
-              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Fair by design</h3>
-              <p className="text-muted text-sm leading-relaxed">Structured rubrics keep every candidate on equal footing.</p>
-            </div>
-          </FadeUp>
-
-          <FadeUp delay={0.24}>
-            <div className="rounded-2xl p-7 flex flex-col h-full"
-              style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
-                style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                <Clock size={17} className="text-white" strokeWidth={1.8} />
-              </div>
-              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Deploy without fear</h3>
-              <p className="text-muted text-sm leading-relaxed">The controls regulators now require are already how Hyrix works.</p>
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
 
         </div>
 

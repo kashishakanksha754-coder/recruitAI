@@ -36,9 +36,9 @@ export default function DemoModal({ open, onClose }: { open: boolean; onClose: (
                 <path d="M5 13l4 4L19 7" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h2 className="text-2xl font-extrabold text-purple-900 mb-2">You're on the list!</h2>
+            <h2 className="text-2xl font-extrabold text-purple-900 mb-2">You&apos;re on the list!</h2>
             <p className="text-muted text-sm leading-relaxed">
-              We'll be in touch within one business day to schedule your demo.
+              We&apos;ll be in touch within one business day to schedule your demo.
             </p>
             <button
               onClick={onClose}
@@ -51,7 +51,7 @@ export default function DemoModal({ open, onClose }: { open: boolean; onClose: (
         ) : (
           <>
             <h2 className="text-2xl font-extrabold text-purple-900 mb-1">Request a demo</h2>
-            <p className="text-muted text-sm mb-6">We'll show you Hyrix live and answer your questions.</p>
+            <p className="text-muted text-sm mb-6">We&apos;ll show you Hyrix live and answer your questions.</p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -108,7 +108,7 @@ export default function DemoModal({ open, onClose }: { open: boolean; onClose: (
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-purple-900 mb-1.5">Anything specific you'd like to see?</label>
+                <label className="block text-xs font-semibold text-purple-900 mb-1.5">Anything specific you&apos;d like to see?</label>
                 <textarea
                   rows={3}
                   value={form.message}
