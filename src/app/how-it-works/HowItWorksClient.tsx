@@ -292,11 +292,6 @@ function SectionBBento() {
 
         </div>
 
-        <FadeUp delay={0.1}>
-          <p className="text-center mt-10 text-xs text-muted/60 leading-relaxed max-w-2xl mx-auto">
-            References: EU AI Act (Annex III, high-risk hiring, effective 2 August 2026); NYC Local Law 144; GDPR; India DPDP Act.
-          </p>
-        </FadeUp>
       </div>
     </section>
   );
