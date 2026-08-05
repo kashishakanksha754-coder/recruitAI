@@ -1,7 +1,7 @@
 "use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, Mic, ShieldCheck, FileText, Eye, Globe, Clock } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, Check, ShieldCheck, FileText, Eye, Globe, Clock } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import { useLanguage } from "@/context/LanguageContext";
@@ -52,120 +52,11 @@ export default function HowItWorksClient() {
         </div>
       </section>
 
-      {/* ── Section A: Hyrix works alongside your HR team ── */}
-      <section className="py-24 bg-surface">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-14">
-            <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">Your AI HR Apprentice</p>
-            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Hyrix works alongside your HR team</h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
-              Always on, always learning — it adapts every conversation in real time, asking sharper follow-ups when it needs to.
-            </p>
-          </FadeUp>
+      {/* ── Section A: Toggle card ── */}
+      <SectionAToggle />
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 items-center">
-            {/* Left card — what HR keeps */}
-            <FadeUp>
-              <div className="card p-8 h-full" style={{ background: "rgba(45,27,105,0.04)", boxShadow: "0 2px 20px rgba(45,27,105,0.08)" }}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
-                    <Users size={16} className="text-white" />
-                  </div>
-                  <h3 className="text-base font-bold text-purple-900">Your HR team keeps</h3>
-                </div>
-                <ul className="space-y-3">
-                  {["Strategy & workforce planning", "Relationships with candidates", "The final hiring decision", "Culture & employer brand"].map(item => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted leading-relaxed">
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeUp>
-
-            {/* Center marker */}
-            <FadeUp delay={0.15}>
-              <div className="flex flex-col items-center gap-3 py-4 lg:py-0">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-btn" style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}>
-                  <Mic size={26} className="text-white" />
-                </div>
-                <span className="text-sm font-extrabold text-purple-900">Hyrix</span>
-                <span className="text-[11px] font-semibold text-muted bg-white rounded-full px-3 py-1 shadow-sm border border-purple-100 whitespace-nowrap">
-                  Your HR apprentice · always on
-                </span>
-              </div>
-            </FadeUp>
-
-            {/* Right card — what Hyrix takes */}
-            <FadeUp delay={0.2}>
-              <div className="card p-8 h-full" style={{ background: "rgba(240,98,90,0.04)", boxShadow: "0 2px 20px rgba(240,98,90,0.08)" }}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                    <Zap size={16} className="text-white" />
-                  </div>
-                  <h3 className="text-base font-bold text-purple-900">Hyrix takes off your plate</h3>
-                </div>
-                <ul className="space-y-3">
-                  {["Posting to every job portal", "Screening every resume", "Skills assessments", "Adaptive voice/video interviews", "Scheduling & candidate replies", "Shortlists & draft offers"].map(item => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted leading-relaxed">
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-coral-500 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeUp>
-          </div>
-
-          <FadeUp delay={0.1}>
-            <p className="text-center mt-10 text-xs font-bold text-coral-500 uppercase tracking-widest">
-              Trains &amp; evolves to your requirements
-            </p>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── Section B: Built for trust, not just speed ── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-14">
-            <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">Safe to Deploy</p>
-            <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Built for trust, not just speed</h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
-              AI in hiring is now regulated — Hyrix is designed so you stay compliant by default.
-            </p>
-          </FadeUp>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { Icon: ShieldCheck, title: "A human always decides",   body: "A recruiter approves every stage — Hyrix never makes an autonomous hiring call." },
-              { Icon: FileText,    title: "A complete audit trail",    body: "Full transcripts and rubric-matched scores for every candidate you review." },
-              { Icon: Eye,         title: "Explainable scoring",       body: "Every score traces back to your criteria and the candidate's own words." },
-              { Icon: Globe,       title: "Your data, your region",    body: "Consent capture and configurable data residency — GDPR and India DPDP ready." },
-              { Icon: Users,       title: "Fair by design",            body: "Structured rubrics keep every candidate on equal footing." },
-              { Icon: Clock,       title: "Deploy without fear",       body: "The controls regulators now require are already how Hyrix works." },
-            ].map(({ Icon, title, body }, i) => (
-              <FadeUp key={title} delay={i * 0.07}>
-                <div className="card p-7 flex flex-col h-full">
-                  <div className="w-10 h-10 rounded-2xl flex items-center justify-center mb-5 shrink-0"
-                    style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                    <Icon size={18} className="text-white" strokeWidth={1.8} />
-                  </div>
-                  <h3 className="text-purple-900 font-bold mb-2 text-base leading-snug min-h-[2.75rem]">{title}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{body}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-
-          <FadeUp delay={0.1}>
-            <p className="text-center mt-10 text-xs text-muted/60 leading-relaxed max-w-2xl mx-auto">
-              References: EU AI Act (Annex III, high-risk hiring, effective 2 August 2026); NYC Local Law 144; GDPR; India DPDP Act.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      {/* ── Section B: Bento trust grid ── */}
+      <SectionBBento />
 
       <section className="py-20 bg-white relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
@@ -187,6 +78,228 @@ export default function HowItWorksClient() {
         </div>
       </section>
     </main>
+  );
+}
+
+// ── Section A: Interactive toggle card ─────────────────────────────────────
+const HR_ITEMS = [
+  "Strategy & workforce planning",
+  "Relationships with candidates",
+  "The final hiring decision",
+  "Culture & employer brand",
+];
+const HYRIX_ITEMS = [
+  "Posting to every job portal",
+  "Screening every resume",
+  "Skills assessments",
+  "Adaptive voice/video interviews",
+  "Scheduling & candidate replies",
+  "Shortlists & draft offers",
+];
+
+function SectionAToggle() {
+  const [tab, setTab] = useState<"hr" | "hyrix">("hr");
+  const isHr = tab === "hr";
+
+  return (
+    <section className="py-24 bg-surface">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeUp className="text-center mb-12">
+          <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">Your AI HR Apprentice</p>
+          <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Hyrix works alongside your HR team</h2>
+          <p className="text-muted text-lg leading-relaxed">
+            Always on, always learning — it adapts every conversation in real time, asking sharper follow-ups when it needs to.
+          </p>
+        </FadeUp>
+
+        <FadeUp delay={0.1}>
+          <div className="card p-8">
+            {/* Pill toggle */}
+            <div className="flex justify-center mb-8">
+              <div className="inline-flex bg-purple-50 rounded-xl p-1 gap-1">
+                <button
+                  onClick={() => setTab("hr")}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                    isHr ? "gradient-bg text-white shadow-btn" : "text-muted hover:text-purple-900"
+                  }`}
+                >
+                  <Users size={14} />
+                  Your HR team
+                </button>
+                <button
+                  onClick={() => setTab("hyrix")}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                    !isHr ? "gradient-bg text-white shadow-btn" : "text-muted hover:text-purple-900"
+                  }`}
+                >
+                  <Zap size={14} />
+                  Hyrix
+                </button>
+              </div>
+            </div>
+
+            {/* Content with AnimatePresence fade */}
+            <div className="relative min-h-[220px]">
+              <AnimatePresence mode="wait">
+                {isHr ? (
+                  <motion.div
+                    key="hr"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-5">Your team stays focused on what matters</p>
+                    <ul className="space-y-4">
+                      {HR_ITEMS.map(item => (
+                        <li key={item} className="flex items-center gap-3">
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                            <Check size={13} className="text-white" strokeWidth={2.5} />
+                          </span>
+                          <span className="text-sm font-medium text-purple-900">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="hyrix"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-5">Hyrix handles the volume, automatically</p>
+                    <ul className="space-y-4">
+                      {HYRIX_ITEMS.map(item => (
+                        <li key={item} className="flex items-center gap-3">
+                          <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                            <Zap size={12} className="text-white" strokeWidth={2.5} />
+                          </span>
+                          <span className="text-sm font-medium text-purple-900">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </FadeUp>
+
+        <FadeUp delay={0.15}>
+          <p className="text-center mt-8 text-xs text-muted/60 uppercase tracking-widest">
+            Trains &amp; evolves to your requirements
+          </p>
+        </FadeUp>
+      </div>
+    </section>
+  );
+}
+
+// ── Section B: Asymmetric bento trust grid ──────────────────────────────────
+function SectionBBento() {
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeUp className="text-center mb-14">
+          <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">Safe to Deploy</p>
+          <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Built for trust, not just speed</h2>
+          <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
+            AI in hiring is now regulated — Hyrix is designed so you stay compliant by default.
+          </p>
+        </FadeUp>
+
+        {/* Bento grid — featured card spans 2 cols on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-fr">
+
+          {/* Featured: spans 2 cols */}
+          <FadeUp className="sm:col-span-2">
+            <div className="rounded-2xl p-8 flex flex-col h-full relative overflow-hidden"
+              style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shrink-0"
+                style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                <ShieldCheck size={24} className="text-white" strokeWidth={1.8} />
+              </div>
+              <h3 className="text-purple-900 font-extrabold text-xl mb-3 leading-snug">A human always decides</h3>
+              <p className="text-muted text-sm leading-relaxed">A recruiter approves every stage — Hyrix never makes an autonomous hiring call.</p>
+              {/* Regulation tag */}
+              <span className="absolute top-5 right-5 text-[10px] font-bold text-purple-700 bg-purple-100 rounded-full px-2.5 py-1 tracking-wide">
+                EU AI Act · Aug 2026
+              </span>
+            </div>
+          </FadeUp>
+
+          {/* Standard: spans 1 col */}
+          <FadeUp delay={0.08}>
+            <div className="rounded-2xl p-7 flex flex-col h-full"
+              style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                <FileText size={17} className="text-white" strokeWidth={1.8} />
+              </div>
+              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">A complete audit trail</h3>
+              <p className="text-muted text-sm leading-relaxed">Full transcripts and rubric-matched scores for every candidate you review.</p>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.12}>
+            <div className="rounded-2xl p-7 flex flex-col h-full"
+              style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                <Eye size={17} className="text-white" strokeWidth={1.8} />
+              </div>
+              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Explainable scoring</h3>
+              <p className="text-muted text-sm leading-relaxed">Every score traces back to your criteria and the candidate's own words.</p>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.16}>
+            <div className="rounded-2xl p-7 flex flex-col h-full"
+              style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                <Globe size={17} className="text-white" strokeWidth={1.8} />
+              </div>
+              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Your data, your region</h3>
+              <p className="text-muted text-sm leading-relaxed">Consent capture and configurable data residency — GDPR and India DPDP ready.</p>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.2}>
+            <div className="rounded-2xl p-7 flex flex-col h-full"
+              style={{ background: "rgba(45,27,105,0.05)", border: "1px solid rgba(45,27,105,0.1)" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
+                <Users size={17} className="text-white" strokeWidth={1.8} />
+              </div>
+              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Fair by design</h3>
+              <p className="text-muted text-sm leading-relaxed">Structured rubrics keep every candidate on equal footing.</p>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.24}>
+            <div className="rounded-2xl p-7 flex flex-col h-full"
+              style={{ background: "rgba(240,98,90,0.05)", border: "1px solid rgba(240,98,90,0.1)" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 shrink-0"
+                style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                <Clock size={17} className="text-white" strokeWidth={1.8} />
+              </div>
+              <h3 className="text-purple-900 font-bold text-base mb-2 leading-snug">Deploy without fear</h3>
+              <p className="text-muted text-sm leading-relaxed">The controls regulators now require are already how Hyrix works.</p>
+            </div>
+          </FadeUp>
+
+        </div>
+
+        <FadeUp delay={0.1}>
+          <p className="text-center mt-10 text-xs text-muted/60 leading-relaxed max-w-2xl mx-auto">
+            References: EU AI Act (Annex III, high-risk hiring, effective 2 August 2026); NYC Local Law 144; GDPR; India DPDP Act.
+          </p>
+        </FadeUp>
+      </div>
+    </section>
   );
 }
 
