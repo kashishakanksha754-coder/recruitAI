@@ -59,12 +59,14 @@ export default function Footer() {
                 { href: "/about",   label: F.about },
                 { href: "/contact", label: F.contact },
                 { href: "/login",   label: F.login },
-                { href: "/demo",    label: F.tryDemo },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="block text-muted hover:text-purple-900 text-sm transition-colors">
                   {l.label}
                 </Link>
               ))}
+              <button onClick={() => setDemoOpen(true)} className="block text-muted hover:text-purple-900 text-sm transition-colors text-start">
+                {F.tryDemo}
+              </button>
             </div>
           </div>
 
