@@ -1,43 +1,56 @@
 "use client";
 import FadeUp from "@/components/FadeUp";
-import { useLanguage } from "@/context/LanguageContext";
 
 export default function CookiesPage() {
-  const { T } = useLanguage();
-  const L = T.legal;
-
   return (
     <main className="pt-24 pb-20 bg-white">
       <section className="py-16 bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <FadeUp>
-            <h1 className="text-4xl font-extrabold text-purple-900 mb-3">{L.cookiesTitle}</h1>
-            <p className="text-muted text-sm">{L.cookiesUpdated}</p>
+            <h1 className="text-4xl font-extrabold text-purple-900 mb-3">Cookie Policy</h1>
+            <p className="text-muted text-sm">Last updated: August 5, 2026</p>
           </FadeUp>
         </div>
       </section>
-      <section className="py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 prose prose-purple max-w-none">
+
+      <section className="py-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          {/* Draft notice */}
+          <div className="mb-10 flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4">
+            <span className="mt-0.5 text-amber-500 text-lg leading-none">⚠</span>
+            <p className="text-sm font-medium text-amber-800">
+              <strong>Draft — pending legal review.</strong> This policy has not yet been reviewed by a qualified lawyer and should not be relied upon as legal advice.
+            </p>
+          </div>
+
           <FadeUp>
-            <h2>{L.cookiesS1Title}</h2>
-            <p>{L.cookiesS1Body}</p>
+            <p className="text-muted leading-relaxed mb-10">
+              Hyrix uses cookies to operate and improve our website and platform.
+            </p>
 
-            <h2>{L.cookiesS2Title}</h2>
-            <p><strong>{L.cookiesS2EssentialLabel}</strong> {L.cookiesS2Essential}</p>
-            <p><strong>{L.cookiesS2AnalyticsLabel}</strong> {L.cookiesS2Analytics}</p>
-            <p><strong>{L.cookiesS2PrefLabel}</strong> {L.cookiesS2Pref}</p>
+            <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Essential cookies</h2>
+            <p className="text-muted leading-relaxed">
+              Required for login, session management, and core site functionality. These cannot be disabled.
+            </p>
 
-            <h2>{L.cookiesS3Title}</h2>
-            <p>{L.cookiesS3Body}</p>
+            <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Analytics cookies</h2>
+            <p className="text-muted leading-relaxed">
+              Help us understand how visitors use our site, so we can improve the experience. You can opt out via your cookie preferences.
+            </p>
 
-            <h2>{L.cookiesS4Title}</h2>
-            <p>{L.cookiesS4Body}</p>
+            <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Preference cookies</h2>
+            <p className="text-muted leading-relaxed">
+              Remember settings like language (EN/AR) across visits.
+            </p>
 
-            <h2>{L.cookiesS5Title}</h2>
-            <p>{L.cookiesS5Body}</p>
+            <h2 className="text-xl font-bold text-purple-900 mt-10 mb-3">Third-party cookies</h2>
+            <p className="text-muted leading-relaxed">
+              Used for embedded tools (e.g. scheduling widgets) where applicable.
+            </p>
 
-            <h2>{L.cookiesS6Title}</h2>
-            <p>{L.cookiesS6Body}</p>
+            <p className="text-muted leading-relaxed mt-10">
+              You can manage cookie preferences at any time via your browser settings or our cookie consent banner.
+            </p>
           </FadeUp>
         </div>
       </section>
