@@ -402,7 +402,6 @@ const t = {
       node3: ["Bias-Aware", "Scoring"],
       node4: ["Rubric-Matched", "Scoring"],
       node5: ["Real Voice", "Conversations"],
-      aiInterviewer: "AI Interview Engine",
     },
   },
 
@@ -796,7 +795,6 @@ const t = {
       node3: ["تقييم واعٍ", "بالتحيز"],
       node4: ["تقييم وفق", "المعيار"],
       node5: ["محادثات", "صوتية حقيقية"],
-      aiInterviewer: "محرك المقابلات الذكي",
     },
   },
 };
