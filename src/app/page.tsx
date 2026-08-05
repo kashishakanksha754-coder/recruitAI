@@ -17,8 +17,7 @@ function AuditFeed() {
     { time: "10:42 AM", label: T.home.auditEntry2 },
     { time: "10:41 AM", label: T.home.auditEntry3 },
     { time: "10:40 AM", label: T.home.auditEntry4 },
-    { time: "10:39 AM", label: T.home.auditEntry5 },
-  ];
+  ].filter((e) => e.label);
   return (
     <div className="relative h-64 w-full rounded-xl overflow-hidden">
       <svg className="absolute inset-0 w-full h-full" aria-hidden>
