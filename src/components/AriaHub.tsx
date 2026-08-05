@@ -1,7 +1,7 @@
 "use client";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mic2, MessageCircle, ShieldCheck, Globe, Video, Sparkles } from "lucide-react";
+import { Mic2, MessageCircle, ShieldCheck, ClipboardCheck, Phone } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const BASE = 600;
@@ -20,8 +20,8 @@ const NODE_DEFS = [
   { angle: -90,  rtlAngle: -90,  Icon: Mic2,          coral: false },
   { angle: -18,  rtlAngle: 198,  Icon: MessageCircle, coral: true  },
   { angle:  54,  rtlAngle: 126,  Icon: ShieldCheck,   coral: false },
-  { angle: 126,  rtlAngle:  54,  Icon: Globe,         coral: false },
-  { angle: 198,  rtlAngle: -18,  Icon: Video,         coral: true  },
+  { angle: 126,  rtlAngle:  54,  Icon: ClipboardCheck, coral: false },
+  { angle: 198,  rtlAngle: -18,  Icon: Phone,          coral: true  },
 ];
 
 const MID_DOTS = [-54, 18, 90, 162, 234];
@@ -105,7 +105,6 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Sparkles size={26} strokeWidth={1.5} className="mb-2" style={{ color: "rgba(255,255,255,0.85)" }} />
             <span className="text-[34px] font-extrabold leading-none tracking-tight" style={{ color: "#1E1057" }}>
               Hyrix
             </span>

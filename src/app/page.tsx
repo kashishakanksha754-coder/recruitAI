@@ -159,15 +159,17 @@ export default function HomePage() {
                   <Zap size={12} /> {T.home.badge}
                 </span>
               </FadeUp>
-              <FadeUp delay={0.08}>
-                <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
-                  <span className="block">{T.home.heroTitle1}</span>
-                  <span className="block">
-                    {T.home.heroTitle2}{" "}
-                    <span className="gradient-text">{T.home.heroTitle3}</span>
-                  </span>
-                </h1>
-              </FadeUp>
+              <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
+                {/* Line 1: "Hire Smarter." — split from heroTitle1 */}
+                <span className="block hero-line-1">Hire Smarter.</span>
+                {/* Line 2: "Hire Faster." — coral accent */}
+                <span className="block hero-coral-text hero-line-2">Hire Faster.</span>
+                {/* Line 3: "Hire Better with Hyrix." — shimmer on Hyrix */}
+                <span className="block hero-line-3">
+                  {T.home.heroTitle2}{" "}
+                  <span className="gradient-text hero-shimmer">{T.home.heroTitle3}</span>
+                </span>
+              </h1>
               <FadeUp delay={0.16}>
                 <p className="text-lg text-muted leading-relaxed mb-8 max-w-lg">{T.home.heroSub}</p>
               </FadeUp>

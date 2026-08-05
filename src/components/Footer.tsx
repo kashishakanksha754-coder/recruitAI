@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { Globe, Mail, ExternalLink, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import HyrixLogo from "@/components/HyrixLogo";
+import HyrixLogo from "./HyrixLogo";
+
 
 export default function Footer() {
   const { T, lang, setLang } = useLanguage();

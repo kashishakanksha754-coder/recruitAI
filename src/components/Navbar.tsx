@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import HyrixLogo from "@/components/HyrixLogo";
+import HyrixLogo from "./HyrixLogo";
+
 
 export default function Navbar() {
   const { T, lang, setLang } = useLanguage();
