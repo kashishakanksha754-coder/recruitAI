@@ -64,7 +64,7 @@ function DiamondStack() {
       <div className="absolute left-1/2"
            style={{ top: 122, width: 32, height: 32, borderRadius: 5, transform: "translateX(-50%) rotate(45deg)", background: "linear-gradient(135deg, #3B2380 0%, #2D1B69 100%)" }} />
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white rounded-full px-3.5 py-1.5 shadow-card whitespace-nowrap">
-        <span className="text-[11px] font-semibold text-purple-900">{T.home.diamondPill}</span>
+        <span className="text-[11px] font-semibold text-purple-900">Hyrix · AI-powered hiring</span>
         <span className="w-2 h-2 rounded-full bg-coral-500 shrink-0" />
       </div>
     </div>
