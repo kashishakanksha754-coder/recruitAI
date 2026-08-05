@@ -239,7 +239,7 @@ const t = {
     about: {
       heroTitle1: "We built Hyrix so recruiters can",
       heroTitle2: "actually recruit",
-      heroSub: "Recruiters were drowning, not underperforming. 6–8 hours per role lost to sorting, good candidates ghosted. Hyrix fixes that.",
+      heroSub: "Recruiters were drowning, not underperforming — sorting resumes ate 6–8 hours a role while good candidates walked. Hyrix fixes that.",
       problemTitle: "The problem we're solving",
       p1: "The average role now draws 300+ applications — roughly triple the 2021 level — while around 40% of candidates inflate their CVs with AI, so the resume alone no longer tells the truth. Sorting through it all eats 6–8 hours per role, time recruiters would rather spend talking to people. Meanwhile 60% of applicants never hear back at all, quietly hurting the employer brand.",
       p2: "Hyrix handles the entire volume layer — resume parsing, screening calls, skills assessments, and adaptive interviews — so your team's judgment goes where it matters most: relationships, culture, and the final hiring decision.",
@@ -639,7 +639,7 @@ const t = {
     about: {
       heroTitle1: "بنينا هايريكس لكي يستطيع المسؤولون عن التوظيف",
       heroTitle2: "التوظيف فعلاً",
-      heroSub: "كان المسؤولون يغرقون، لا يقصّرون. ٦–٨ ساعات لكل وظيفة ضائعة في الفرز، ومرشحون جيدون يُتجاهلون. هايريكس يحلّ هذا.",
+      heroSub: "كان المسؤولون يغرقون، لا يقصّرون — الفرز أكل ٦–٨ ساعات لكل وظيفة بينما المرشحون الجيدون يرحلون. هايريكس يحلّ هذا.",
       problemTitle: "المشكلة التي نحلّها",
       p1: "يستقطب الدور الواحد الآن أكثر من ٣٠٠ طلب — ثلاثة أضعاف مستوى ٢٠٢١ تقريباً — فيما يُضخّم نحو ٤٠% من المرشحين سيرهم بالذكاء الاصطناعي، فلم تعد السيرة وحدها تكشف الحقيقة. فرز كل ذلك يستهلك ٦–٨ ساعات لكل وظيفة، وهو وقت يفضّل المسؤولون قضاءه في التحدث إلى الناس. وفي هذه الأثناء، لا يتلقّى ٦٠% من المتقدمين أي ردّ، مما يضرّ العلامة التوظيفية بصمت.",
       p2: "يتولّى هايريكس طبقة الحجم الكاملة — تحليل السير وفرز المكالمات وتقييم المهارات والمقابلات التكيّفية — حتى يتمركّز حكم فريقك حيث يهمّ أكثر: العلاقات والثقافة وقرار التوظيف النهائي.",
