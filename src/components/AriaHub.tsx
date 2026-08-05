@@ -106,7 +106,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="text-[34px] font-extrabold leading-none tracking-tight" style={{ color: "#1E1057" }}>
-              Hyrix
+              {isRtl ? "هايريكس" : "Hyrix"}
             </span>
             <span className="text-[12px] font-semibold tracking-wider mt-1.5" style={{ color: "rgba(255,255,255,0.75)" }}>
               {T.aria.aiInterviewer}
@@ -119,35 +119,40 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           const { x, y } = polar(isRtl ? rtlAngle : angle);
           const lines = nodeLabels[i];
           return (
-            <motion.div
+            <div
               key={i}
-              className="absolute flex flex-col items-center"
-              style={{ left: x, top: y - CARD / 2, transform: "translateX(-50%)", gap: 10 }}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: reduced ? 0 : 0.45 + i * 0.1, ease: "easeOut" }}
+              className="absolute"
+              style={{ left: x, top: y, transform: `translate(-50%, -${CARD / 2}px)` }}
             >
-              <div
-                className="flex items-center justify-center rounded-[18px] bg-white shrink-0"
-                style={{ width: CARD, height: CARD, boxShadow: "0 6px 28px rgba(139,92,246,0.15), 0 1px 4px rgba(139,92,246,0.06)" }}
+              <motion.div
+                className="flex flex-col items-center"
+                style={{ gap: 10 }}
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.4, delay: reduced ? 0 : 0.45 + i * 0.1, ease: "easeOut" }}
               >
                 <div
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center"
-                  style={{
-                    background: coral
-                      ? "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)"
-                      : "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)",
-                  }}
+                  className="flex items-center justify-center rounded-[18px] bg-white shrink-0"
+                  style={{ width: CARD, height: CARD, boxShadow: "0 6px 28px rgba(139,92,246,0.15), 0 1px 4px rgba(139,92,246,0.06)" }}
                 >
-                  <Icon size={22} className="text-white" strokeWidth={1.8} />
+                  <div
+                    className="w-11 h-11 rounded-2xl flex items-center justify-center"
+                    style={{
+                      background: coral
+                        ? "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)"
+                        : "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)",
+                    }}
+                  >
+                    <Icon size={22} className="text-white" strokeWidth={1.8} />
+                  </div>
                 </div>
-              </div>
-              <div className="text-center">
-                {lines.map((l, j) => (
-                  <p key={j} className="text-[12px] font-bold text-purple-900 leading-[1.45] whitespace-nowrap">{l}</p>
-                ))}
-              </div>
-            </motion.div>
+                <div className="text-center">
+                  {lines.map((l, j) => (
+                    <p key={j} className="text-[12px] font-bold text-purple-900 leading-[1.45] whitespace-nowrap">{l}</p>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           );
         })}
       </div>

@@ -72,47 +72,69 @@ function DiamondStack() {
   );
 }
 
+
 function JobDistributionVisual() {
-  const { T } = useLanguage();
+  const { T, isRtl } = useLanguage();
+  
   const PLATFORMS = [
-    { label: "LinkedIn",   color: "#0A66C2", text: "white" },
-    { label: "Naukri",     color: "#4A90D9", text: "white" },
-    { label: "Bayt",       color: "#E8572A", text: "white" },
-    { label: "Indeed",     color: "#2164F3", text: "white" },
-    { label: "20+ portals", color: "#EDE9FE", text: "#4C1D95" },
+    { label: "LinkedIn",    arLabel: "لينكدإن",    bg: "bg-[#0A66C2]", text: "text-white" },
+    { label: "Naukri",      arLabel: "نوكري",      bg: "bg-[#4A90D9]", text: "text-white" },
+    { label: "Bayt",        arLabel: "بيت",        bg: "bg-[#E8572A]", text: "text-white" },
+    { label: "Indeed",      arLabel: "إنديد",      bg: "bg-[#2164F3]", text: "text-white" },
+    { label: "20+ portals", arLabel: "٢٠+ بوابة", bg: "bg-purple-100", text: "text-purple-900" },
   ];
+
   return (
-    <div className="relative h-52 w-full rounded-xl overflow-hidden" dir="ltr">
-      <svg className="absolute inset-0 w-full h-full" aria-hidden>
+    <div className="relative h-52 w-full rounded-xl overflow-hidden flex items-center justify-between px-6">
+      
+      {/* Subtle Grid Background */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
         <defs>
-          <pattern id="cap-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+          <pattern id="cap-grid-new" width="28" height="28" patternUnits="userSpaceOnUse">
             <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E8E4F8" strokeWidth="0.6" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#cap-grid)" />
-        {[22, 33, 44, 56, 67].map((pct, i) => (
-          <line key={i} x1="22%" y1="50%" x2="60%" y2={`${pct}%`} stroke="#C4B5F8" strokeWidth="1.2" strokeDasharray="4 3" />
-        ))}
+        <rect width="100%" height="100%" fill="url(#cap-grid-new)" />
       </svg>
-      <div className="absolute flex flex-col items-center gap-1" style={{ left: "10%", top: "50%", transform: "translateY(-50%)" }}>
-        <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center">
-          <span className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center">
-            <FileText size={15} className="text-purple-700" />
-          </span>
+
+      {/* 1. Document Icon */}
+      <div className="relative z-10 flex flex-col items-center gap-1.5">
+        <div className="w-14 h-14 rounded-xl bg-white shadow-[0_4px_20px_rgba(139,92,246,0.12)] border border-purple-50 flex items-center justify-center">
+          <div className="w-9 h-9 bg-purple-50 rounded-lg flex items-center justify-center">
+             <FileText className="text-purple-700" size={18} strokeWidth={1.5} />
+          </div>
         </div>
-        <span className="text-[9px] font-semibold text-muted/60 uppercase tracking-wide">{T.home.jobPost}</span>
+        <span className="text-[10px] font-semibold text-slate-400">
+          {T.home.jobPost}
+        </span>
       </div>
-      <div className="absolute flex flex-col gap-2" style={{ right: "8%", top: "50%", transform: "translateY(-50%)" }}>
-        {PLATFORMS.map(({ label, color, text }) => (
-          <span key={label} className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-sm" style={{ background: color, color: text }}>
-            {label}
+
+      {/* 2. Dotted Lines SVG (Flipped automatically via isRtl) */}
+      <div className="relative z-10 flex-1 h-[140px] mx-4">
+        <svg
+          className={`w-full h-full transition-transform duration-300 ${isRtl ? 'scale-x-[-1]' : ''}`}
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+        >
+          <path d="M 0 50 L 100 15" stroke="#C4B5F8" strokeWidth="1.5" strokeDasharray="4 6" fill="none" />
+          <path d="M 0 50 L 100 32" stroke="#C4B5F8" strokeWidth="1.5" strokeDasharray="4 6" fill="none" />
+          <path d="M 0 50 L 100 50" stroke="#C4B5F8" strokeWidth="1.5" strokeDasharray="4 6" fill="none" />
+          <path d="M 0 50 L 100 68" stroke="#C4B5F8" strokeWidth="1.5" strokeDasharray="4 6" fill="none" />
+          <path d="M 0 50 L 100 85" stroke="#C4B5F8" strokeWidth="1.5" strokeDasharray="4 6" fill="none" />
+        </svg>
+      </div>
+
+      {/* 3. Portals List */}
+      <div className="relative z-10 flex flex-col gap-2 w-[100px]">
+        {PLATFORMS.map(({ label, arLabel, bg, text }) => (
+          <span key={label} className={`${bg} ${text} text-[10px] font-bold py-1.5 px-3 rounded-full text-center shadow-sm whitespace-nowrap`}>
+            {isRtl ? arLabel : label}
           </span>
         ))}
       </div>
     </div>
   );
 }
-
 const TESTIMONIALS_EN = [
   { quote: "We cut time-to-hire from over a month to under a week. Hyrix screened 140 applicants and surfaced genuinely great candidates. Our recruiters finally have time to recruit.", name: "S.C.", role: "Head of Talent · Series B startup" },
   { quote: "Resume screening used to eat 6–8 hours a week. Now Hyrix does it in seconds, and every score comes with a transcript we can actually trust.", name: "R.K.", role: "Talent Acquisition Lead · Mid-market company" },
@@ -160,16 +182,20 @@ export default function HomePage() {
                 </span>
               </FadeUp>
               <h1 className="text-5xl font-extrabold text-purple-900 leading-[1.1] tracking-tight mb-6">
-                {/* Line 1: "Hire Smarter." — split from heroTitle1 */}
-                <span className="block hero-line-1">Hire Smarter.</span>
-                {/* Line 2: "Hire Faster." — coral accent */}
-                <span className="block hero-coral-text hero-line-2">Hire Faster.</span>
-                {/* Line 3: "Hire Better with Hyrix." — shimmer on Hyrix */}
-                <span className="block hero-line-3">
-                  {T.home.heroTitle2}{" "}
-                  <span className="gradient-text hero-shimmer">{T.home.heroTitle3}</span>
-                </span>
-              </h1>
+                   <span className="block hero-line-1">
+                     {T.home.heroTitle1.split('. ')[0]}.
+                   </span>
+  
+                    <span className="block hero-coral-text hero-line-2">
+                        {T.home.heroTitle1.split('. ')[1]}
+                     </span>
+  
+                      <span className="block hero-line-3">
+                         {T.home.heroTitle2}{" "}
+                        <span className="gradient-text hero-shimmer">{T.home.heroTitle3}</span>
+                    </span>
+                 </h1>
+                 
               <FadeUp delay={0.16}>
                 <p className="text-lg text-muted leading-relaxed mb-8 max-w-lg">{T.home.heroSub}</p>
               </FadeUp>
@@ -426,7 +452,7 @@ export default function HomePage() {
                         <div className="mb-6">
                           {freeLabel ? (
                             <div dir="ltr" className="flex items-baseline gap-1">
-                              <span className="text-5xl font-extrabold gradient-text">$0</span>
+                              <span className="text-5xl font-extrabold gradient-text">${n(0)}</span>
                               <span className="text-muted text-sm ms-1">{Pt[freeLabel] as string}</span>
                             </div>
                           ) : (
