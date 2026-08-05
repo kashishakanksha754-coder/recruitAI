@@ -106,16 +106,16 @@ function SectionAToggle() {
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="text-center mb-12">
           <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">Your AI HR Apprentice</p>
-          <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Hyrix works alongside your HR team</h2>
+          <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet your AI HR teammate</h2>
           <p className="text-muted text-lg leading-relaxed">
-            Always on, always learning — it adapts every conversation in real time, asking sharper follow-ups when it needs to.
+            Always on, always learning — adapting every conversation in real time and asking sharper follow-ups when needed.
           </p>
         </FadeUp>
 
         <FadeUp delay={0.1}>
           <div className="card px-10 pt-8 pb-9 max-w-lg mx-auto">
             {/* Pill toggle — centered */}
-            <div className="flex justify-center mb-10">
+            <div className="flex justify-center mb-8">
               <div className="inline-flex bg-purple-50 rounded-xl p-1 gap-1">
                 <button
                   onClick={() => setTab("hr")}
@@ -138,18 +138,19 @@ function SectionAToggle() {
               </div>
             </div>
 
-            {/* Content with AnimatePresence fade */}
-            <div className="relative min-h-[220px]">
+            {/* Fixed-height content area — tall enough for 6-item Hyrix list */}
+            <div className="relative min-h-[320px]">
               <AnimatePresence mode="wait">
                 {isHr ? (
                   <motion.div
                     key="hr"
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.18 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute inset-0"
                   >
-                    <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-6">Your team stays focused on what matters</p>
+                    <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-6 mt-1">Your team stays focused on what matters</p>
                     <ul className="space-y-4">
                       {HR_ITEMS.map(item => (
                         <li key={item} className="flex items-center gap-3">
@@ -164,12 +165,13 @@ function SectionAToggle() {
                 ) : (
                   <motion.div
                     key="hyrix"
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.18 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute inset-0"
                   >
-                    <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-6">Hyrix handles the volume, automatically</p>
+                    <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-6 mt-1">Hyrix handles the volume, automatically</p>
                     <ul className="space-y-4">
                       {HYRIX_ITEMS.map(item => (
                         <li key={item} className="flex items-center gap-3">
