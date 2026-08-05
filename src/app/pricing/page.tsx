@@ -294,13 +294,6 @@ export default function PricingPage() {
       {/* Plans — 3-card carousel */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Universal inclusion note */}
-          <FadeUp>
-            <p className="text-center text-sm text-purple-700 bg-purple-50 rounded-2xl px-5 py-3 mb-10 max-w-2xl mx-auto">
-              {(T.pricing as unknown as Record<string, string>).pricingNote}
-            </p>
-          </FadeUp>
-
           <div className="relative flex items-center gap-3">
             {/* Prev arrow */}
             <button
@@ -383,6 +376,13 @@ export default function PricingPage() {
               <ArrowRight size={16} />
             </button>
           </div>
+
+          {/* Universal inclusion note */}
+          <FadeUp>
+            <p className="text-center text-sm text-purple-700 bg-purple-50 rounded-2xl px-5 py-3 mt-8 max-w-2xl mx-auto">
+              {(T.pricing as unknown as Record<string, string>).pricingNote}
+            </p>
+          </FadeUp>
         </div>
       </section>
 
