@@ -66,10 +66,10 @@ export default function AboutPage() {
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900">{A.valuesTitle}</h2>
           </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y lg:divide-y-0 lg:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden items-stretch">
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
-              <FadeUp key={title} delay={i * 0.08} className="h-full">
-                <div className="p-5 h-full flex flex-col items-start">
+              <FadeUp key={title} delay={i * 0.08} className="flex">
+                <div className="p-5 flex flex-col items-start w-full">
                   <Icon size={22} className="text-coral-500 mb-4 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
                   <h3 className="text-purple-900 font-bold mb-2 text-sm leading-snug">{title}</h3>
                   <p className="text-muted text-xs leading-relaxed">{desc}</p>
