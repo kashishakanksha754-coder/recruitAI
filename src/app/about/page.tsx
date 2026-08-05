@@ -71,7 +71,7 @@ export default function AboutPage() {
               <FadeUp key={title} delay={i * 0.08} className="flex">
                 <div className="p-8 flex flex-col items-start w-full">
                   <Icon size={28} className="text-coral-500 mb-5 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
-                  <h3 className="text-purple-900 font-bold mb-3 text-base leading-snug">{title}</h3>
+                  <h3 className="text-purple-900 font-bold mb-3 text-base leading-snug min-h-[3rem]">{title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{desc}</p>
                 </div>
               </FadeUp>
