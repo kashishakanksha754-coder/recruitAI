@@ -97,7 +97,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
           />
         </svg>
 
-        {/* Center "Hyrix" label */}
+        {/* Center sphere label — text only, no subtext */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <motion.div
             className="flex items-center justify-center"
