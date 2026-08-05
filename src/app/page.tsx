@@ -167,7 +167,7 @@ export default function HomePage() {
                 {/* Line 3: "Hire Better with Hyrix." — shimmer on Hyrix */}
                 <span className="block hero-line-3">
                   {T.home.heroTitle2}{" "}
-                  <span className="hero-coral-text hero-shimmer">{T.home.heroTitle3}</span>
+                  <span className="gradient-text hero-shimmer">{T.home.heroTitle3}</span>
                 </span>
               </h1>
               <FadeUp delay={0.16}>
