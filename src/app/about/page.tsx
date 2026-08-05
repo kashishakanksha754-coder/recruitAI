@@ -1,18 +1,19 @@
 "use client";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
-import { Users, Shield, Zap, Globe } from "lucide-react";
+import { UserCheck, FileText, Eye, Database, Scale } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutPage() {
   const { T } = useLanguage();
-  const A = T.about;
+  const A = T.about as unknown as Record<string, string>;
 
   const VALUES = [
-    { icon: Users,  title: A.val1Title, desc: A.val1Desc },
-    { icon: Shield, title: A.val2Title, desc: A.val2Desc },
-    { icon: Zap,    title: A.val3Title, desc: A.val3Desc },
-    { icon: Globe,  title: A.val4Title, desc: A.val4Desc },
+    { icon: UserCheck, title: A.val1Title, desc: A.val1Desc },
+    { icon: FileText,  title: A.val2Title, desc: A.val2Desc },
+    { icon: Eye,       title: A.val3Title, desc: A.val3Desc },
+    { icon: Database,  title: A.val4Title, desc: A.val4Desc },
+    { icon: Scale,     title: A.val5Title, desc: A.val5Desc },
   ];
 
   return (
@@ -55,7 +56,6 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-muted/40 text-center mt-3 italic">{A.statsDisclaimer}</p>
             </FadeUp>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
           <FadeUp className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-purple-900">{A.valuesTitle}</h2>
           </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
               <FadeUp key={title} delay={i * 0.08}>
                 <div className="p-7 h-full">
