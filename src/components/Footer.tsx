@@ -1,14 +1,19 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { Globe, Mail, ExternalLink, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import HyrixLogo from "@/components/HyrixLogo";
+import DemoModal from "@/components/DemoModal";
 
 export default function Footer() {
   const { T, lang, setLang } = useLanguage();
   const F = T.footer as unknown as Record<string, string>;
+  const [demoOpen, setDemoOpen] = useState(false);
 
   return (
+    <>
+    <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     <footer className="bg-white border-t border-purple-100 py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
@@ -41,16 +46,9 @@ export default function Footer() {
           <div>
             <p className="text-purple-900 text-sm font-semibold mb-4">{F.product}</p>
             <div className="space-y-2.5">
-              {[
-                { href: "/how-it-works", label: F.howItWorks },
-                { href: "/pricing",      label: F.pricing },
-                { href: "/demo",         label: F.liveDemo },
-                { href: "/#pipeline",    label: F.pipelineStages },
-              ].map((l) => (
-                <Link key={l.href} href={l.href} className="block text-muted hover:text-purple-900 text-sm transition-colors">
-                  {l.label}
-                </Link>
-              ))}
+              <Link href="/how-it-works" className="block text-muted hover:text-purple-900 text-sm transition-colors">{F.howItWorks}</Link>
+              <Link href="/pricing" className="block text-muted hover:text-purple-900 text-sm transition-colors">{F.pricing}</Link>
+              <button onClick={() => setDemoOpen(true)} className="block text-muted hover:text-purple-900 text-sm transition-colors text-start">{F.liveDemo}</button>
             </div>
           </div>
 
@@ -113,5 +111,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

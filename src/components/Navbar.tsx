@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import HyrixLogo from "@/components/HyrixLogo";
+import DemoModal from "@/components/DemoModal";
 
 export default function Navbar() {
   const { T, lang, setLang } = useLanguage();
@@ -12,6 +13,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -27,6 +29,8 @@ export default function Navbar() {
   ];
 
   return (
+    <>
+    <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
@@ -95,13 +99,13 @@ export default function Navbar() {
           >
             {T.nav.login}
           </Link>
-          <Link
-            href="/demo"
+          <button
+            onClick={() => setDemoOpen(true)}
             className="text-sm px-5 py-2.5 rounded-xl font-semibold text-white shadow-btn transition-all hover:opacity-90"
             style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
           >
             {T.nav.tryDemo}
-          </Link>
+          </button>
         </div>
 
         <button className="md:hidden text-muted justify-self-end" onClick={() => setOpen(!open)}>
@@ -148,16 +152,17 @@ export default function Navbar() {
             <Link href="/login" className="text-center text-sm text-muted font-medium py-2.5 border border-purple-200 rounded-xl">
               {T.nav.login}
             </Link>
-            <Link
-              href="/demo"
+            <button
+              onClick={() => { setOpen(false); setDemoOpen(true); }}
               className="text-center text-sm font-semibold text-white py-2.5 rounded-xl"
               style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
             >
               {T.nav.tryDemo}
-            </Link>
+            </button>
           </div>
         </div>
       )}
     </header>
+    </>
   );
 }
