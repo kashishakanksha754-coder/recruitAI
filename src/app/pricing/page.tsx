@@ -7,9 +7,10 @@ import GradientButton from "@/components/GradientButton";
 import { useLanguage } from "@/context/LanguageContext";
 
 const PLAN_DEFS = [
-  { nameKey: "starterName",    monthly: 299, annually: 249, descKey: "starterDesc",    featuresKey: "starterFeatures",    screenLimit: 500,      interviewLimit: 50,       ctaKey: "startFreeTrial", primary: false },
-  { nameKey: "growthName",     monthly: 799, annually: 665, descKey: "growthDesc",     featuresKey: "growthFeatures",     screenLimit: 2000,     interviewLimit: 200,      ctaKey: "startFreeTrial", primary: true  },
-  { nameKey: "enterpriseName", monthly: null, annually: null, descKey: "enterpriseDesc", featuresKey: "enterpriseFeatures", screenLimit: Infinity, interviewLimit: Infinity, ctaKey: "talkToSales", primary: false },
+  { nameKey: "freeName",   monthly: 0,    annually: 0,    descKey: "freeDesc",   featuresKey: "freeFeatures",   screenLimit: 25,       interviewLimit: 0,        ctaKey: "startFreeTrial", primary: false, freeLabel: true  },
+  { nameKey: "pilotName",  monthly: 199,  annually: 165,  descKey: "pilotDesc",  featuresKey: "pilotFeatures",  screenLimit: 200,      interviewLimit: 50,       ctaKey: "startFreeTrial", primary: false, freeLabel: false },
+  { nameKey: "growthName", monthly: 599,  annually: 497,  descKey: "growthDesc", featuresKey: "growthFeatures", screenLimit: 1000,     interviewLimit: 200,      ctaKey: "startFreeTrial", primary: true,  freeLabel: false },
+  { nameKey: "scaleName",  monthly: 1499, annually: 1244, descKey: "scaleDesc",  featuresKey: "scaleFeatures",  screenLimit: Infinity, interviewLimit: Infinity, ctaKey: "startFreeTrial", primary: false, freeLabel: false },
 ];
 
 const FAQ_PAIRS = [
@@ -164,20 +165,20 @@ function TopUpMeter() {
 
 function EstimatorPanel({ annual }: { annual: boolean }) {
   const { T, n } = useLanguage();
-  const [screens,    setScreens]    = useState(300);
-  const [interviews, setInterviews] = useState(40);
+  const [screens,    setScreens]    = useState(150);
+  const [interviews, setInterviews] = useState(30);
 
   const planDef =
-    screens <= 500 && interviews <= 50   ? PLAN_DEFS[0] :
-    screens <= 2000 && interviews <= 200 ? PLAN_DEFS[1] :
-                                           PLAN_DEFS[2];
+    screens <= 25  && interviews <= 0   ? PLAN_DEFS[0] :
+    screens <= 200 && interviews <= 50  ? PLAN_DEFS[1] :
+    screens <= 1000 && interviews <= 200 ? PLAN_DEFS[2] :
+                                          PLAN_DEFS[3];
 
-  const basePrice: number | null =
-    planDef.monthly === null ? null :
-    annual ? (planDef.annually as number) : planDef.monthly;
+  const basePrice: number =
+    annual ? planDef.annually : planDef.monthly;
 
-  const extraScreens    = Math.max(0, screens    - (planDef.screenLimit    === Infinity ? 0 : planDef.screenLimit));
-  const extraInterviews = Math.max(0, interviews - (planDef.interviewLimit === Infinity ? 0 : planDef.interviewLimit));
+  const extraScreens    = planDef.screenLimit    === Infinity ? 0 : Math.max(0, screens    - planDef.screenLimit);
+  const extraInterviews = planDef.interviewLimit === Infinity ? 0 : Math.max(0, interviews - planDef.interviewLimit);
 
   return (
     <div className="bg-surface rounded-2xl p-8 grid md:grid-cols-2 gap-10">
@@ -205,7 +206,9 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
       <div className="bg-white rounded-2xl p-6 flex flex-col shadow-card">
         <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-1">{T.pricing.recommendedPlan}</p>
         <p className="text-2xl font-extrabold text-purple-900 mb-0.5">{(T.pricing as Record<string, string | string[]>)[planDef.nameKey] as string}</p>
-        {basePrice !== null ? (
+        {planDef.freeLabel ? (
+          <p className="text-3xl font-extrabold gradient-text mb-4">${n(0)}<span className="text-base text-muted font-normal">{(T.pricing as unknown as Record<string, string>).freePriceLabel}</span></p>
+        ) : (
           <>
             <p dir="ltr" className="text-3xl font-extrabold gradient-text mb-0.5 text-start">
               ${n(basePrice)}<span className="text-base text-muted font-normal">{T.pricing.perMo}</span>
@@ -214,8 +217,6 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
               ≈ ₹{n((basePrice * INR_RATE).toLocaleString("en-IN"))}{T.pricing.perMo} {annual ? `· ${T.pricing.billedAnnually}` : `· ${T.pricing.billedMonthly}`}
             </p>
           </>
-        ) : (
-          <p className="text-3xl font-extrabold gradient-text mb-4">{T.pricing.customPricing}</p>
         )}
 
         <div className="space-y-2 text-xs text-muted mb-5 flex-1">
@@ -246,10 +247,10 @@ function EstimatorPanel({ annual }: { annual: boolean }) {
         </div>
 
         <a
-          href={planDef.ctaKey === "talkToSales" ? "/contact" : "/signup"}
+          href="/signup"
           className="block text-center py-3 rounded-xl text-sm font-semibold gradient-bg text-white shadow-btn hover:opacity-90 transition-all"
         >
-          {planDef.ctaKey === "talkToSales" ? T.pricing.talkToSales : `${T.pricing.startPlan} ${(T.pricing as Record<string, string | string[]>)[planDef.nameKey] as string}`}
+          {T.pricing.startFreeTrial}
           <ArrowRight size={14} className="inline ms-1.5 rtl:scale-x-[-1]" />
         </a>
       </div>
@@ -289,11 +290,18 @@ export default function PricingPage() {
 
       {/* Plans */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-6">
-            {PLAN_DEFS.map(({ nameKey, monthly, annually, descKey, featuresKey, ctaKey, primary }, i) => {
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Universal inclusion note */}
+          <FadeUp>
+            <p className="text-center text-sm text-purple-700 bg-purple-50 rounded-2xl px-5 py-3 mb-10 max-w-2xl mx-auto">
+              {(T.pricing as unknown as Record<string, string>).pricingNote}
+            </p>
+          </FadeUp>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PLAN_DEFS.map(({ nameKey, monthly, annually, descKey, featuresKey, ctaKey, primary, freeLabel }, i) => {
               const features = P[featuresKey] as string[];
               const planName = P[nameKey] as string;
+              const displayPrice = annual ? annually : monthly;
               return (
                 <FadeUp key={nameKey} delay={i * 0.08}>
                   <div className={`card-lg p-8 h-full flex flex-col relative ${primary ? "ring-2 ring-coral-500/30" : ""}`}>
@@ -305,16 +313,19 @@ export default function PricingPage() {
                     <p className="text-purple-900 font-bold text-xl mb-1">{planName}</p>
                     <p className="text-muted text-sm mb-6">{P[descKey] as string}</p>
                     <div className="mb-7">
-                      {monthly !== null ? (
+                      {freeLabel ? (
+                        <div dir="ltr" className="flex items-baseline gap-1">
+                          <span className="text-5xl font-extrabold gradient-text">${n(0)}</span>
+                          <span className="text-muted text-sm">{(P as Record<string, string>).freePriceLabel}</span>
+                        </div>
+                      ) : (
                         <>
                           <div dir="ltr" className="flex items-baseline gap-1">
-                            <span className="text-5xl font-extrabold gradient-text">${n(annual ? annually! : monthly!)}</span>
+                            <span className="text-5xl font-extrabold gradient-text">${n(displayPrice)}</span>
                             <span className="text-muted text-sm">{T.pricing.perMonth}</span>
                           </div>
                           {annual && <p className="text-xs text-muted/70 mt-1">{T.pricing.billedAnnually}</p>}
                         </>
-                      ) : (
-                        <span className="text-4xl font-extrabold gradient-text">{T.pricing.customPricing}</span>
                       )}
                     </div>
                     <ul className="space-y-3 flex-1 mb-8">
@@ -326,7 +337,7 @@ export default function PricingPage() {
                       ))}
                     </ul>
                     <a
-                      href={ctaKey === "talkToSales" ? "/contact" : "/signup"}
+                      href="/signup"
                       className={`block text-center py-3.5 rounded-xl text-sm font-semibold transition-all ${primary ? "gradient-bg text-white shadow-btn hover:opacity-90" : "border-2 border-purple-200 text-purple-900 hover:border-purple-400 hover:bg-purple-50"}`}
                     >
                       {P[ctaKey] as string} {primary && <ArrowRight size={14} className="inline ms-1 rtl:scale-x-[-1]" />}
