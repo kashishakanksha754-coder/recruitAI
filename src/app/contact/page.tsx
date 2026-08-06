@@ -16,7 +16,7 @@ function CopyBox({ value, href, copiedLabel = "Copied!", openLinkLabel = "Open l
   }
 
   return (
-    <div className="mt-4 flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-sm font-medium text-purple-900">
+    <div className="flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-sm font-medium text-purple-900">
       <span className="flex-1 truncate">{value}</span>
       {href ? (
         <a
@@ -228,36 +228,44 @@ export default function ContactPage() {
       <section className="py-16 bg-[#FAFBFF] border-y border-purple-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100">
-              <div className="flex flex-col px-8 py-8 lg:py-0 first:ps-0 last:pe-0">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-purple-100 items-stretch">
+              <div className="flex flex-col px-8 py-8 lg:py-4 lg:ps-0">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4 shrink-0">
                   <Mail size={18} className="text-purple-900" />
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.emailTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.emailSub}</p>
-                <CopyBox value="hello@recruitai.app" copiedLabel={C.copied} copyLabel={C.copyToClipboard} />
+                <div className="mt-auto pt-4">
+                  <CopyBox value="info@hyrixai.com" copiedLabel={C.copied} copyLabel={C.copyToClipboard} />
+                </div>
               </div>
-              <div className="flex flex-col px-8 py-8 lg:py-0">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
+              <div className="flex flex-col px-8 py-8 lg:py-4">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4 shrink-0">
                   <Calendar size={18} className="text-purple-900" />
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.demoTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.demoSub}</p>
-                <CopyBox value={C.demoValue} href="https://calendly.com/recruitai" copiedLabel={C.copied} openLinkLabel={C.openLink} />
+                <div className="mt-auto pt-4">
+                  <CopyBox value={C.demoValue} href="https://calendly.com/hyrixai" copiedLabel={C.copied} openLinkLabel={C.openLink} />
+                </div>
               </div>
-              <div className="flex flex-col px-8 py-8 lg:py-0">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4">
+              <div className="flex flex-col px-8 py-8 lg:py-4">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-icon flex items-center justify-center mb-4 shrink-0">
                   <Building2 size={18} className="text-purple-900" />
                 </div>
                 <p className="text-purple-900 font-bold text-sm mb-1">{C.enterpriseTitle}</p>
                 <p className="text-muted text-xs leading-relaxed">{C.enterpriseSub}</p>
-                <div className="mt-4 flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-xs font-medium text-muted">
-                  {C.enterpriseNote}
+                <div className="mt-auto pt-4">
+                  <div className="flex items-center gap-2 bg-white border border-purple-100 rounded-xl px-4 py-2.5 text-xs font-medium text-muted">
+                    {C.enterpriseNote}
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center px-8 py-8 lg:py-0">
-                <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-3 text-center">{C.mapTitle}</p>
-                <WorldDotMap />
+              <div className="flex flex-col px-8 py-8 lg:py-4 lg:pe-0">
+                <p className="text-[10px] font-semibold text-muted/60 uppercase tracking-widest mb-3">{C.mapTitle}</p>
+                <div className="mt-auto">
+                  <WorldDotMap />
+                </div>
               </div>
             </div>
           </FadeUp>

@@ -10,10 +10,12 @@ export default function SignupPage() {
   const S = T.signup;
   const brandName = T.nav.brandName;
   const [show, setShow] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", password: "" });
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitted(true);
   }
 
   return (
@@ -27,6 +29,11 @@ export default function SignupPage() {
           <p className="text-muted text-sm">{S.sub}</p>
         </div>
 
+        {submitted && (
+          <div className="mb-4 px-4 py-3 rounded-xl bg-green-50 border border-green-200 text-green-700 text-sm text-center font-medium">
+            Account created! Welcome to Hyrix.
+          </div>
+        )}
         <div className="flex justify-center gap-5 mb-6">
           {[S.badge1, S.badge2, S.badge3].map((item) => (
             <span key={item} className="inline-flex items-center gap-1 text-xs text-purple-900 font-medium">

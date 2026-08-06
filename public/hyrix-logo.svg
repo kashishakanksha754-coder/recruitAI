@@ -7,7 +7,7 @@
     </linearGradient>
   </defs>
 
-  <!-- ── Face silhouette (profile, facing right) ── -->
+  <!-- Face silhouette -->
   <path fill="url(#hx-g)" d="
     M 155,52
     C 198,18 282,28 318,82
@@ -25,7 +25,7 @@
     Z
   "/>
 
-  <!-- ── Brain circuit traces (upper-right inside head) ── -->
+  <!-- Brain circuit traces -->
   <g stroke="url(#hx-g)" stroke-width="2.2" stroke-linecap="round" fill="none">
     <path d="M 248,78  C 264,64  290,68  302,82"/>
     <path d="M 258,100 C 272,86  294,88  304,103"/>
@@ -35,15 +35,12 @@
   <circle cx="304" cy="103" r="4" fill="url(#hx-g)"/>
   <circle cx="303" cy="127" r="4" fill="url(#hx-g)"/>
 
-  <!-- ── H letterform ── -->
-  <!-- Left bar -->
+  <!-- H letterform -->
   <rect x="198" y="168" width="21" height="108" rx="5" fill="url(#hx-g)"/>
-  <!-- Right bar -->
   <rect x="266" y="168" width="21" height="108" rx="5" fill="url(#hx-g)"/>
-  <!-- Crossbar -->
   <rect x="198" y="210" width="89" height="21" rx="5" fill="url(#hx-g)"/>
 
-  <!-- ── Diagonal ribbon through H crossbar ── -->
+  <!-- Diagonal ribbon -->
   <path d="
     M 192,208
     C 220,196 244,226 270,214
@@ -54,7 +51,7 @@
     Z
   " fill="url(#hx-g)" opacity="0.6"/>
 
-  <!-- ── Circuit board traces (right side) ── -->
+  <!-- Circuit board traces -->
   <g stroke="url(#hx-g)" stroke-width="2.5" stroke-linecap="round" fill="none">
     <line x1="328" y1="142" x2="328" y2="348"/>
     <line x1="328" y1="168" x2="372" y2="168"/>
@@ -76,6 +73,6 @@
     <circle cx="355" cy="348" r="5.5"/>
   </g>
 
-  <!-- ── 4-pointed star (upper right) ── -->
+  <!-- 4-pointed star -->
   <path d="M 368,48 L 374,65 L 391,71 L 374,77 L 368,94 L 362,77 L 345,71 L 362,65 Z" fill="url(#hx-g)"/>
 </svg>

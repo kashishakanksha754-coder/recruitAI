@@ -10,10 +10,12 @@ export default function LoginPage() {
   const L = T.login;
   const brandName = T.nav.brandName;
   const [show, setShow] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitted(true);
   }
 
   return (
@@ -27,6 +29,11 @@ export default function LoginPage() {
           <p className="text-muted text-sm">{L.sub}</p>
         </div>
 
+        {submitted && (
+          <div className="mb-4 px-4 py-3 rounded-xl bg-green-50 border border-green-200 text-green-700 text-sm text-center font-medium">
+            Signed in successfully! Redirecting…
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="card-lg p-8 space-y-5">
           <div>
             <label className="block text-xs font-semibold text-purple-900 mb-1.5">{L.emailLabel}</label>
@@ -41,7 +48,7 @@ export default function LoginPage() {
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-semibold text-purple-900">{L.passwordLabel}</label>
-              <Link href="#" className="text-xs text-coral-500 hover:text-coral-600 font-medium">{L.forgotPassword}</Link>
+              <Link href="/contact" className="text-xs text-coral-500 hover:text-coral-600 font-medium">{L.forgotPassword}</Link>
             </div>
             <div className="relative">
               <input

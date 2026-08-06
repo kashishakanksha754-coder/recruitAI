@@ -1,16 +1,19 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import HyrixLogo from "./HyrixLogo";
-
+import HyrixLogo from "@/components/HyrixLogo";
+import DemoModal from "@/components/DemoModal";
 
 export default function Navbar() {
   const { T, lang, setLang } = useLanguage();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -26,6 +29,8 @@ export default function Navbar() {
   ];
 
   return (
+    <>
+    <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
@@ -33,25 +38,32 @@ export default function Navbar() {
           : "bg-white/80 backdrop-blur-sm"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+        <Link href="/" className="flex items-center gap-2.5 justify-self-start">
           <HyrixLogo size={58} />
           {/* <span className="text-xl font-extrabold tracking-widest uppercase gradient-text">{T.nav.brandName}</span> */}
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-muted hover:text-purple-900 text-sm font-medium transition-colors"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`text-sm font-medium transition-colors relative pb-0.5 ${
+                  active
+                    ? "text-purple-900 font-semibold after:absolute after:bottom-[-4px] after:start-0 after:end-0 after:h-[2px] after:rounded-full after:bg-coral-500"
+                    : "text-muted hover:text-purple-900"
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3 justify-self-end">
           {/* Language toggle */}
           <div className="relative">
             <button
@@ -87,32 +99,39 @@ export default function Navbar() {
           >
             {T.nav.login}
           </Link>
-          <Link
-            href="/demo"
+          <button
+            onClick={() => setDemoOpen(true)}
             className="text-sm px-5 py-2.5 rounded-xl font-semibold text-white shadow-btn transition-all hover:opacity-90"
             style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
           >
             {T.nav.tryDemo}
-          </Link>
+          </button>
         </div>
 
-        <button className="md:hidden text-muted" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-muted justify-self-end" onClick={() => setOpen(!open)}>
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
 
       {open && (
         <div className="md:hidden bg-white border-b border-purple-100 px-4 py-4 space-y-1">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="block text-muted hover:text-purple-900 text-sm font-medium py-2.5"
-              onClick={() => setOpen(false)}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`block text-sm font-medium py-2.5 border-s-2 ps-3 transition-colors ${
+                  active
+                    ? "text-purple-900 font-semibold border-coral-500"
+                    : "text-muted hover:text-purple-900 border-transparent"
+                }`}
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
           {/* Mobile language toggle */}
           <div className="flex gap-2 pt-2">
             {(["en", "ar"] as const).map((l) => (
@@ -133,16 +152,17 @@ export default function Navbar() {
             <Link href="/login" className="text-center text-sm text-muted font-medium py-2.5 border border-purple-200 rounded-xl">
               {T.nav.login}
             </Link>
-            <Link
-              href="/demo"
+            <button
+              onClick={() => { setOpen(false); setDemoOpen(true); }}
               className="text-center text-sm font-semibold text-white py-2.5 rounded-xl"
               style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)" }}
             >
               {T.nav.tryDemo}
-            </Link>
+            </button>
           </div>
         </div>
       )}
     </header>
+    </>
   );
 }
