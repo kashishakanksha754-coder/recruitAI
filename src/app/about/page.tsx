@@ -1,12 +1,18 @@
 "use client";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
-import { UserCheck, FileText, Eye, Database, Scale } from "lucide-react";
+import { UserCheck, FileText, Eye, Database, Scale, Clock, ListChecks, Star } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutPage() {
   const { T } = useLanguage();
   const A = T.about as unknown as Record<string, string>;
+
+  const STATS = [
+    { icon: Clock,      value: A.stat1Value, title: A.stat1Title, label: A.stat1Label },
+    { icon: ListChecks, value: A.stat2Value, title: A.stat2Title, label: A.stat2Label },
+    { icon: Star,       value: A.stat3Value, title: A.stat3Title, label: A.stat3Label },
+  ];
 
   const VALUES = [
     { icon: UserCheck, title: A.val1Title, desc: A.val1Desc },
@@ -33,35 +39,46 @@ export default function AboutPage() {
       </section>
 
       {/* ── Problem + 3 stats ── */}
-      <section className="py-24 bg-white">
+      <section className="py-28 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-stretch">
+
+            {/* Left: copy */}
             <FadeUp className="flex flex-col justify-center">
-              <h2 className="text-4xl font-extrabold text-purple-900 mb-6">{A.problemTitle}</h2>
-              <div className="space-y-4 text-muted leading-relaxed">
+              <h2 className="text-4xl font-extrabold text-purple-900 mb-8">{A.problemTitle}</h2>
+              <div className="flex flex-col gap-6 text-[15px] text-muted" style={{ lineHeight: 1.7 }}>
                 <p>{A.p1}</p>
-                <p>{A.p2}</p>
-                <p>{A.p3}</p>
+                <p>
+                  <span className="font-bold text-purple-900">{"It’s not a people problem, it’s a process problem."}</span>
+                  {" "}Hyrix takes over the repetitive work — parsing, screening, assessments, interviews — so your team can focus on relationships, culture, and the final call. We don&apos;t replace recruiters. We work alongside them.
+                </p>
               </div>
             </FadeUp>
+
+            {/* Right: stat cards */}
             <FadeUp delay={0.15} className="flex flex-col justify-between gap-5">
-              {[
-                { value: A.stat1Value, title: A.stat1Title, label: A.stat1Label },
-                { value: A.stat2Value, title: A.stat2Title, label: A.stat2Label },
-                { value: A.stat3Value, title: A.stat3Title, label: A.stat3Label },
-              ].map(({ value, title, label }) => (
-                <div key={value} className="flex-1 flex items-center rounded-2xl border border-purple-100 bg-white shadow-sm overflow-hidden">
-                  <div className="shrink-0 flex items-center justify-center py-9 px-8 min-w-[120px]">
+              {STATS.map(({ icon: Icon, value, title, label }, i) => (
+                <div
+                  key={value}
+                  className="flex-1 flex items-center rounded-2xl border border-purple-100 overflow-hidden group transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+                  style={{ background: i === 0 ? "rgba(240,98,90,0.04)" : i === 1 ? "rgba(45,27,105,0.04)" : "rgba(240,98,90,0.04)" }}
+                >
+                  {/* Number block */}
+                  <div className="shrink-0 flex flex-col items-center justify-center py-8 px-7 min-w-[120px] gap-2">
+                    <Icon size={18} className="text-coral-500 opacity-70" />
                     <p className="text-5xl font-extrabold gradient-text leading-none">{value}</p>
                   </div>
+                  {/* Divider */}
                   <div className="w-px self-stretch bg-purple-100 shrink-0" />
-                  <div className="flex-1 py-9 px-8">
+                  {/* Label block */}
+                  <div className="flex-1 py-8 px-7">
                     <p className="text-base font-bold text-purple-900 mb-1">{title}</p>
                     <p className="text-sm text-muted leading-relaxed">{label}</p>
                   </div>
                 </div>
               ))}
             </FadeUp>
+
           </div>
         </div>
       </section>
