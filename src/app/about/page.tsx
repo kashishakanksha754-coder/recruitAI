@@ -35,8 +35,8 @@ export default function AboutPage() {
       {/* ── Problem + 3 stats ── */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <FadeUp>
+          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
+            <FadeUp className="flex flex-col justify-center">
               <h2 className="text-4xl font-extrabold text-purple-900 mb-6">{A.problemTitle}</h2>
               <div className="space-y-4 text-muted leading-relaxed">
                 <p>{A.p1}</p>
@@ -44,52 +44,44 @@ export default function AboutPage() {
                 <p>{A.p3}</p>
               </div>
             </FadeUp>
-            <FadeUp delay={0.15}>
-              <div className="grid grid-cols-1 gap-5">
-                {[
-                  { value: A.stat1Value, title: A.stat1Title, label: A.stat1Label },
-                  { value: A.stat2Value, title: A.stat2Title, label: A.stat2Label },
-                  { value: A.stat3Value, title: A.stat3Title, label: A.stat3Label },
-                ].map(({ value, title, label }) => (
-                  <div key={value} className="card p-7 flex items-center gap-7">
-                    <p className="text-5xl font-extrabold gradient-text leading-none shrink-0 w-24 text-center">{value}</p>
-                    <div>
-                      <p className="text-base font-bold text-purple-900 mb-1">{title}</p>
-                      <p className="text-sm text-muted leading-snug">{label}</p>
-                    </div>
+            <FadeUp delay={0.15} className="flex flex-col justify-center gap-4">
+              {[
+                { value: A.stat1Value, title: A.stat1Title, label: A.stat1Label },
+                { value: A.stat2Value, title: A.stat2Title, label: A.stat2Label },
+                { value: A.stat3Value, title: A.stat3Title, label: A.stat3Label },
+              ].map(({ value, title, label }) => (
+                <div key={value} className="card p-6 flex items-center gap-6 border border-purple-100">
+                  <p className="text-5xl font-extrabold gradient-text leading-none shrink-0 w-20 text-center">{value}</p>
+                  <div className="border-l border-purple-100 pl-6">
+                    <p className="text-base font-bold text-purple-900 mb-0.5">{title}</p>
+                    <p className="text-sm text-muted leading-snug">{label}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </FadeUp>
           </div>
         </div>
       </section>
 
-      {/* ── What we stand for ── */}
+      {/* ── What we stand for + closing line ── */}
       <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp className="text-center mb-12">
             <h2 className="text-4xl font-extrabold text-purple-900">{A.valuesTitle}</h2>
           </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y lg:divide-y-0 lg:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden items-stretch">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y lg:divide-y-0 lg:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
               <FadeUp key={title} delay={i * 0.08} className="flex">
-                <div className="p-8 flex flex-col items-start w-full">
-                  <Icon size={28} className="text-coral-500 mb-5 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
-                  <h3 className="text-purple-900 font-bold mb-3 text-base leading-snug min-h-[3rem]">{title}</h3>
+                <div className="p-7 flex flex-col items-start w-full">
+                  <Icon size={24} className="text-coral-500 mb-4 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
+                  <h3 className="text-purple-900 font-bold mb-2 text-sm leading-snug">{title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{desc}</p>
                 </div>
               </FadeUp>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Closing line ── */}
-      <section className="py-16 bg-surface">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <FadeUp>
-            <p className="text-xl font-medium text-purple-900 leading-relaxed">{A.closingLine}</p>
+          <FadeUp delay={0.2} className="text-center mt-14">
+            <p className="text-lg font-medium text-purple-900 leading-relaxed max-w-2xl mx-auto">{A.closingLine}</p>
           </FadeUp>
         </div>
       </section>
