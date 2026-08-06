@@ -68,14 +68,14 @@ export default function AboutPage() {
 
       {/* ── What we stand for + closing line ── */}
       <section className="py-24 bg-surface">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp className="text-center mb-12">
             <h2 className="text-4xl font-extrabold text-purple-900">{A.valuesTitle}</h2>
           </FadeUp>
           <div className="bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden grid grid-cols-2 lg:grid-cols-5" style={{ alignItems: "stretch" }}>
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
               <FadeUp key={title} delay={i * 0.08} className="flex">
-                <div className={`px-8 py-9 flex flex-col items-start w-full${i < VALUES.length - 1 ? " border-r border-purple-100" : ""}`}>
+                <div className={`px-10 py-10 flex flex-col items-start w-full${i < VALUES.length - 1 ? " border-r border-purple-100" : ""}`}>
                   <Icon size={28} className="text-coral-500 mb-5 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
                   <h3 className="text-purple-900 font-bold mb-3 text-sm leading-snug">{title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{desc}</p>
