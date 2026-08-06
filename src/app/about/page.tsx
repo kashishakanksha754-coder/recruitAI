@@ -1,7 +1,7 @@
 "use client";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
-import { UserCheck, FileText, Eye, Database, Scale, Clock, ListChecks, Star } from "lucide-react";
+import { UserCheck, FileText, Eye, Database, Scale } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutPage() {
@@ -9,9 +9,9 @@ export default function AboutPage() {
   const A = T.about as unknown as Record<string, string>;
 
   const STATS = [
-    { icon: Clock,      value: A.stat1Value, title: A.stat1Title, label: A.stat1Label },
-    { icon: ListChecks, value: A.stat2Value, title: A.stat2Title, label: A.stat2Label },
-    { icon: Star,       value: A.stat3Value, title: A.stat3Title, label: A.stat3Label },
+    { value: A.stat1Value, title: A.stat1Title, label: A.stat1Label, bg: "rgba(240,98,90,0.04)" },
+    { value: A.stat2Value, title: A.stat2Title, label: A.stat2Label, bg: "rgba(45,27,105,0.04)" },
+    { value: A.stat3Value, title: A.stat3Title, label: A.stat3Label, bg: "rgba(240,98,90,0.04)" },
   ];
 
   const VALUES = [
@@ -56,22 +56,21 @@ export default function AboutPage() {
             </FadeUp>
 
             {/* Right: stat cards */}
-            <FadeUp delay={0.15} className="flex flex-col justify-between gap-5">
-              {STATS.map(({ icon: Icon, value, title, label }, i) => (
+            <FadeUp delay={0.15} className="flex flex-col justify-between gap-4">
+              {STATS.map(({ value, title, label, bg }) => (
                 <div
                   key={value}
-                  className="flex-1 flex items-center rounded-2xl border border-purple-100 overflow-hidden group transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
-                  style={{ background: i === 0 ? "rgba(240,98,90,0.04)" : i === 1 ? "rgba(45,27,105,0.04)" : "rgba(240,98,90,0.04)" }}
+                  className="flex-1 flex items-center rounded-2xl border border-purple-100 overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+                  style={{ background: bg }}
                 >
                   {/* Number block */}
-                  <div className="shrink-0 flex flex-col items-center justify-center py-8 px-7 min-w-[120px] gap-2">
-                    <Icon size={18} className="text-coral-500 opacity-70" />
+                  <div className="shrink-0 flex items-center justify-center self-stretch px-8 min-w-[120px]">
                     <p className="text-5xl font-extrabold gradient-text leading-none">{value}</p>
                   </div>
                   {/* Divider */}
                   <div className="w-px self-stretch bg-purple-100 shrink-0" />
                   {/* Label block */}
-                  <div className="flex-1 py-8 px-7">
+                  <div className="flex-1 py-7 px-8">
                     <p className="text-base font-bold text-purple-900 mb-1">{title}</p>
                     <p className="text-sm text-muted leading-relaxed">{label}</p>
                   </div>
