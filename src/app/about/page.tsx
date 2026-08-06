@@ -64,7 +64,7 @@ export default function AboutPage() {
                   style={{ background: bg }}
                 >
                   {/* Number block */}
-                  <div className="shrink-0 flex items-center justify-center self-stretch px-8 min-w-[120px]">
+                  <div className="flex items-center justify-center self-stretch" style={{ width: 160, minWidth: 160, maxWidth: 160 }}>
                     <p className="text-5xl font-extrabold gradient-text leading-none">{value}</p>
                   </div>
                   {/* Divider */}
