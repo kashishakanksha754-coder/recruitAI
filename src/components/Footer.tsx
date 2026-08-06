@@ -21,19 +21,19 @@ export default function Footer() {
             <p className="text-muted text-sm mt-3 max-w-xs leading-relaxed">{F.tagline}</p>
             <div className="mt-5 space-y-2.5">
               <a href={`mailto:${F.contactEmail}`} className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
-                <Mail size={13} className="shrink-0 text-muted/50" />
+                <Mail size={13} className="shrink-0 text-muted/50 rtl:scale-x-[-1]" />
                 {F.contactEmail}
               </a>
               <a href={`https://${F.contactWeb}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted hover:text-purple-900 transition-colors">
-                <ExternalLink size={13} className="shrink-0 text-muted/50" />
+                <ExternalLink size={13} className="shrink-0 text-muted/50 rtl:scale-x-[-1]" />
                 {F.contactWeb}
               </a>
               <p className="flex items-start gap-2 text-xs text-muted/70 leading-relaxed">
-                <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50" />
+                <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50 rtl:scale-x-[-1]" />
                 {F.contactUAE}
               </p>
               <p className="flex items-start gap-2 text-xs text-muted/70 leading-relaxed">
-                <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50" />
+                <MapPin size={13} className="shrink-0 mt-0.5 text-muted/50 rtl:scale-x-[-1]" />
                 {F.contactIndia}
               </p>
             </div>

@@ -33,8 +33,8 @@ function AuditFeed() {
         {ENTRIES.map(({ time, label }) => (
           <div key={label} className="flex items-center gap-3 bg-white rounded-xl px-3.5 py-2.5 shadow-card">
             <span className="w-5 h-5 rounded-full bg-coral-50 flex items-center justify-center shrink-0">
-              <Check size={10} className="text-coral-500" />
-            </span>
+                <Check size={10} className="text-coral-500 rtl:scale-x-[-1]" />
+              </span>
             <span className="text-[10px] font-mono text-muted/60 shrink-0">{time}</span>
             <span className="text-[11px] font-semibold text-purple-900">{label}</span>
           </div>
@@ -101,7 +101,7 @@ function JobDistributionVisual() {
       <div className="relative z-10 flex flex-col items-center gap-1.5">
         <div className="w-14 h-14 rounded-xl bg-white shadow-[0_4px_20px_rgba(139,92,246,0.12)] border border-purple-50 flex items-center justify-center">
           <div className="w-9 h-9 bg-purple-50 rounded-lg flex items-center justify-center">
-             <FileText className="text-purple-700" size={18} strokeWidth={1.5} />
+             <FileText className="text-purple-700 rtl:scale-x-[-1]" size={18} strokeWidth={1.5} />
           </div>
         </div>
         <span className="text-[10px] font-semibold text-slate-400">
@@ -141,7 +141,7 @@ const TESTIMONIALS_EN = [
   { quote: "We post once and Hyrix distributes across 20+ portals automatically. No more duplicate candidates piling up across five different inboxes.", name: "M.P.", role: "HR Director · Enterprise team" },
 ];
 const TESTIMONIALS_AR = [
-  { quote: "خفّضنا وقت التوظيف من أكثر من شهر إلى أقل من أسبوع. فرز هايريكس ١٤٠ متقدماً وأظهر مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة Series B" },
+  { quote: "خفّضنا وقت التوظيف من أكثر من شهر إلى أقل من أسبوع. فرز هايريكس ١٤٠ متقدماً وأظهر مرشحين رائعين حقاً. أصبح لدى مسؤولي التوظيف وقت للتوظيف فعلاً.", name: "س.ح.", role: "رئيس المواهب · شركة ناشئة من الفئة (ب)" },
   { quote: "كان فرز السير الذاتية يستهلك ٦-٨ ساعات أسبوعياً. الآن يُنجزه هايريكس في ثوانٍ، وكل نتيجة مرفقة بنص مقابلة يمكننا الوثوق به فعلاً.", name: "ر.ك.", role: "قائد اكتساب المواهب · شركة متوسطة الحجم" },
   { quote: "ننشر مرة واحدة وهايريكس يوزّع تلقائياً على أكثر من ٢٠ بوابة. لا مزيد من تكرار المرشحين في خمسة صناديق بريد مختلفة.", name: "م.ب.", role: "مدير الموارد البشرية · فريق مؤسسي" },
 ];
@@ -203,7 +203,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap gap-4 mb-8">
                   {[T.home.noCandidateAccounts, T.home.setupTime, T.home.cancelAnytime].map((item) => (
                     <span key={item} className="inline-flex items-center gap-1.5 text-sm text-purple-900 font-medium">
-                      <Check size={14} className="text-coral-500 shrink-0" /> {item}
+                      <Check size={14} className="text-coral-500 shrink-0 rtl:scale-x-[-1]" /> {item}
                     </span>
                   ))}
                 </div>
@@ -296,7 +296,7 @@ export default function HomePage() {
                 <FadeUp key={title} delay={i * 0.08}>
                   <div className="bg-white p-8 h-full">
                     <div className="w-11 h-11 rounded-xl bg-white shadow-icon flex items-center justify-center mb-5">
-                      <Icon size={20} className="text-coral-500" />
+                      <Icon size={20} className="text-coral-500 rtl:scale-x-[-1]" />
                     </div>
                     <h3 className="text-purple-900 font-bold text-base mb-2">{title}</h3>
                     <p className="text-muted text-sm leading-relaxed">{desc}</p>
@@ -468,7 +468,7 @@ export default function HomePage() {
                         <ul className="space-y-3 flex-1 mb-8">
                           {features.map((f) => (
                             <li key={f} className="flex items-start gap-2.5 text-sm text-muted">
-                              <Check size={15} className="text-[#E04E48] mt-0.5 shrink-0" />
+                              <Check size={15} className="text-[#E04E48] mt-0.5 shrink-0 rtl:scale-x-[-1]" />
                               {f}
                             </li>
                           ))}

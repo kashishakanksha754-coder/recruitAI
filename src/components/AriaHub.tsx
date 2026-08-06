@@ -143,7 +143,7 @@ export default function AriaHub({ compact = false }: { compact?: boolean }) {
                         : "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)",
                     }}
                   >
-                    <Icon size={22} className="text-white" strokeWidth={1.8} />
+                    <Icon size={22} className="text-white rtl:scale-x-[-1]" strokeWidth={1.8} />
                   </div>
                 </div>
                 <div className="text-center">

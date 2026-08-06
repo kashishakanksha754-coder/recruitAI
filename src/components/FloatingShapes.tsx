@@ -48,7 +48,7 @@ export default function FloatingShapes() {
           }}
           {...(reduced ? {} : float([0, i % 2 === 0 ? -8 : 8, 0], 5 + i * 0.8))}
         >
-          <span className={`w-7 h-7 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
+          <span className={`w-7 h-7 rounded-lg ${bg} flex items-center justify-center shrink-0 rtl:scale-x-[-1]`}>
             <Icon size={15} className={color} />
           </span>
           <span className="text-xs font-semibold text-purple-900">{H[key] as string}</span>
