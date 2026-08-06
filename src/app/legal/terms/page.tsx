@@ -15,14 +15,6 @@ export default function TermsPage() {
 
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          {/* Draft notice */}
-          <div className="mb-10 flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4">
-            <span className="mt-0.5 text-amber-500 text-lg leading-none">⚠</span>
-            <p className="text-sm font-medium text-amber-800">
-              <strong>Draft — pending legal review.</strong> These terms have not yet been reviewed by a qualified lawyer and should not be relied upon as legal advice.
-            </p>
-          </div>
-
           <FadeUp>
             <p className="text-muted leading-relaxed mb-10">
               By using Hyrix, you agree to these terms.
