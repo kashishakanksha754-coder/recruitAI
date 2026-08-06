@@ -106,7 +106,7 @@ function SectionAToggle() {
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="text-center mb-12">
           <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">Your AI HR Apprentice</p>
-          <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Meet your AI HR teammate</h2>
+          <h2 className="text-4xl font-extrabold text-purple-900 mb-4">Hyrix, built to work with HR</h2>
           <p className="text-muted text-lg leading-relaxed">
             Always on, always learning — adapting every conversation in real time and asking sharper follow-ups when needed.
           </p>
