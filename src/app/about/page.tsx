@@ -44,15 +44,21 @@ export default function AboutPage() {
                 <p>{A.p3}</p>
               </div>
             </FadeUp>
-            <FadeUp delay={0.15} className="flex flex-col justify-center gap-4">
+            <FadeUp delay={0.15} className="flex flex-col justify-between gap-4">
               {[
                 { value: A.stat1Value, title: A.stat1Title, label: A.stat1Label },
                 { value: A.stat2Value, title: A.stat2Title, label: A.stat2Label },
                 { value: A.stat3Value, title: A.stat3Title, label: A.stat3Label },
               ].map(({ value, title, label }) => (
-                <div key={value} className="card p-6 flex items-center gap-6 border border-purple-100">
-                  <p className="text-5xl font-extrabold gradient-text leading-none shrink-0 w-20 text-center">{value}</p>
-                  <div className="border-l border-purple-100 pl-6">
+                <div key={value} className="card flex-1 flex items-center border border-purple-100 overflow-hidden">
+                  {/* Number block — fixed width, right-padded so wide values never clip the divider */}
+                  <div className="w-28 shrink-0 flex items-center justify-center px-4 py-6">
+                    <p className="text-4xl font-extrabold gradient-text leading-none">{value}</p>
+                  </div>
+                  {/* Divider */}
+                  <div className="w-px self-stretch bg-purple-100 shrink-0" />
+                  {/* Label block */}
+                  <div className="flex-1 px-6 py-6">
                     <p className="text-base font-bold text-purple-900 mb-0.5">{title}</p>
                     <p className="text-sm text-muted leading-snug">{label}</p>
                   </div>
@@ -69,10 +75,11 @@ export default function AboutPage() {
           <FadeUp className="text-center mb-12">
             <h2 className="text-4xl font-extrabold text-purple-900">{A.valuesTitle}</h2>
           </FadeUp>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 divide-y lg:divide-y-0 lg:divide-x divide-purple-100 bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden"
+            style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", alignItems: "stretch" }}>
             {VALUES.map(({ icon: Icon, title, desc }, i) => (
               <FadeUp key={title} delay={i * 0.08} className="flex">
-                <div className="p-7 flex flex-col items-start w-full">
+                <div className={`p-7 flex flex-col items-start w-full${i < VALUES.length - 1 ? " border-r border-purple-100" : ""}`}>
                   <Icon size={24} className="text-coral-500 mb-4 shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(240,98,90,0.25))" }} />
                   <h3 className="text-purple-900 font-bold mb-2 text-sm leading-snug">{title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{desc}</p>
