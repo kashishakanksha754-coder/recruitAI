@@ -133,9 +133,9 @@ const t = {
     },
     // ── How It Works ───────────────────────────────────────────────────────
     hiw: {
-      heroTitle1: "From a pile of applicants to",
-      heroTitle2: "a shortlist worth your time",
-      heroSub: "Here's exactly what happens when you post a role with Hyrix — and where you approve each step.",
+      heroTitle1: "From raw applicants to",
+      heroTitle2: "a few verified matches",
+      heroSub: "Here's exactly what happens when you post a role with Hyrix — every candidate screened, scored, and verified before it reaches you.",
       ctaTitle: "Ready to see it live?",
       ctaSub: "Give Hyrix one open role. Watch it post everywhere, screen every applicant, and interview the best.",
       tryDemo: "Request a demo",
@@ -548,9 +548,9 @@ const t = {
       showcase3Rows: ["وقت الفرز: ٢.١ يوم", "معدل اجتياز المقابلة: ٨.٢%", "قوائم متنوعة: ٧٤%", "متوسط نقاط التطابق: ٨٨.٤"],
     },
     hiw: {
-      heroTitle1: "من كومة من المتقدمين إلى",
-      heroTitle2: "قائمة تستحق وقتك",
-      heroSub: "إليك بالضبط ما يحدث عندما تنشر وظيفة مع هايريكس — وأين تعتمد كل خطوة.",
+      heroTitle1: "من المتقدمين الخام إلى",
+      heroTitle2: "عدد قليل من التطابقات الموثّقة",
+      heroSub: "إليك بالضبط ما يحدث عندما تنشر وظيفة مع هايريكس — كل مرشح يُفرز ويُقيَّم ويُوثَّق قبل أن يصلك.",
       ctaTitle: "هل أنت مستعد لرؤيته مباشرة؟",
       ctaSub: "أعطِ هايريكس وظيفة واحدة شاغرة. شاهده ينشرها في كل مكان، ويُفرز كل متقدم، ويُجري مقابلة مع الأفضل.",
       tryDemo: "طلب عرض توضيحي",
