@@ -241,7 +241,7 @@ const t = {
       heroTitle2: "HR teams their time back",
       heroSub: "Recruiters were drowning, not underperforming — sorting resumes ate hours out of every role while good candidates walked. Hyrix takes that off your plate.",
       problemTitle: "The problem we're solving",
-      p1: "Applications pile up faster than teams can review them, and resumes alone don't tell the full story anymore. Sorting through it all eats time recruiters would rather spend talking to people — while good candidates quietly slip away.",
+      p1: "Applications come in faster than anyone can read them, and resumes don't tell the whole story anymore. Sorting through it all takes time recruiters would rather spend talking to people — and good candidates slip away while they wait.",
       p2: "It's not a people problem, it's a process problem. Hyrix takes over the repetitive work — parsing, screening, assessments, interviews — so your team can focus on relationships, culture, and the final call. We don't replace recruiters. We work alongside them.",
       p3: "",
       stat1Value: "10x",
