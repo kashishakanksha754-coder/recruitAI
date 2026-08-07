@@ -64,7 +64,7 @@ const t = {
       trust6: "GDPR compliant",
       trust7: "Plain-Language Setup",
       trust8: "Multi-portal distribution",
-      ariaTitle: "Hyrix, the AI apprentice",
+      ariaTitle: "Hyrix, the HR apprentice",
       ariaSub: "An always-on recruiting assistant that learns your process and gets sharper with every hire.",
       step1Label: "Candidate applies",
       step1Sub: "Resume auto-parsed into a structured profile",
