@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, Check, ShieldCheck, FileText, Eye, Globe } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
@@ -82,125 +82,85 @@ export default function HowItWorksClient() {
   );
 }
 
-// ── Section A: Interactive toggle card ─────────────────────────────────────
+// ── Section A: Side-by-side split card ─────────────────────────────────────
 
 function SectionAToggle() {
   const { T } = useLanguage();
-  const [tab, setTab] = useState<"hr" | "hyrix">("hr");
-  const isHr = tab === "hr";
 
   const H = T.hiw as Record<string, string>;
   const A = T.about as Record<string, string>;
 
-  // Pulling the translated list items from the 'about' section
-  const HR_ITEMS = [
-    A.splitKeep1,
-    A.splitKeep2,
-    A.splitKeep3,
-    A.splitKeep4,
-  ];
-
-  const HYRIX_ITEMS = [
-    A.splitTake1,
-    A.splitTake2,
-    A.splitTake3,
-    A.splitTake4,
-    A.splitTake5,
-    A.splitTake6,
-  ];
+  const HR_ITEMS = [A.splitKeep1, A.splitKeep2, A.splitKeep3, A.splitKeep4];
+  const HYRIX_ITEMS = [A.splitTake1, A.splitTake2, A.splitTake3, A.splitTake4, A.splitTake5, A.splitTake6];
 
   return (
     <section className="py-24 bg-surface">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="text-center mb-12">
           <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-3">{H.aiApprentice}</p>
           <h2 className="text-4xl font-extrabold text-purple-900 mb-4">{H.sectionATitle}</h2>
-          <p className="text-muted text-lg leading-relaxed">
-            {H.sectionASubtitle}
-          </p>
+          <p className="text-muted text-lg leading-relaxed">{H.sectionASubtitle}</p>
         </FadeUp>
 
         <FadeUp delay={0.1}>
-          <div className="card px-10 pt-8 pb-9 max-w-lg mx-auto">
-            {/* Pill toggle — centered */}
-            <div className="flex justify-center mb-8">
-              <div className="inline-flex bg-purple-50 rounded-xl p-1 gap-1">
-                <button
-                  onClick={() => setTab("hr")}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    isHr ? "gradient-bg text-white shadow-btn" : "text-muted hover:text-purple-900"
-                  }`}
-                >
-                  <Users size={14} className="rtl:scale-x-[-1]" />
-                  {H.hrTeamTab}
-                </button>
-                <button
-                  onClick={() => setTab("hyrix")}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    !isHr ? "gradient-bg text-white shadow-btn" : "text-muted hover:text-purple-900"
-                  }`}
-                >
-                  <Zap size={14} className="rtl:scale-x-[-1]" />
-                  {H.hyrixTab}
-                </button>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-0 items-stretch rounded-2xl overflow-hidden shadow-card border border-purple-100">
+
+            {/* Left — HR team keeps */}
+            <div className="px-9 py-10 flex flex-col" style={{ background: "#2D1B69" }}>
+              <div className="flex items-center gap-2.5 mb-7">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(255,255,255,0.12)" }}>
+                  <Users size={14} className="text-white rtl:scale-x-[-1]" />
+                </div>
+                <p className="text-[11px] font-extrabold text-white/70 uppercase tracking-widest">{H.hrTeamTab} {H.teamFocus ? `· ${H.teamFocus}` : "keeps"}</p>
               </div>
+              <ul className="space-y-4 flex-1">
+                {HR_ITEMS.map(item => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full shrink-0" style={{ background: "#F0625A" }} />
+                    <span className="text-sm font-medium text-white/90">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Fixed-height content area — tall enough for 6-item Hyrix list */}
-            <div className="relative min-h-[320px]">
-              <AnimatePresence mode="wait">
-                {isHr ? (
-                  <motion.div
-                    key="hr"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute inset-0"
-                  >
-                    <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-6 mt-1">{H.teamFocus}</p>
-                    <ul className="space-y-4">
-                      {HR_ITEMS.map(item => (
-                        <li key={item} className="flex items-center gap-3">
-                          <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #7B5CC4 0%, #2D1B69 100%)" }}>
-                            <Check size={13} className="text-white rtl:scale-x-[-1]" strokeWidth={2.5} />
-                          </span>
-                          <span className="text-sm font-medium text-purple-900">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="hyrix"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute inset-0"
-                  >
-                    <p className="text-xs font-bold text-coral-500 uppercase tracking-widest mb-6 mt-1">{H.hyrixHandles}</p>
-                    <ul className="space-y-4">
-                      {HYRIX_ITEMS.map(item => (
-                        <li key={item} className="flex items-center gap-3">
-                          <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                            <Zap size={12} className="text-white rtl:scale-x-[-1]" strokeWidth={2.5} />
-                          </span>
-                          <span className="text-sm font-medium text-purple-900">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            {/* Center — Hyrix orb */}
+            <div className="flex flex-col items-center justify-center px-6 py-10 bg-white gap-4 min-w-[160px]">
+              <div className="text-muted/30 text-xs select-none">⇄</div>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-btn shrink-0" style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+              </div>
+              <div className="text-center">
+                <p className="text-purple-900 font-extrabold text-base leading-tight">Hyrix</p>
+                <span className="inline-block mt-1.5 text-[11px] font-semibold px-3 py-1 rounded-full" style={{ background: "rgba(240,98,90,0.1)", color: "#F0625A" }}>
+                  {H.trainsEvolves || "Your HR apprentice · always on"}
+                </span>
+              </div>
+              <div className="text-muted/30 text-xs select-none">⇄</div>
             </div>
+
+            {/* Right — Hyrix handles */}
+            <div className="px-9 py-10 flex flex-col" style={{ background: "rgba(240,98,90,0.05)", borderLeft: "1px solid rgba(240,98,90,0.12)" }}>
+              <div className="flex items-center gap-2.5 mb-7">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(240,98,90,0.15)" }}>
+                  <Zap size={14} className="rtl:scale-x-[-1]" style={{ color: "#F0625A" }} />
+                </div>
+                <p className="text-[11px] font-extrabold uppercase tracking-widest" style={{ color: "#F0625A" }}>{H.hyrixHandles || "Hyrix takes off your plate"}</p>
+              </div>
+              <ul className="space-y-4 flex-1">
+                {HYRIX_ITEMS.map(item => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full shrink-0" style={{ background: "#F0625A" }} />
+                    <span className="text-sm font-medium text-purple-900">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
-        </FadeUp>
-
-        <FadeUp delay={0.15}>
-          <p className="text-center mt-8 text-xs text-muted/60 uppercase tracking-widest">
-            {H.trainsEvolves}
-          </p>
         </FadeUp>
       </div>
     </section>
