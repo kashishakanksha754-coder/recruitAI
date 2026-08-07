@@ -73,7 +73,7 @@ const t = {
       step3Label: "Score + transcript",
       step3Sub: "Evidence-backed results delivered for your approval",
       funnelTitle: "Every step of the funnel, automated",
-      funnelSub: "From 140 applicants to a verified shortlist of 9 interview-ready candidates — with human approval at every stage.",
+      funnelSub: "From raw applicants to a few verified matches — with human approval at every stage.",
       seeFullPipeline: "See the full pipeline",
       showcaseTitle: "Built for how recruiters actually work",
       showcaseSub: "No clunky setup. No training candidates. Just results.",
