@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, Check, ShieldCheck, FileText, Eye, Globe } from "lucide-react";
+import { Briefcase, FileSearch, Phone, ClipboardCheck, Video, Gift, ArrowRight, Users, Zap, ShieldCheck, FileText, Eye, Globe } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import GradientButton from "@/components/GradientButton";
 import { useLanguage } from "@/context/LanguageContext";
