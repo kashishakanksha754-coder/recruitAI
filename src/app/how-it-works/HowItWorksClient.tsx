@@ -108,8 +108,8 @@ function SectionAToggle() {
             {/* Left — HR team keeps */}
             <div className="px-9 py-10 flex flex-col" style={{ background: "#2D1B69" }}>
               <div className="flex items-center gap-2 mb-7">
-                <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: "rgba(255,255,255,0.12)" }}>
-                  <Users size={11} className="text-white rtl:scale-x-[-1]" />
+                <div className="w-4 h-4 rounded flex items-center justify-center shrink-0" style={{ background: "rgba(255,255,255,0.12)" }}>
+                  <Users size={9} className="text-white rtl:scale-x-[-1]" />
                 </div>
                 <p className="text-[11px] font-extrabold text-white/70 uppercase tracking-widest">{H.hrTeamTab} {H.teamFocus ? `· ${H.teamFocus}` : "keeps"}</p>
               </div>
@@ -145,8 +145,8 @@ function SectionAToggle() {
             {/* Right — Hyrix handles */}
             <div className="px-9 py-10 flex flex-col" style={{ background: "rgba(240,98,90,0.05)", borderLeft: "1px solid rgba(240,98,90,0.12)" }}>
               <div className="flex items-center gap-2 mb-7">
-                <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: "rgba(240,98,90,0.15)" }}>
-                  <Zap size={11} className="rtl:scale-x-[-1]" style={{ color: "#F0625A" }} />
+                <div className="w-4 h-4 rounded flex items-center justify-center shrink-0" style={{ background: "rgba(240,98,90,0.15)" }}>
+                  <Zap size={9} className="rtl:scale-x-[-1]" style={{ color: "#F0625A" }} />
                 </div>
                 <p className="text-[11px] font-extrabold uppercase tracking-widest" style={{ color: "#F0625A" }}>{H.hyrixHandles || "Hyrix takes off your plate"}</p>
               </div>
