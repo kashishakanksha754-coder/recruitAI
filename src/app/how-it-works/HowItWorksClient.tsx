@@ -124,22 +124,39 @@ function SectionAToggle() {
             </div>
 
             {/* Center — Hyrix orb */}
-            <div className="flex flex-col items-center justify-center px-6 py-10 bg-white gap-4 min-w-[160px]">
-              <div className="text-muted/30 text-xs select-none">⇄</div>
-              <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-btn shrink-0" style={{ background: "linear-gradient(135deg, #F0625A 0%, #D44E80 100%)" }}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                  <line x1="12" y1="19" x2="12" y2="22"/>
-                </svg>
+            <div className="flex flex-col items-center justify-center px-8 py-10 bg-white gap-5 min-w-[180px] relative">
+              {/* Top connector */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-1 h-1 rounded-full" style={{ background: "rgba(45,27,105,0.2)" }} />
+                <div className="w-1 h-5 rounded-full" style={{ background: "linear-gradient(to bottom, rgba(45,27,105,0.15), rgba(240,98,90,0.15))" }} />
               </div>
+
+              {/* Orb with glow ring */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute w-24 h-24 rounded-full opacity-20" style={{ background: "linear-gradient(135deg, #F0625A, #2D1B69)" }} />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 relative z-10" style={{ background: "linear-gradient(135deg, #F0625A 0%, #2D1B69 100%)", boxShadow: "0 8px 32px rgba(240,98,90,0.35)" }}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="22"/>
+                  </svg>
+                </div>
+              </div>
+
+              {/* Name + badge */}
               <div className="text-center">
-                <p className="text-purple-900 font-extrabold text-base leading-tight">Hyrix</p>
-                <span className="inline-block mt-1.5 text-[11px] font-semibold px-3 py-1 rounded-full" style={{ background: "rgba(240,98,90,0.1)", color: "#F0625A" }}>
-                  {H.trainsEvolves || "Your HR apprentice · always on"}
-                </span>
+                <p className="gradient-text font-extrabold text-xl leading-tight tracking-tight">Hyrix</p>
+                <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full border" style={{ borderColor: "rgba(240,98,90,0.3)", background: "rgba(240,98,90,0.06)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#F0625A" }} />
+                  <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#F0625A" }}>Always on</span>
+                </div>
               </div>
-              <div className="text-muted/30 text-xs select-none">⇄</div>
+
+              {/* Bottom connector */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-1 h-5 rounded-full" style={{ background: "linear-gradient(to bottom, rgba(240,98,90,0.15), rgba(45,27,105,0.15))" }} />
+                <div className="w-1 h-1 rounded-full" style={{ background: "rgba(45,27,105,0.2)" }} />
+              </div>
             </div>
 
             {/* Right — Hyrix handles */}
